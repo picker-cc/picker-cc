@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  picker-cc:
+    build: .
+    restart: 'unless-stopped'
+    networks:
+      - traefik
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.picker-cc.entrypoints=web, web-secure"
+      - "traefik.http.routers.picker-cc.tls=true"
+      - "traefik.http.routers.picker-cc.rule=Host(`picker.cc`, `www.picker.cc`)"
+      - "traefik.http.routers.picker-cc_https.service=picker-cc"
+#      - "traefik.http.services.website.loadbalancer.server.port=3000"
+#      - "traefik.tcp.services.website.loadbalancer.server.port=3000"
+      - "traefik.docker.network=traefik"
+      #volumes:
+      #- ./:/app
+networks:
+  traefik:
+    external: true
