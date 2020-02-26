@@ -5,7 +5,7 @@ module.exports = {
     mode: 'universal',
 
     server: {
-        port: 80
+        port: 8099
     },
 
     /*
@@ -16,7 +16,7 @@ module.exports = {
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' },
-            { name: 'keywords', content: 'inkline, vue, vue 2, vue.js, vue components, framework, ui, ux' },
+            { name: 'keywords', content: 'picker, vue, vue 2, vue.js, vue components, framework, ui, ux' },
             { hid: 'description', name: 'description', content: 'Picker 是一个现代的面向未来的，采用 TypeScript & Nodejs 构建，api 基于graphql的内容社区框架，可以帮助快速构建一套支持自定义的社区系统\n' },
             { name: 'msapplication-TileColor', content: '#ffffff' },
             { name: 'msapplication-TileImage', content: '/favicon/ms-icon-144x144.png' },
@@ -83,7 +83,7 @@ module.exports = {
         '@nuxtjs/pwa',
         '@nuxtjs/sitemap',
         '@nuxtjs/robots',
-        ['@nuxtjs/google-tag-manager', { id: 'GTM-KD44VC3', pageTracking: true }],
+        // ['@nuxtjs/google-tag-manager', { id: 'GTM-KD44VC3', pageTracking: true }],
         // '@nuxtjs/webpackmonitor',
         // '@nuxtjs/stylelint-module',
         // '@nuxtjs/eslint-module',
