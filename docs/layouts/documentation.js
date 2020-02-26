@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Layout from '@components/Layout'
-import SiteSearch from '@components/SiteSearch'
+// import SiteSearch from '@components/SiteSearch'
 import SiteNavigation from '@components/docs/SiteNavigation'
 import PageNavigation from '@components/docs/PageNavigation'
 import FooterNavigation from '@components/docs/FooterNavigation';
@@ -12,7 +12,7 @@ export default {
     name: 'Documentation',
     extends: Layout,
     components: {
-        SiteSearch,
+        // SiteSearch,
         SiteNavigation,
         PageNavigation,
         FooterNavigation
