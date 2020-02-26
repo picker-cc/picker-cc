@@ -5,7 +5,7 @@ module.exports = {
     mode: 'universal',
 
     server: {
-        port: 8099
+        port: 80
     },
 
     /*
