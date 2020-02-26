@@ -1,0 +1,71 @@
+<div class="site-navigation">
+    <ol>
+        <li>
+            <span>简介</span>
+            <ul>
+                <li><nuxt-link :to="{ name: 'docs-introduction-getting-started' }">开始</nuxt-link></li>
+            </ul>
+        </li>
+        <li>
+            <span>开发指南</span>
+            <ul>
+                <li><nuxt-link :to="{ name: 'docs-guide-overview' }">系统架构概述</nuxt-link></li>
+                <li><nuxt-link :to="{ name: 'docs-guide-graphql-api' }">GraphQL API 指南</nuxt-link></li>
+                <li><nuxt-link :to="{ name: 'docs-guide-plugins' }">插件开发</nuxt-link></li>
+                <li><nuxt-link :to="{ name: 'docs-guide-authentication' }">身份验证</nuxt-link></li>
+                <li><nuxt-link :to="{ name: 'docs-guide-customizing' }">自定义模型与字段</nuxt-link></li>
+                <li><nuxt-link :to="{ name: 'docs-guide-deploying' }">部署一个新的 Picker 应用程序</nuxt-link></li>
+            </ul>
+        </li>
+        <li>
+            <span>GraphQL API</span>
+            <ul>
+                <li>
+                    <i-collapsible :class="{ '-active': subroutes['docs-graphql-sns'] }"
+                                   v-model="menu['docs-graphql-sns']">
+                        <i-collapsible-item title="社区端 API" id="docs-graphql-sns">
+                            <ul>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-sns-queries' }">Queries</nuxt-link></li>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-sns-mutations' }">Mutations</nuxt-link></li>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-sns-types' }">Types</nuxt-link></li>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-sns-input' }">Input Objects</nuxt-link></li>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-sns-enums' }">Enums</nuxt-link></li>
+                            </ul>
+                        </i-collapsible-item>
+                    </i-collapsible>
+                </li>
+                <li>
+                    <i-collapsible :class="{ '-active': subroutes['docs-graphql-admin'] }"
+                                   v-model="menu['docs-graphql-admin']">
+                        <i-collapsible-item title="管理端 API" id="docs-graphql-sns">
+                            <ul>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-admin-queries' }">Queries</nuxt-link></li>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-admin-mutations' }">Mutations</nuxt-link></li>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-admin-types' }">Types</nuxt-link></li>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-admin-input' }">Input Objects</nuxt-link></li>
+                                <li><nuxt-link :to="{ name: 'docs-graphql-admin-enums' }">Enums</nuxt-link></li>
+                            </ul>
+                        </i-collapsible-item>
+                    </i-collapsible>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <span>Typescript API</span>
+            <ul>
+                <li>
+                    <i-collapsible :class="{ '-active': subroutes['docs-typescript-auth'] }"
+                                   v-model="menu['docs-typescript-auth']">
+                        <i-collapsible-item title="Auth" id="docs-typescript-auth">
+                            <ul>
+                                <li><nuxt-link :to="{ name: 'docs-typescript-auth-options' }">AuthOptions</nuxt-link></li>
+                            </ul>
+                        </i-collapsible-item>
+                    </i-collapsible>
+                </li>
+                <li><nuxt-link :to="{ name: 'docs-typescript-bootstrap' }">Bootstrap</nuxt-link></li>
+            </ul>
+        </li>
+
+    </ol>
+</div>

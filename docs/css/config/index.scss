@@ -1,0 +1,35 @@
+/**
+ * Configuration
+ */
+@font-face {
+    font-family: 'Helvetica Neue,PingFang SC,Hiragino Sans GB,Heiti SC,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif';
+    src: local('PingFang SC'), local('Microsoft Yahei');
+    unicode-range: U+02C2, U+02C3, U+003C, U+003E, U+3009;
+    font-weight: 800;
+    font-style: normal;
+}
+
+body {
+    h1, h2, h3, h4 {
+        font-family: 'Helvetica Neue,PingFang SC,Hiragino Sans GB,Heiti SC,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif';
+        font-weight: bold;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        line-height: 2rem;
+
+    }
+
+    li {
+        line-height: 1.8rem;
+    }
+}
+
+.content {
+    p {
+        font-family: "Songti SC";
+    }
+}
+
+@import '_layout';

@@ -1,0 +1,18 @@
+@import '~@inkline/inkline/css/config/index';
+@import '~@inkline/inkline/css/mixins/index';
+@import 'config/index';
+
+.layout-fixed-full-height {
+    position: fixed;
+    overflow: auto;
+    top: $navbar-height;
+    max-height: calc(100% - #{$navbar-height});
+    max-height: calc(100vh - #{$navbar-height});
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+}

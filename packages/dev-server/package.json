@@ -1,0 +1,30 @@
+{
+  "name": "dev-server",
+  "version": "0.1.0",
+  "description": "> TODO: description",
+  "author": "baisheng <baisheng@gmail.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "index.js",
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org/"
+  },
+  "scripts": {
+    "run:server": "node -r ts-node/register index.ts",
+    "start": "concurrently yarn:run*"
+  },
+  "dependencies": {
+    "@graphql-codegen/cli": "^1.12.2",
+    "@picker-cc/common": "^0.1.0",
+    "@picker-cc/core": "^0.1.0",
+    "concurrently": "^5.1.0",
+    "graphql-iso-date": "^3.6.1",
+    "mikro-orm": "^3.2.1",
+    "typescript": "^3.8.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/add": "^1.12.2",
+    "@graphql-codegen/cli": "^1.12.2",
+    "@graphql-codegen/fragment-matcher": "^1.12.2"
+  }
+}

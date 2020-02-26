@@ -1,0 +1,44 @@
+{
+  "name": "@picker-cc/create",
+  "version": "0.1.0",
+  "description": "> TODO: description",
+  "author": "baisheng <baisheng@gmail.com>",
+  "homepage": "https://github.com/nestjs-learning/devhub-server-nestjs#readme",
+  "license": "ISC",
+  "main": "lib/create.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nestjs-learning/devhub-server-nestjs.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/nestjs-learning/devhub-server-nestjs/issues"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@graphql-codegen/add": "^1.12.2",
+    "@graphql-codegen/cli": "^1.12.2",
+    "@graphql-codegen/fragment-matcher": "^1.12.2",
+    "ts-node": "^8.6.2",
+    "tslint": "^6.0.0",
+    "typescript": "^3.8.2"
+  },
+  "dependencies": {
+    "@graphql-codegen/cli": "^1.12.2",
+    "concurrently": "^5.1.0",
+    "graphql-iso-date": "^3.6.1",
+    "mikro-orm": "^3.2.1"
+  }
+}

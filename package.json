@@ -1,0 +1,21 @@
+{
+  "name": "picker-cc",
+  "private": true,
+  "scripts": {
+    "watch": "lerna run watch --parallel",
+    "dev-server:start": "cd packages/dev-server && yarn start",
+    "bootstrap": "lerna bootstrap",
+    "test": "lerna run test --parallel",
+    "lint": "lerna run lint --parallel",
+    "dev": "lerna run dev --parallel",
+    "codegen": "ts-node scripts/codegen/generate-graphql-types.ts"
+  },
+  "devDependencies": {
+    "lerna": "^3.20.2"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}

@@ -1,0 +1,169 @@
+@import '~@inkline/inkline/css/config/index';
+@import '~@inkline/inkline/css/mixins/index';
+
+.navbar#navbar {
+    top: 0;
+    left: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 2000;
+    transition: background 0.3s ease;
+
+    .site-search {
+        @include breakpoint-down('sm') {
+            display: none;
+        }
+    }
+
+    > .container > .row > .column {
+        > .brand {
+            margin-right: ($spacer / 2);
+            letter-spacing: 0.6px;
+
+            .logo {
+                &.-light {
+                    display: none;
+                }
+            }
+
+            img {
+                margin-right: ($spacer / 2);
+            }
+        }
+
+        > .items > .nav {
+            margin-right: -9px;
+
+            @include breakpoint-down('sm') {
+                margin-right: 0;
+            }
+
+            > .item {
+                border-radius: border-radius('md');
+                letter-spacing: 0.6px;
+
+                &:hover {
+                    background: rgba(0, 0, 0, 0.1);
+                }
+
+                &.-active {
+                    letter-spacing: 0;
+                }
+            }
+        }
+    }
+
+    &.-transparent {
+        background: rgba(#e9ecef, 0.25);
+
+        .site-search {
+            .form-input {
+                .form-input-prefix {
+                    transition: color 0.3s ease, border-color 0.3s ease;
+                    color: rgba(255, 255, 255, 0.85);
+                    border-right-color: rgba(255, 255, 255, 0.25);
+                }
+
+                input {
+                    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+                    color: #ffffff;
+                    background-color: rgba(255, 255, 255, 0.15);
+                    border-color: rgba(255, 255, 255, 0.15);
+
+                    &::placeholder {
+                        color: rgba(255, 255, 255, 0.85);
+                        transition: color 0.3s ease;
+                    }
+                }
+            }
+        }
+
+        > .container > .row > .column {
+            > .items > .nav > .item {
+                color: rgba(255, 255, 255, 0.85);
+
+                &:hover {
+                    color: rgba(255, 255, 255, 1);
+                }
+            }
+
+            > .brand {
+                @include breakpoint-down('md') {
+                    color: colors('light');
+
+                    .logo {
+                        &.-light {
+                            display: inline-block;
+                        }
+
+                        &.-dark {
+                            display: none;
+                        }
+                    }
+                }
+
+                @include breakpoint-up(lg) {
+                    color: colors('dark');
+
+                    .logo {
+                        &.-light {
+                            display: none;
+                        }
+
+                        &.-dark {
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+
+        .hamburger {
+            > .bars::before,
+            > .bars,
+            > .bars::after {
+                background-color: colors('light');
+            }
+        }
+    }
+
+    .hamburger.sidebar-toggle {
+        display: none;
+    }
+
+    &.-docs {
+        .hamburger.sidebar-toggle {
+            display: block;
+
+            @include breakpoint-up('md') {
+                display: none;
+            }
+        }
+    }
+}
+
+#navbar-nav-home {
+    @media screen and (max-width: 374px) { // stylelint-disable-line
+        display: none;
+    }
+}
+
+.hamburger.sidebar-toggle {
+    padding: 10px 12px;
+    border-radius: border-radius('md');
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: none;
+
+    &:focus,
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        outline: 0;
+    }
+
+    &:active {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}

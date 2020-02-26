@@ -1,0 +1,35 @@
+{
+  "name": "@picker-cc/common",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "watch": "tsc -p ./tsconfig.build.json -w",
+    "build": "rimraf lib && tsc -p ./tsconfig.build.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@graphql-codegen/add": "^1.12.2",
+    "@graphql-codegen/cli": "^1.12.2",
+    "@graphql-codegen/fragment-matcher": "^1.12.2",
+    "@types/jest": "^24.0.11",
+    "@types/mongodb": "^3.3.16",
+    "rimraf": "^2.6.3",
+    "ts-node": "^8.6.2",
+    "tslint": "^6.0.0",
+    "typescript": "^3.8.2"
+  },
+  "dependencies": {
+    "@graphql-codegen/cli": "^1.12.2",
+    "concurrently": "^5.1.0",
+    "graphql-iso-date": "^3.6.1",
+    "mikro-orm": "^3.2.1",
+    "mongodb": "^3.5.3"
+  }
+}
