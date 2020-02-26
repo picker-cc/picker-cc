@@ -1,11 +1,11 @@
 import { INavbar, INavbarBrand, INavbarItems, INav, INavItem, IHamburgerMenu } from '@inkline/inkline/src/index';
 
-import SiteSearch from '@components/SiteSearch';
+// import SiteSearch from '@components/SiteSearch';
 
 export default {
     name: 'Navbar',
     components: {
-        SiteSearch,
+        // SiteSearch,
         INavbar,
         INavbarBrand,
         INavbarItems,
