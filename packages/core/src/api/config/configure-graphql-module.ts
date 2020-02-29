@@ -11,6 +11,8 @@ import {ApiSharedModule} from '../api-internal-modules';
 // import {IdCodecService} from '../common/id-codec.service';
 
 import {generateListOptions} from './generate-list-options';
+import {AssetInterceptorPlugin} from '../middleware/asset-interceptor-plugin';
+import {getDynamicGraphQlModulesForPlugins} from '../../plugin/dynamic-plugin-api.module';
 
 export interface GraphQLApiOptions {
   apiType: 'sns' | 'admin';
@@ -63,7 +65,7 @@ async function createGraphQLOptions(
   return {
     path: '/' + options.apiPath,
     typeDefs: await createTypeDefs(options.apiType),
-    include: [ options.resolverModule ],
+    include: [options.resolverModule, ...getDynamicGraphQlModulesForPlugins(options.apiType)],
     resolvers: {
       JSON: GraphQLJSON,
       // DateTime: GraphQLDateTime,
@@ -72,7 +74,7 @@ async function createGraphQLOptions(
       Upload: GraphQLUpload || dummyResolveType,
     },
     uploads: {
-      // maxFieldSize: configService.ass
+      maxFileSize: configService.assetOptions.uploadMaxFileSize,
     },
     playground: {
       settings: {
@@ -84,9 +86,10 @@ async function createGraphQLOptions(
     context: (req: any) => req,
     // This is handled by the Express cors plugin
     cors: false,
-    // plugins: [
-    //   ...configService.apploServerPlugins
-    // ]
+    plugins: [
+      new AssetInterceptorPlugin(configService),
+      ...configService.apolloServerPlugins,
+    ]
   } as GqlModuleOptions;
 
   async function createTypeDefs(apiType: 'sns' | 'admin'): Promise<string> {

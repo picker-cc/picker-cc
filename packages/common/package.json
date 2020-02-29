@@ -29,6 +29,7 @@
     "@graphql-codegen/cli": "^1.12.2",
     "concurrently": "^5.1.0",
     "graphql-iso-date": "^3.6.1",
+    "limax": "^2.0.0",
     "mikro-orm": "^3.2.1",
     "mongodb": "^3.5.3"
   }

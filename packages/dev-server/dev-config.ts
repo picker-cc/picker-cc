@@ -1,3 +1,4 @@
+import {AssetServerPlugin} from '@picker-cc/asset-server-plugin';
 import {ADMIN_API_PATH, API_PORT, SNS_API_PATH} from '@picker-cc/common/lib/shared-constants';
 import {
   DefaultLogger,
@@ -9,7 +10,7 @@ import path from 'path';
 
 export const devConfig: PickerConfig = {
   dbConnectionOptions: {
-    entitiesDirsTs: ['dist'],
+    // entitiesDirsTs: ['dist'],
     ...getDbConfig()
   },
   authOptions: {
@@ -18,7 +19,14 @@ export const devConfig: PickerConfig = {
   },
   port: API_PORT,
   adminApiPath: ADMIN_API_PATH,
-  snsApiPath: SNS_API_PATH
+  snsApiPath: SNS_API_PATH,
+  plugins: [
+    AssetServerPlugin.init({
+      route: 'assets',
+      assetUploadDir: path.join(__dirname, 'assets'),
+      port: 5002,
+    })
+  ]
 };
 
 function getDbConfig(): ConnectionOptions {

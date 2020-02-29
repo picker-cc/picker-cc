@@ -4,12 +4,13 @@ import {RequestHandler} from 'express';
 import {ApiModule} from './api/api.module';
 import {ConfigService, Logger} from './config';
 import {ConfigModule} from './config/config.module';
+import {PluginModule} from './plugin/plugin.module';
 
 /**
  * 应用主模块
  */
 @Module({
-  imports: [ ConfigModule, ApiModule ]
+  imports: [ ConfigModule, ApiModule, PluginModule.forRoot() ]
 })
 export class AppModule implements NestModule, OnApplicationShutdown {
   constructor(private configService: ConfigService) {
@@ -19,7 +20,7 @@ export class AppModule implements NestModule, OnApplicationShutdown {
     const {snsApiPath} = this.configService;
     // const i18nextHandler = this.i18nService.handle();
     const defaultMiddleware: Array<{ handler: RequestHandler; route?: string }> = [
-    //   { handler: , route: snsApiPath },
+      //   { handler: , route: snsApiPath },
       // { handler: i18nextHandler, route: shopApiPath },
     ];
     // const defaultMiddleware: Array<{ handler: RequestHandler, route?: string }> = [];

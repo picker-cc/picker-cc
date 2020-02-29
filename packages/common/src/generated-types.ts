@@ -1,3 +1,5 @@
+import {Property} from 'mikro-orm';
+
 export type Maybe<T> = T | null;
 export type Scalars = {
   ID: string;
@@ -58,7 +60,24 @@ export enum Permission {
   UpdateSettings = 'UpdateSettings',
   DeleteSettings = 'DeleteSettings'
 }
+export type Node = {
+  __typename?: 'Node',
+  id: Scalars['ID'],
+};
 
+export type NumberOperators = {
+  eq?: Maybe<Scalars['Float']>,
+  lt?: Maybe<Scalars['Float']>,
+  lte?: Maybe<Scalars['Float']>,
+  gt?: Maybe<Scalars['Float']>,
+  gte?: Maybe<Scalars['Float']>,
+  between?: Maybe<NumberRange>,
+};
+
+export type NumberRange = {
+  start: Scalars['Float'],
+  end: Scalars['Float'],
+};
 export type CurrentUser = {
   __typename?: 'CurrentUser',
   id: Scalars['ID'],
@@ -69,6 +88,18 @@ export type LoginResult = {
   __typename?: 'LoginResult',
   user: CurrentUser,
 }
+
+export type UpdateGlobalSettingsInput = {
+  // availableLanguages?: Maybe<Array<LanguageCode>>,
+  trackInventory?: Maybe<Scalars['Boolean']>,
+  customFields?: Maybe<Scalars['JSON']>,
+};
+
+
+export type MutationUpdateGlobalSettingsArgs = {
+  input: UpdateGlobalSettingsInput
+};
+
 
 export type MutationLoginArgs = {
   username: Scalars['String'],
@@ -125,3 +156,177 @@ export type ConfigurableOperationInput = {
   code: Scalars['String'],
   arguments: ConfigArgInput[],
 };
+
+export enum SortOrder {
+  ASC = 'ASC',
+  DESC = 'DESC'
+}
+export type BooleanOperators = {
+  eq?: Maybe<Scalars['Boolean']>,
+};
+
+/// Create inputs
+export type MutationCreatePostArgs = {
+  input: CreatePostInput
+}
+
+export type CreatePostInput = {
+  title: Scalars['String'],
+  guid: Scalars['String'],
+  // guid?: Maybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
+  content?: Maybe<Scalars['String']>
+}
+export type DateOperators = {
+  eq?: Maybe<Scalars['DateTime']>,
+  before?: Maybe<Scalars['DateTime']>,
+  after?: Maybe<Scalars['DateTime']>,
+  between?: Maybe<DateRange>,
+};
+export type DateRange = {
+  start: Scalars['DateTime'],
+  end: Scalars['DateTime'],
+};
+
+export type PostSortParameter = {
+  id?: Maybe<SortOrder>,
+  createdAt?: Maybe<SortOrder>,
+  updatedAt?: Maybe<SortOrder>,
+  name?: Maybe<SortOrder>,
+  slug?: Maybe<SortOrder>,
+  description?: Maybe<SortOrder>,
+}
+export type PostListOptions = {
+  skip?: Maybe<Scalars['Int']>,
+  take?: Maybe<Scalars['Int']>,
+  sort?: Maybe<PostSortParameter>,
+  filter?: Maybe<PostFilterParameter>,
+};
+export type StringOperators = {
+  eq?: Maybe<Scalars['String']>,
+  contains?: Maybe<Scalars['String']>,
+};
+
+
+export type PostFilterParameter = {
+  enabled?: Maybe<BooleanOperators>,
+  createdAt?: Maybe<DateOperators>,
+  updatedAt?: Maybe<DateOperators>,
+  languageCode?: Maybe<StringOperators>,
+  name?: Maybe<StringOperators>,
+  slug?: Maybe<StringOperators>,
+  description?: Maybe<StringOperators>,
+};
+
+
+export type QueryPostsArgs = {
+  options?: Maybe<PostListOptions>
+};
+
+
+export type MutationCreateAssetsArgs = {
+  input: CreateAssetInput[]
+};
+
+
+export type MutationUpdateAssetArgs = {
+  input: UpdateAssetInput
+};
+
+
+export type CreateAssetInput = {
+  file: Scalars['Upload'],
+};
+export type UpdateAssetInput = {
+  id: Scalars['ID'],
+  name?: Maybe<Scalars['String']>,
+  focalPoint?: Maybe<CoordinateInput>,
+};
+
+export type Coordinate = {
+  __typename?: 'Coordinate',
+  x: Scalars['Float'],
+  y: Scalars['Float'],
+};
+
+export type CoordinateInput = {
+  x: Scalars['Float'],
+  y: Scalars['Float'],
+};
+
+
+export type QueryAssetsArgs = {
+  options?: Maybe<AssetListOptions>
+};
+
+
+export type QueryAssetArgs = {
+  id: Scalars['ID']
+};
+
+
+export type Asset = Node & {
+  __typename?: 'Asset',
+  id: Scalars['ID'],
+  createdAt: Scalars['DateTime'],
+  updatedAt: Scalars['DateTime'],
+  name: Scalars['String'],
+  type: AssetType,
+  fileSize: Scalars['Int'],
+  mimeType: Scalars['String'],
+  width: Scalars['Int'],
+  height: Scalars['Int'],
+  source: Scalars['String'],
+  preview: Scalars['String'],
+  focalPoint?: Maybe<Coordinate>,
+};
+export type PaginatedList = {
+  __typename?: 'PaginatedList',
+  items: Node[],
+  totalItems: Scalars['Int'],
+};
+
+export type AssetFilterParameter = {
+  createdAt?: Maybe<DateOperators>,
+  updatedAt?: Maybe<DateOperators>,
+  name?: Maybe<StringOperators>,
+  type?: Maybe<StringOperators>,
+  fileSize?: Maybe<NumberOperators>,
+  mimeType?: Maybe<StringOperators>,
+  width?: Maybe<NumberOperators>,
+  height?: Maybe<NumberOperators>,
+  source?: Maybe<StringOperators>,
+  preview?: Maybe<StringOperators>,
+};
+
+export type AssetList = PaginatedList & {
+  __typename?: 'AssetList',
+  items: Asset[],
+  totalItems: Scalars['Int'],
+};
+
+export type AssetListOptions = {
+  skip?: Maybe<Scalars['Int']>,
+  take?: Maybe<Scalars['Int']>,
+  sort?: Maybe<AssetSortParameter>,
+  filter?: Maybe<AssetFilterParameter>,
+};
+
+export type AssetSortParameter = {
+  id?: Maybe<SortOrder>,
+  createdAt?: Maybe<SortOrder>,
+  updatedAt?: Maybe<SortOrder>,
+  name?: Maybe<SortOrder>,
+  fileSize?: Maybe<SortOrder>,
+  mimeType?: Maybe<SortOrder>,
+  width?: Maybe<SortOrder>,
+  height?: Maybe<SortOrder>,
+  source?: Maybe<SortOrder>,
+  preview?: Maybe<SortOrder>,
+};
+
+export enum AssetType {
+  IMAGE = 'IMAGE',
+  VIDEO = 'VIDEO',
+  BINARY = 'BINARY'
+}

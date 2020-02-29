@@ -1,13 +1,13 @@
 import {Args, Mutation, Query, Resolver} from '@nestjs/graphql';
 import {MutationCreatePostArgs, QueryPostsArgs} from '@picker-cc/common/lib/generated-types';
 import {PaginatedList} from '@picker-cc/common/lib/shared-types';
+import Pageres from 'pageres';
 
 import {Ctx, RequestContext} from '../..';
 import {ConfigService} from '../../../config';
 import {Post} from '../../../entity';
 import {AuthService, UserService} from '../../../service';
 import {PostService} from '../../../service/services/post.service';
-import Pageres from 'pageres';
 
 @Resolver()
 export class PostsResolver {
@@ -52,13 +52,13 @@ export class PostsResolver {
     @Args() args: MutationCreatePostArgs
   ): Promise<Post> {
     const {input} = args;
-    await new Pageres({delay: 2})
-      .src('https://www.jianshu.com', ['480x320', '1024x768', 'iphone 5s'], {crop: true})
-      .src('data:text/html,<h1>Awesome!</h1>', ['1024x768'])
-      .dest(__dirname + '/screenshot')
-      .run();
+    // await new Pageres({delay: 2})
+    //   .src('https://www.jianshu.com', ['480x320', '1024x768', 'iphone 5s'], {crop: true})
+    //   .src('data:text/html,<h1>Awesome!</h1>', ['1024x768'])
+    //   .dest(__dirname + '/screenshot')
+    //   .run();
 
-    console.log('Finished generating screenshots!');
+    // console.log('Finished generating screenshots!');
     return await this.postService.create(ctx, input);
   }
 }

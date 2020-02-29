@@ -8,7 +8,8 @@ import {Options} from 'mikro-orm';
 import {getConfig} from './config-helper';
 // import {EntityIdStrategy} from './entity-id-strategy/entity-id-strategy';
 import {Logger, PickerLogger} from './logger/picker-logger';
-import {AuthOptions, PickerConfig, RuntimePickerConfig} from './picker-config';
+import {AssetOptions, AuthOptions, PickerConfig, RuntimePickerConfig, WorkerOptions} from './picker-config';
+import {PluginDefinition} from 'apollo-server-core';
 
 /**
  * 配置服务，一个工厂模式方便应用系统的全局配置
@@ -45,6 +46,10 @@ export class ConfigService implements PickerConfig {
     return this.activeConfig.cors;
   }
 
+  get assetOptions(): AssetOptions {
+    return this.activeConfig.assetOptions;
+  }
+
   // get entityIdStrategy(): EntityIdStrategy {
   //   return this.activeConfig.entityIdStrategy;
   // }
@@ -53,9 +58,12 @@ export class ConfigService implements PickerConfig {
     return this.activeConfig.dbConnectionOptions;
   }
 
-
   get middleware(): Array<{ handler: RequestHandler; route: string }> {
     return this.activeConfig.middleware;
+  }
+
+  get apolloServerPlugins(): PluginDefinition[] {
+    return this.activeConfig.apolloServerPlugins;
   }
 
   get plugins(): Array<DynamicModule | Type<any>> {
@@ -64,5 +72,9 @@ export class ConfigService implements PickerConfig {
 
   get logger(): PickerLogger {
     return this.activeConfig.logger;
+  }
+
+  get workerOptions(): WorkerOptions {
+    return this.activeConfig.workerOptions;
   }
 }

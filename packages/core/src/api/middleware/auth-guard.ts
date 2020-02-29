@@ -26,16 +26,14 @@ export class AuthGuard implements CanActivate {
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-
-    console.log('这里是 can active');
     const {req, res, info} = parseContext(context);
     const authDisabled = this.configService.authOptions.disableAuth;
     const permissions = this.reflector.get<Permission[]>(PERMISSIONS_METADATA_KEY, context.getHandler());
     const isPublic = !!permissions && permissions.includes(Permission.Public);
     const hasOwnerPermission = !!permissions && permissions.includes(Permission.Owner);
-    console.log('auth disabled :' + authDisabled)
-    console.log('permissions :' + permissions)
-    console.log('is public :' + isPublic)
+    // console.log('auth disabled :' + authDisabled)
+    // console.log('permissions :' + permissions)
+    // console.log('is public :' + isPublic)
     const session = await this.getSession(req, res, hasOwnerPermission);
     const requestContext = await this.requestContextService.fromRequest(req, info, permissions, session);
 
