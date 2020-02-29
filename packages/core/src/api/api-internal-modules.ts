@@ -5,10 +5,12 @@ import {ServiceModule} from '../service/service.module';
 
 // import {IdCodecService} from './common/id-codec.service';
 import {SnsAuthResolver} from './resolvers/sns/sns-auth.resolver';
+import {PostsResolver} from './resolvers/sns/sns-posts.resolver';
 
 // 社区应用的解析器
 const snsResolvers = [
   SnsAuthResolver,
+  PostsResolver,
 ];
 
 // 字段解析器

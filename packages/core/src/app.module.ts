@@ -1,9 +1,9 @@
 import {MiddlewareConsumer, Module, NestModule, OnApplicationBootstrap, OnApplicationShutdown} from '@nestjs/common';
+import {RequestHandler} from 'express';
 
 import {ApiModule} from './api/api.module';
 import {ConfigService, Logger} from './config';
 import {ConfigModule} from './config/config.module';
-import {RequestHandler} from 'express';
 
 /**
  * 应用主模块

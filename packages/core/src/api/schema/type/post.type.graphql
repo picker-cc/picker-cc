@@ -1,0 +1,19 @@
+type Post implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  description: String!
+  name: String!
+  content: String!
+  meta: Meta
+}
+type Meta {
+  likes: Int!
+  views: Int!
+}
+
+type PostList implements PaginatedList {
+  items: [Post!]!
+  totalItems: Int!
+}

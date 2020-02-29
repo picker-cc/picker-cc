@@ -5,7 +5,7 @@ import {ReadOnlyRequired} from './common/types/common-types';
 import {getConfig, setConfig} from './config/config-helper';
 import {DefaultLogger} from './config/logger/default-logger';
 import {Logger} from './config/logger/picker-logger';
-import {PickerConfig} from './config/picker-config';
+import {PickerConfig, RuntimePickerConfig} from './config/picker-config';
 import {coreEntitiesMap} from './entity/entities';
 
 /**
@@ -59,6 +59,20 @@ export async function preBootstrapConfig(
 }
 
 /**
+ * 初始化任何已配置的插件
+ */
+async function runPluginConfigurations(config: RuntimePickerConfig): Promise<RuntimePickerConfig> {
+  for (const plugin of config.plugins) {
+    const configFn = getConfigurationFunction(plugin);
+    if (typeof configFn === 'function') {
+      config = await configFn(config);
+    }
+  }
+  return config;
+}
+
+
+/**
  * 返回核心实体数组和插件中定义的任何附加实体。
  * @param userConfig
  */
@@ -77,6 +91,7 @@ export async function getAllEntities(userConfig: Partial<PickerConfig>): Promise
   // }
   return allEntities;
 }
+
 
 /**
  * 如果使用了'bearer' tokenMethod，那么将自动公开authTokenHeaderKey头

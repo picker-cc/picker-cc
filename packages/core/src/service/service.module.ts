@@ -8,17 +8,21 @@ import {EventBusModule} from '../event-bus/event-bus.module';
 import {PasswordCipher} from './helpers/PasswordCipher';
 import {VerificationTokenGenerator} from './helpers/verification-token-generator';
 import {AuthService} from './services/auth.service';
+import {PostService} from './services/post.service';
 import {UserService} from './services/user.service';
+import { ListQueryBuilder } from './helpers/list-query-builder/list-query-builder';
 
 let defaultOrmModule: DynamicModule;
 const services = [
   ConfigService,
   AuthService,
   UserService,
+  PostService,
 ];
 const helpers = [
   PasswordCipher,
   VerificationTokenGenerator,
+  ListQueryBuilder
 ];
 
 @Module({

@@ -1,10 +1,11 @@
 import {DeepPartial} from '@picker-cc/common/lib/shared-types';
 import {IsEmail, IsMobilePhone} from 'class-validator';
-import {Entity, ManyToMany, MongoEntity, PrimaryKey, Property, SerializedPrimaryKey, Unique} from 'mikro-orm';
+import {Entity, ManyToMany, ManyToOne, MongoEntity, OneToMany, PrimaryKey, Property, SerializedPrimaryKey, Unique} from 'mikro-orm';
 
 import {PickerEntity} from '../base/base.entity';
 
 import {Role} from './role.entity';
+import {Post} from '../posts/post.entity';
 
 @Entity()
 @Unique({properties: [ 'name', 'email' ]})
@@ -46,4 +47,8 @@ export class User extends PickerEntity {
   @Property()
   @ManyToMany(() => Role)
   roles: Role[];
+
+  @Property()
+  @OneToMany(() => User)
+  posts: Post[];
 }

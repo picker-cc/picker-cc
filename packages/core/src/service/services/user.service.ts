@@ -3,11 +3,10 @@ import {RegisterCreatorInput} from '@picker-cc/common/lib/generated-types';
 import {EntityManager, EntityRepository} from 'mikro-orm';
 import {InjectRepository} from 'nestjs-mikro-orm';
 
-import {RequestContext} from '../../api/common/request-context';
+import {RequestContext} from '../../api';
 import {UserInputError} from '../../common/error/errors';
-import {ConfigService} from '../../config/config.service';
-import {User} from '../../entity/users/user.entity';
-import {EventBus} from '../../event-bus/event-bus';
+import {ConfigService} from '../../config';
+import {User} from '../../entity';
 import {PasswordCipher} from '../helpers/PasswordCipher';
 import {VerificationTokenGenerator} from '../helpers/verification-token-generator';
 

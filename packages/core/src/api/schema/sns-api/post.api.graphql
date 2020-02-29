@@ -1,0 +1,28 @@
+type Query {
+  post(id: String, slug: String): Post
+  posts(options: PostListOptions): PostList!
+}
+type Mutation {
+  createPost(input: CreatePostInput!): Post
+  updatePost(input: UpdatePostInput!): Post
+#  deletePost()
+}
+input UpdatePostInput {
+  id: ID!
+  title: String
+  guid: String!
+  description: String!
+  content: String
+}
+input CreatePostInput {
+  title: String!
+  guid: String!
+  description: String!
+  content: String!
+}
+
+#input PostListOptions {
+#  skip: Int
+#  take: Int
+#}
+input PostListOptions
