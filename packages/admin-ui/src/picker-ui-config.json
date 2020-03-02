@@ -1,0 +1,7 @@
+{
+  "apiHost": "http://localhost",
+  "apiPort": "3000",
+  "adminApiPath": "admin-api",
+  "tokenMethod": "bearer",
+  "authTokenHeaderKey": "picker-auth-token"
+}

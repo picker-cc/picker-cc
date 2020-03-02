@@ -116,4 +116,76 @@ export interface AdminUiConfig {
   apiHost: string | 'auto';
   apiPort: number | 'auto';
   adminApiPath: string;
+  tokenMethod: 'cookie' | 'bearer';
+  authTokenHeaderKey: string;
+}
+
+
+/**
+ * @description
+ * Defines extensions to the Admin UI application by specifying additional
+ * Angular [NgModules](https://angular.io/guide/ngmodules) which are compiled
+ * into the application.
+ *
+ * See [Extending the Admin UI](/docs/developer-guide/plugins/extending-the-admin-ui/) for
+ * detailed instructions.
+ *
+ * @docsCategory AdminUiPlugin
+ */
+export interface AdminUiExtension {
+  /**
+   * @description
+   * An optional ID for the extension module. Only used internally for generating
+   * import paths to your module. If not specified, a unique hash will be used as the id.
+   */
+  id?: string;
+
+  /**
+   * @description
+   * The path to the directory containing the extension module(s). The entire contents of this directory
+   * will be copied into the Admin UI app, including all TypeScript source files, html templates,
+   * scss style sheets etc.
+   */
+  extensionPath: string;
+  /**
+   * @description
+   * One or more Angular modules which extend the default Admin UI.
+   */
+  ngModules: AdminUiExtensionModule[];
+
+  /**
+   * @description
+   * Optional array of paths to static assets which will be copied over to the Admin UI app's `/static`
+   * directory.
+   */
+  staticAssets?: string[];
+}
+
+/**
+ * @description
+ * Configuration defining a single NgModule with which to extend the Admin UI.
+ *
+ * @docsCategory AdminUiPlugin
+ */
+export interface AdminUiExtensionModule {
+  /**
+   * @description
+   * Lazy modules are lazy-loaded at the `/extensions/` route and should be used for
+   * modules which define new views for the Admin UI.
+   *
+   * Shared modules are directly imported into the main AppModule of the Admin UI
+   * and should be used to declare custom form components and define custom
+   * navigation items.
+   */
+  type: 'shared' | 'lazy';
+  /**
+   * @description
+   * The name of the file containing the extension module class.
+   */
+  ngModuleFileName: string;
+  /**
+   * @description
+   * The name of the extension module class.
+   */
+  ngModuleName: string;
 }

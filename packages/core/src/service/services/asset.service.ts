@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {AssetType, CreateAssetInput} from '@picker-cc/common/lib/generated-types';
+import {EntityManager} from 'mikro-orm';
 import path from 'path';
 import {Stream} from 'stream';
 
@@ -15,6 +16,7 @@ const sizeOf = require('image-size');
 @Injectable()
 export class AssetService {
   constructor(
+    private em: EntityManager,
     private configService: ConfigService,
     private eventBus: EventBus
   ) {
@@ -55,6 +57,8 @@ export class AssetService {
       focalPoint: null,
     });
 
+    await this.em.persistAndFlush(asset);
+    console.log(asset);
     return asset;
     // return this.connection.manager.save(asset);
   }

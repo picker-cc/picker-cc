@@ -28,7 +28,7 @@ export interface AuthOptions {
    * “authTokenHeaderKey”在服务器的CORS配置中(添加 Control-Expose-Headers: :picker-auth-token”)
    * @default 'bearer'
    */
-  tokenMethod?: 'bearer';
+  tokenMethod: 'cookie' | 'bearer';
   /**
    * 设置header属性，该属性将在使用'bearer'方法时用于发送验证令牌。
    * @default 'picker-auth-token'

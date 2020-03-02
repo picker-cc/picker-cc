@@ -37,11 +37,9 @@ export class AssetResolver {
   @Allow(Permission.CreateCatalog)
   async createAssets(@Ctx() ctx: RequestContext, @Args() args: MutationCreateAssetsArgs): Promise<Asset[]> {
     // TODO: Is there some way to parellelize this while still preserving
-    Logger.warn('上传了多少文件呢？');
     // the order of files in the upload? Non-deterministic IDs mess up the e2e test snapshots.
     const assets: Asset[] = [];
     Logger.info(args.input.length.toString());
-    // args.input = JSON.parse(JSON.stringify(args.input))
     for (const input of args.input) {
       const asset = await this.assetService.create(ctx, input);
       assets.push(asset);

@@ -27,7 +27,7 @@ export interface PickerPluginMetadata extends ModuleMetadata {
   configuration?: PluginConfigurationFn;
   /**
    * @description
-   * The plugin may extend the default Vendure GraphQL shop api by providing extended
+   * The plugin may extend the default Picker GraphQL shop api by providing extended
    * schema definitions and any required resolvers.
    */
   shopApiExtensions?: APIExtensionDefinition;
@@ -81,10 +81,10 @@ export interface APIExtensionDefinition {
 
 /**
  * @description
- * This method is called before the app bootstraps and should be used to perform any needed modifications to the {@link VendureConfig}.
+ * This method is called before the app bootstraps and should be used to perform any needed modifications to the {@link PickerConfig}.
  *
  * @docsCategory plugin
- * @docsPage VendurePluginMetadata
+ * @docsPage PickerPluginMetadata
  */
 export type PluginConfigurationFn = (
   config: RuntimePickerConfig,
@@ -92,7 +92,7 @@ export type PluginConfigurationFn = (
 
 /**
  * @description
- * The PickerPlugin decorator is a means of configuring and/or extending the functionality of the Vendure server. A Vendure plugin is
+ * The PickerPlugin decorator is a means of configuring and/or extending the functionality of the Picker server. A Picker plugin is
  * a [Nestjs Module](https://docs.nestjs.com/modules), with optional additional metadata defining things like extensions to the GraphQL API, custom
  * configuration or new database entities.
  *
@@ -102,7 +102,7 @@ export type PluginConfigurationFn = (
  * @example
  * ```TypeScript
  * import { Controller, Get } from '\@nestjs/common';
- * import { Ctx, PluginCommonModule, ProductService, RequestContext, VendurePlugin } from '\@vendure/core';
+ * import { Ctx, PluginCommonModule, ProductService, RequestContext, PickerPlugin } from '\@Picker/core';
  *
  * \@Controller('products')
  * export class ProductsController {
@@ -116,7 +116,7 @@ export type PluginConfigurationFn = (
  *
  *
  * //A simple plugin which adds a REST endpoint for querying products.
- * \@VendurePlugin({
+ * \@PickerPlugin({
  *     imports: [PluginCommonModule],
  *     controllers: [ProductsController],
  * })
