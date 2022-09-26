@@ -1,0 +1,36 @@
+{
+  "name": "picker-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "nr --filter @picker-ui/core dev",
+    "build": "nr --filter @picker-ui/core build",
+    "docs:dev": "nr --filter @picker-ui/documentation dev",
+    "docs:build": "nr --filter @picker-ui/core build && nr --filter @picker-ui/documentation build",
+    "clean": "rimraf node_modules packages/ui/node_modules packages/ui/dist packages/documentation/node_modules",
+    "release": "bumpp package.json packages/ui/package.json --execute 'nr --filter @picker-ui/core build' && na --filter @picker-ui/core publish --no-git-checks",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@antfu/eslint-config-vue": "^0.25.1",
+    "@antfu/ni": "^0.16.3",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "bumpp": "^8.2.1",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-import-resolver-typescript": "^3.2.5",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-unicorn": "^43.0.1",
+    "eslint-plugin-vue": "^9.2.0",
+    "pnpm": "^7.5.0",
+    "rimraf": "^3.0.2"
+  },
+  "packageManager": "pnpm@7.1.7"
+}

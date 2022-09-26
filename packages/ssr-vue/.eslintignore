@@ -1,0 +1,13 @@
+# .eslintignore
+
+*.discard
+node_modules
+scripts
+
+dist
+public
+sbundler
+
+*.js
+*.json
+*.config.js
