@@ -1,6 +1,11 @@
 # Picker Create Creative
 
 采撷、创造、创意
+
+```
+pnpm watch:all
+pnpm dev-server:start
+```
 # 创建你的数字工作室
 一款为创业者打造的工作室系统
 
