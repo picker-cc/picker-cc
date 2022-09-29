@@ -12,7 +12,6 @@ var AliSmsPlugin_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AliSmsPlugin = void 0;
 const core_1 = require("@picker-cc/core");
-const generate_public_id_1 = require("@picker-cc/common/lib/generate-public-id");
 const sms_event_1 = require("./sms-event");
 const rxjs_1 = require("rxjs");
 const Core = require('@alicloud/pop-core');
@@ -21,7 +20,18 @@ let AliSmsPlugin = AliSmsPlugin_1 = class AliSmsPlugin {
         this.eventBus = eventBus;
     }
     static init(options) {
-        AliSmsPlugin_1.options = Object.assign({}, options, options.endpoint ?? 'https://dysmsapi.aliyuncs.com', options.apiVersion ?? '2017-05-25');
+        options = {
+            ...options,
+            endpoint: 'https://dysmsapi.aliyuncs.com',
+            apiVersion: '2017-05-25',
+        };
+        // AliSmsPlugin.options = Object.assign(
+        //     {},
+        //     options,
+        //     options.endpoint ?? 'https://dysmsapi.aliyuncs.com',
+        //     options.apiVersion ?? '2017-05-25'
+        // )
+        AliSmsPlugin_1.options = options;
         AliSmsPlugin_1.smsClient = new Core(options);
         return this;
     }
@@ -31,8 +41,11 @@ let AliSmsPlugin = AliSmsPlugin_1 = class AliSmsPlugin {
     onModuleInit() {
         const smsEvent$ = this.eventBus.ofType(sms_event_1.SmsEvent);
         smsEvent$.pipe((0, rxjs_1.debounceTime)(50)).subscribe(async (event) => {
+            console.log('收到短信事件');
+            console.log(event);
             const phone = event.phone;
-            await this.sendCode(phone);
+            const code = event.content;
+            await this.sendCode(phone, AliSmsPlugin_1.options.codeSize, code);
         });
     }
     /**
@@ -40,9 +53,9 @@ let AliSmsPlugin = AliSmsPlugin_1 = class AliSmsPlugin {
      * 发送验证码
      * @param phone string 手机号
      */
-    sendCode(phone) {
+    sendCode(phone, codesize, code) {
         return new Promise(async (resolve, reject) => {
-            let code = (0, generate_public_id_1.generateCode)(4);
+            // let code = generateCode(codesize);
             let params = {
                 "PhoneNumbers": phone,
                 "SignName": AliSmsPlugin_1.options.SignName,
@@ -73,13 +86,6 @@ let AliSmsPlugin = AliSmsPlugin_1 = class AliSmsPlugin {
 AliSmsPlugin = AliSmsPlugin_1 = __decorate([
     (0, core_1.PickerPlugin)({
         imports: [core_1.PluginCommonModule],
-        providers: [
-        // {
-        //     provide: WeChatService,
-        //     useValue: new WeChatService(WechatPlugin.options),
-        // }
-        ],
-        exports: []
     }),
     __metadata("design:paramtypes", [core_1.EventBus])
 ], AliSmsPlugin);

@@ -7,7 +7,7 @@ import {WeChatModule} from "@picker-cc/wechat-plugin";
 @Module({
     imports: [
         ConfigModule,
-        WeChatModule
+        WeChatModule,
     ],
     controllers: [UsersController],
     providers: [UsersService],

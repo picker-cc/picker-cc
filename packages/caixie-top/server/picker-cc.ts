@@ -76,7 +76,13 @@ export const pickerConfig: PickerConfig = {
             secret: '97fe8be8948c6819bd8b547951201a45',
             token: 'PickerCC',
         }),
-        // AliSmsPlugin.init({}),
+        AliSmsPlugin.init({
+            accessKeyId: 'LTAI5tL5kvxz5VVwoipF2Z7H',
+            accessKeySecret: 'EY3SnfG5KlHVFa7hfPro4mgwrbutv5',
+            SignName: '采撷科技',
+            TemplateCode_Code: 'SMS_89285012',
+            codeSize: 6,
+        }),
         CaixieAppPlugin.init({
             route: 'admin',
             port: 5001

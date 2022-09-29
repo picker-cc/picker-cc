@@ -1,6 +1,5 @@
 import {CACHE_MANAGER, MiddlewareConsumer, NestModule, OnModuleInit} from "@nestjs/common";
 import {EventBus, Logger, PickerPlugin, PluginCommonModule, Type} from "@picker-cc/core";
-import {generateCode} from "@picker-cc/common/lib/generate-public-id";
 import {SmsEvent} from "./sms-event";
 import {debounceTime} from "rxjs";
 import {SMSOptions} from "./types";
@@ -11,13 +10,6 @@ const Core = require('@alicloud/pop-core');
 
 @PickerPlugin({
     imports: [PluginCommonModule],
-    providers: [
-        // {
-        //     provide: WeChatService,
-        //     useValue: new WeChatService(WechatPlugin.options),
-        // }
-    ],
-    exports: []
 })
 export class AliSmsPlugin implements NestModule, OnModuleInit {
 
@@ -30,12 +22,18 @@ export class AliSmsPlugin implements NestModule, OnModuleInit {
     }
 
     static init(options: SMSOptions): Type<AliSmsPlugin> {
-        AliSmsPlugin.options = Object.assign(
-            {},
-            options,
-            options.endpoint ?? 'https://dysmsapi.aliyuncs.com',
-            options.apiVersion ?? '2017-05-25'
-        )
+        options = {
+            ...options,
+            endpoint: 'https://dysmsapi.aliyuncs.com',
+            apiVersion: '2017-05-25',
+        }
+        // AliSmsPlugin.options = Object.assign(
+        //     {},
+        //     options,
+        //     options.endpoint ?? 'https://dysmsapi.aliyuncs.com',
+        //     options.apiVersion ?? '2017-05-25'
+        // )
+        AliSmsPlugin.options = options
         AliSmsPlugin.smsClient = new Core(options)
         return this;
     }
@@ -48,8 +46,11 @@ export class AliSmsPlugin implements NestModule, OnModuleInit {
         const smsEvent$ = this.eventBus.ofType(SmsEvent)
         smsEvent$.pipe(debounceTime(50)).subscribe(
             async (event: SmsEvent) => {
+                console.log('收到短信事件')
+                console.log(event)
                 const phone = event.phone
-                await this.sendCode(phone)
+                const code = event.content
+                await this.sendCode(phone, AliSmsPlugin.options.codeSize, code)
             }
         )
     }
@@ -59,9 +60,9 @@ export class AliSmsPlugin implements NestModule, OnModuleInit {
      * 发送验证码
      * @param phone string 手机号
      */
-    sendCode(phone: string) {
+    sendCode(phone: string, codesize: number, code: string) {
         return new Promise(async (resolve, reject) => {
-            let code = generateCode(4);
+            // let code = generateCode(codesize);
             let params = {
                 "PhoneNumbers": phone,
                 "SignName": AliSmsPlugin.options.SignName,

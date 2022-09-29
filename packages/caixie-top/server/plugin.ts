@@ -7,7 +7,7 @@ import {
     createProxyHandler,
     Logger, PickerPlugin, PluginCommonModule, ProcessContext,
     registerPluginStartupMessage, Type,
-    ConfigModule,
+    ConfigModule, EventBusModule,
 } from "@picker-cc/core";
 import {isProduction} from './utils/env';
 import {resolveClientPath, resolveDistPath} from "./utils/resolve-path";
@@ -16,6 +16,7 @@ import {UsersModule} from "./users/users.module";
 import {renderPage} from 'vite-plugin-ssr'
 import {UsersService} from "./users/users.service";
 import {WeChatModule} from "@picker-cc/wechat-plugin";
+import {UsersController} from "./users/users.controller";
 
 /**
  * @description
@@ -37,13 +38,15 @@ export interface PluginOptions {
 @PickerPlugin({
     imports: [
         PluginCommonModule,
-        UsersModule,
+        // UsersModule,
         WeChatModule,
     ],
-    controllers: [
-        // AppController
-    ],
     providers: [
+        UsersService
+    ],
+    controllers: [
+        UsersController
+        // AppController
     ],
 })
 export class CaixieAppPlugin implements NestModule {

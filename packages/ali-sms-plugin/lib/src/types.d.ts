@@ -3,6 +3,7 @@ export declare type SMSOptions = {
     accessKeySecret: string;
     endpoint?: string;
     apiVersion?: string;
+    codeSize?: number;
     SignName: string;
     TemplateCode_Code: string;
 };

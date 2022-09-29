@@ -3,10 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SmsEvent = void 0;
 const core_1 = require("@picker-cc/core");
 class SmsEvent extends core_1.PickerEvent {
-    constructor(phone, type) {
+    constructor(type, phone, content) {
         super();
-        this.phone = phone;
         this.type = type;
+        this.phone = phone;
+        this.content = content;
     }
 }
 exports.SmsEvent = SmsEvent;

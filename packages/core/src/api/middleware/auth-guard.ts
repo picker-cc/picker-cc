@@ -37,8 +37,6 @@ export class AuthGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const {req, res, info} = parseContext(context);
-        console.log('---re')
-        // console.log(req)
         const isFieldResolver = this.isFieldResolver(info);
         const permissions = this.reflector.get<Permission[]>(PERMISSIONS_METADATA_KEY, context.getHandler());
         // console.log(permissions)

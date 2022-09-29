@@ -14,5 +14,5 @@ export declare class AliSmsPlugin implements NestModule, OnModuleInit {
      * 发送验证码
      * @param phone string 手机号
      */
-    sendCode(phone: string): Promise<unknown>;
+    sendCode(phone: string, codesize: number, code: string): Promise<unknown>;
 }
