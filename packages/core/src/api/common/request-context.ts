@@ -10,6 +10,7 @@ import { ApiType } from './get-api-type';
 import {CachedSession} from "../../config/session-cache/session-cache-strategy";
 import {TFunction} from "i18next";
 import {LanguageCode} from "@picker-cc/common/lib/generated-types";
+import {CreateContext, PickerContext} from "../../schema/types";
 
 export type SerializedRequestContext = {
     _req?: any;
@@ -46,6 +47,7 @@ export class RequestContext {
     private readonly _translationFn: TFunction;
     private readonly _apiType: ApiType;
     private readonly _req?: Request;
+    private readonly _picker?: PickerContext
 
     /**
      * @internal
@@ -58,8 +60,9 @@ export class RequestContext {
         isAuthorized: boolean;
         authorizedAsOwnerOnly: boolean;
         translationFn?: TFunction;
+        picker?: PickerContext
     }) {
-        const { req, apiType, session, languageCode, translationFn } = options;
+        const { req, apiType, session, languageCode, translationFn, picker } = options;
         this._req = req;
         this._apiType = apiType;
         this._session = session;
@@ -67,6 +70,7 @@ export class RequestContext {
         this._isAuthorized = options.isAuthorized;
         this._authorizedAsOwnerOnly = options.authorizedAsOwnerOnly;
         this._translationFn = translationFn || (((key: string) => key) as any);
+        this._picker = picker
     }
 
     /**
@@ -176,6 +180,10 @@ export class RequestContext {
      */
     get isAuthorized(): boolean {
         return this._isAuthorized;
+    }
+
+    get picker(): PickerContext {
+        return this._picker
     }
 
     private isAuthenticatedSession(session: any): any {

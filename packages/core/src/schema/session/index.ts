@@ -201,8 +201,8 @@ export function storedSessions({
  */
 export async function createSessionContext<T>(
     sessionStrategy: SessionStrategy<T>,
-    req: Request,
-    res: Response,
+    req: IncomingMessage,
+    res: ServerResponse,
     createContext: CreateContext
 ): Promise<SessionContext<T>> {
     return {

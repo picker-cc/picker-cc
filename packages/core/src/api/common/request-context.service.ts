@@ -9,6 +9,7 @@ import {RequestContext} from './request-context';
 import {CachedSession, CachedSessionUser} from "../../config/session-cache/session-cache-strategy";
 import {ID} from "@picker-cc/common/lib/shared-types";
 import ms from "ms";
+import {CreateContext, PickerContext} from "../../schema/types";
 
 export const REQUEST_CONTEXT_KEY = 'pickerRequestContext';
 
@@ -83,31 +84,18 @@ export class RequestContextService {
         info?: GraphQLResolveInfo,
         requiredPermissions?: Permission[],
         session?: CachedSession,
+        picker?: PickerContext
     ): Promise<RequestContext> {
         const apiType = getApiType(info);
         const hasOwnerPermission = !!requiredPermissions && requiredPermissions.includes(Permission.Owner);
         const user = session && session.user;
         const permissions = user && user.permissions
-        // const permissions = user.
-        // console.log(permissions)
-        // this.authZRBACService.getImplicitPermissionsForUser(user.id.toString())
-        // TODO 从 casbin 获取用户权限来检查用户是否有权限
-        // const permissions =
-        //     user && (await this.casbinService.getImplicitPermissionsForUser(user?.id.toString()));
-        // console.log(permissions + 'x0x0x00')
+
         if (permissions) {
-            // console.log(permissions.flat(Infinity))
-            // const intersection = _.intersection(_.flatten(permissions), requiredPermissions)
-            // console.log('是否有权限交集')
-            // console.log(intersection)
             // 交集处理
             _.intersection(_.flatten(permissions), requiredPermissions);
         }
-        // const findNumberIn2DArray = function (matrix, target) {
-        //     return matrix.flat(Infinity).includes(target)
-        // };
-        // const find = findNumberIn2DArray(permissions, requiredPermissions)
-        // console.log(find)
+
         const isAuthorized = (() => {
             if (!permissions) {
                 return false;
@@ -115,7 +103,6 @@ export class RequestContextService {
             const intersection = _.intersection(_.flatten(permissions), requiredPermissions);
             return intersection.length > 0;
         })();
-        // const isAuthorized = user ? await this.casbinService.hasPermissionForUser(user?.id.toString, requiredPermissions)
         const authorizedAsOwnerOnly = user && hasOwnerPermission;
         const translationFn = (req as any).t;
 
@@ -126,6 +113,8 @@ export class RequestContextService {
             session,
             isAuthorized,
             authorizedAsOwnerOnly,
+            picker,
+            // picker:
         });
     }
 }

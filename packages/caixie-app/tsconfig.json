@@ -1,0 +1,69 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "esnext",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["client/*"]
+    }
+  }
+}
+//{
+//  "compilerOptions": {
+//    "baseUrl": ".",
+//    "noImplicitAny": false,
+//    "experimentalDecorators": true,
+//    "emitDecoratorMetadata": true,
+//    "strict": true,
+//    "module": "esnext",
+//    "moduleResolution": "Node",
+//    "target": "esnext",
+//    "outDir": "dist",
+//    "lib": [
+//      "DOM",
+//      "DOM.Iterable",
+//      "ESNext"
+//    ],
+//    "types": [
+//      "vite/client"
+//    ],
+//    "jsx": "react-jsx",
+//    "skipLibCheck": true,
+//    "esModuleInterop": true
+//  },
+//  "ts-node": {
+//    "transpileOnly": true,
+//    "compilerOptions": {
+//      "module": "CommonJS"
+//    }
+//  }
+//}
+//{
+//  "extends": "../../tsconfig.json",
+//  "compilerOptions": {
+//    "baseUrl": ".",
+//    "declaration": true,
+//    "removeComments": false,
+//    "noLib": false,
+//    "skipLibCheck": true,
+//    "sourceMap": true,
+//    "paths": {
+//      "@/*": ["client/*"]
+//    }
+//  }
+//}

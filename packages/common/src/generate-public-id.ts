@@ -20,16 +20,20 @@ export function generatePublicId(): string {
   return publicId();
 }
 
-export function generateCode(): string {
-  const code = customAlphabet('0123456789', 12);
+export function generateCode(size?: number): string {
+  const code = customAlphabet('0123456789', size ?? 12);
   return code();
 }
-export function generateCode5(): string {
-  const code = customAlphabet('0123456789', 5);
-  return code();
-}
-export function generateNo(): string {
-  return generateCode()
+// export function generateCode5(): string {
+//   const code = customAlphabet('0123456789', 5);
+//   return code();
+// }
+// export function generateCode4(): string {
+//     const code = customAlphabet('0123456789', 4);
+//     return code();
+// }
+// export function generateNo(): string {
+//   return generateCode()
   // const code = customAlphabet('0123456789', 12);
   // return code();
-}
+// }

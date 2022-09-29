@@ -5,10 +5,12 @@ import logoUrl from './logo.svg'
 import type { PageContextServer } from './types'
 
 export { render }
+export { onBeforeRender }
 // See https://vite-plugin-ssr.com/data-fetching
 export const passToClient = ['pageProps', 'urlPathname']
 
 async function render(pageContext: PageContextServer) {
+    // console.log('render ....')
     const app = createApp(pageContext)
     const appHtml = await renderToString(app)
 
@@ -31,10 +33,32 @@ async function render(pageContext: PageContextServer) {
       </body>
     </html>`
 
+    // console.log(pageContext.pageProps)
     return {
         documentHtml,
         pageContext: {
             // We can add some `pageContext` here, which is useful if we want to do page redirection https://vite-plugin-ssr.com/page-redirection
         }
     }
+}
+async function onBeforeRender(pageContext) {
+    // console.log('on before render')
+    // return {
+    //     pageContext: {
+    //         hello: 'world'
+    //     }
+    // }
+    // console.log(pageContext)
+    // const { app, store } = createApp(pageContext)
+    //
+    // const stream = renderToNodeStream(app)
+    //
+    // const initialStoreState = store.state.value
+    //
+    // return {
+    //     pageContext: {
+    //         initialStoreState,
+    //         stream
+    //     }
+    // }
 }

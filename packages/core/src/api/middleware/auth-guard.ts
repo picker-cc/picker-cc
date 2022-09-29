@@ -13,6 +13,7 @@ import {RequestContext} from '../common/request-context';
 import {ForbiddenError} from '../../common/error/errors';
 import {CachedSession} from "../../config/session-cache/session-cache-strategy";
 import {setSessionToken} from "../common/set-session-token";
+import {createSessionContext} from "../../schema/session";
 
 /**
  * @description
@@ -36,6 +37,7 @@ export class AuthGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const {req, res, info} = parseContext(context);
+        console.log('---re')
         // console.log(req)
         const isFieldResolver = this.isFieldResolver(info);
         const permissions = this.reflector.get<Permission[]>(PERMISSIONS_METADATA_KEY, context.getHandler());
@@ -57,9 +59,27 @@ export class AuthGuard implements CanActivate {
         //     (req as any)[REQUEST_CONTEXT_KEY] = requestContext;
         // }
         const session = await this.getSession(req, res, hasOwnerPermission);
-        const requestContext = await this.requestContextService.fromRequest(req, info, permissions, session);
+        const picker = await this.configService.context({
+            sessionContext: this.configService.schemaConfig.session
+                ? await createSessionContext(this.configService.schemaConfig.session, req, res, this.configService.context)
+                : undefined,
+            req
+        })
+        const requestContext = await this.requestContextService.fromRequest(
+            req,
+            info,
+            permissions,
+            session,
+            picker
+        );
         (req as any)[REQUEST_CONTEXT_KEY] = requestContext;
-
+        // this.configService.context({
+        //     sessionContext: this.configService.schemaConfig.session
+        //         ? await createSessionContext(this.configService.schemaConfig.session, req, res, this.configService.context)
+        //         : undefined,
+        //     req
+        // })
+        // console.log(requestContext)
         // console.log(session)
         if (authDisabled || !permissions || isPublic) {
             return true;

@@ -102,7 +102,10 @@ export type SchemaConfig<TypeInfo extends BasePickerTypeInfo = BasePickerTypeInf
     graphql?: GraphQLConfig;
     extendGraphqlSchema?: ExtendGraphqlSchema;
     storage?: any;
-    experimental?: any;
+    experimental?: {
+        /** 创建一个带有 `lists` export 的文件 `node_modules/.picker-cc/api`*/
+        generateNodeAPI?: boolean;
+    };
 }
 
 // Exports from sibling packages

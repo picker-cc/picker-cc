@@ -2,10 +2,7 @@ import {config, createAuth, DefaultLogger, LogLevel, PickerConfig, statelessSess
 import {ADMIN_API_PATH, API_PORT} from "@picker-cc/common/lib/shared-constants";
 
 import {User} from "./schemas/User";
-import path from "path";
-import {AssetServerPlugin} from "@picker-cc/asset-server-plugin";
-import {AdminUiPlugin} from "@picker-cc/admin-ui-plugin";
-// import {AdminUiPlugin} from "@picker-cc/ssr-vue";
+
 const sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --';
 const sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
 const sessionConfig = {
@@ -22,6 +19,9 @@ const schemaConfig = config({
         User
     },
     session: statelessSessions(sessionConfig),
+    experimental: {
+        generateNodeAPI: true
+    }
 })
 const {withAuth} = createAuth({
     listKey: 'User',
@@ -35,11 +35,11 @@ const {withAuth} = createAuth({
 })
 
 const withAuthConfig = withAuth(schemaConfig)
-
+export default withAuthConfig
 /**
  * 配置开发期间使用的设置
  */
-export const devConfig: PickerConfig = {
+export const pickerCc: PickerConfig = {
     // graphqlSchema: customSchema,
     // context: schemaContext,
     schemaConfig: withAuthConfig,
@@ -72,10 +72,14 @@ export const devConfig: PickerConfig = {
         //     route: 'assets',
         //     assetUploadDir: path.join(__dirname, 'assets')
         // }),
-        AdminUiPlugin.init({
-            route: 'admin',
-            port: 5001
-        })
+        // AdminUiPlugin.init({
+        //     route: 'admin',
+        //     port: 5001
+        // })
+        // CaixieAppPlugin.init({
+        //     route: 'admin',
+        //     port: 5001
+        // })
         // AdminUiPlugin.init({
         //     route: 'admin',
         //     port: 5001,

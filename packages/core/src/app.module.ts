@@ -16,6 +16,9 @@ import {I18nService} from "./i18n";
 import {ApiModule} from "./api/api.module";
 import {PluginModule} from "./plugin/plugin.module";
 import {ServiceModule} from "./service/service.module";
+import {RequestContextService} from "./api/common/request-context.service";
+import {AuthGuard} from "./api/middleware/auth-guard";
+import {APP_GUARD} from "@nestjs/core";
 
 @Module({
     imports: [
@@ -28,6 +31,13 @@ import {ServiceModule} from "./service/service.module";
         // ConnectionModule,
     ],
     // providers: [ InitializerService, ]
+    providers: [
+        RequestContextService,
+        {
+            provide: APP_GUARD,
+            useClass: AuthGuard,
+        },
+    ]
 })
 export class AppModule implements NestModule, OnApplicationShutdown {
     constructor(

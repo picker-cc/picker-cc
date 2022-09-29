@@ -92,6 +92,21 @@ export async function generateCommittedArtifacts(
     return artifacts;
 }
 
+const nodeAPIJS = (
+    cwd: string,
+    config: SchemaConfig
+) => `import SchemaConfig from '../../picker-cc';
+import { PrismaClient } from '.prisma/client';
+import { createQueryAPI } from '@picker-cc/core/___internal-do-not-use-will-break-in-patch/node-api';
+
+export const query = createQueryAPI(SchemaConfig, PrismaClient);
+`;
+
+const nodeAPIDTS = `import { PickerListsAPI } from '@picker-cc/core/types';
+import { Context } from './types';
+
+export const query: Context['query'];`;
+
 export async function generateNodeModulesArtifactsWithoutPrismaClient(
     graphQLSchema: GraphQLSchema,
     config: SchemaConfig,
@@ -99,29 +114,22 @@ export async function generateNodeModulesArtifactsWithoutPrismaClient(
 ) {
     const lists = initialiseLists(config);
 
-    const dotKeystoneDir = path.join(cwd, 'node_modules/.picker');
+    const dotPickerDir = path.join(cwd, 'node_modules/.picker');
+
+    console.log(dotPickerDir)
     await Promise.all([
         fs.outputFile(
-            path.join(dotKeystoneDir, 'types.d.ts'),
+            path.join(dotPickerDir, 'types.d.ts'),
             printGeneratedTypes(graphQLSchema, lists)
         ),
-        fs.outputFile(path.join(dotKeystoneDir, 'types.js'), ''),
-        // ...(config.experimental?.generateNodeAPI
-            // ? [
-            //     fs.outputFile(path.join(dotKeystoneDir, 'api.js'), nodeAPIJS(cwd, config)),
-            //     fs.outputFile(path.join(dotKeystoneDir, 'api.d.ts'), nodeAPIDTS),
-            // ]
-            // : []
-        // ),
-        // ...(config.experimental?.generateNextGraphqlAPI
-        //     ? [
-        //         fs.outputFile(
-        //             path.join(dotKeystoneDir, 'next/graphql-api.js'),
-        //             nextGraphQLAPIJS(cwd, config)
-        //         ),
-        //         fs.outputFile(path.join(dotKeystoneDir, 'next/graphql-api.d.ts'), nextGraphQLAPIDTS),
-        //     ]
-        //     : []),
+        fs.outputFile(path.join(dotPickerDir, 'types.js'), ''),
+        ...(config.experimental?.generateNodeAPI
+            ? [
+                fs.outputFile(path.join(dotPickerDir, 'api.js'), nodeAPIJS(cwd, config)),
+                fs.outputFile(path.join(dotPickerDir, 'api.d.ts'), nodeAPIDTS),
+            ]
+            : []
+        ),
     ]);
 }
 
