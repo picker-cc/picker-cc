@@ -77,8 +77,8 @@ export const pickerConfig: PickerConfig = {
             token: 'PickerCC',
         }),
         AliSmsPlugin.init({
-            accessKeyId: '',
-            accessKeySecret: '',
+            accessKeyId: 'LTAI5tL5kvxz5VVwoipF2Z7H',
+            accessKeySecret: 'EY3SnfG5KlHVFa7hfPro4mgwrbutv5',
             SignName: '采撷科技',
             TemplateCode_Code: 'SMS_89285012',
             codeSize: 6,

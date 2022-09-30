@@ -362,7 +362,7 @@ datasource ${provider} {
 
 generator client {
   provider = "prisma-client-js"
-  // output   = "node_modules/.prisma/client"${prismaFlags}
+  output   = "node_modules/.prisma/client"${prismaFlags}
 }
 \n`;
   for (const [listKey, { resolvedDbFields, dbMap }] of Object.entries(lists)) {

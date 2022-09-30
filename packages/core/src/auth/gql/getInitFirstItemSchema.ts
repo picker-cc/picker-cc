@@ -48,7 +48,8 @@ export function getInitFirstItemSchema({
           const dbItemAPI = context.sudo().db[listKey];
           const count = await dbItemAPI.count({});
           if (count !== 0) {
-            throw new Error('Initial items can only be created when no items exist in that list');
+              throw new Error('只有当该列表中不存在任何项时，才可以创建初始项')
+            // throw new Error('Initial items can only be created when no items exist in that list');
           }
 
           // Update system state

@@ -1,9 +1,9 @@
 /**
  * @description
- * This service is used to cache arbitrary data relative to an ongoing request.
- * It does this by using a WeakMap bound to the current RequestContext, so the cached
- * data is available for the duration of the request. Once the request completes, the
- * cached data will be automatically garbage-collected.
+ * 该服务用于缓存与正在进行的请求相关的任意数据。
+ * 它通过使用绑定到当前RequestContext的WeakMap来实现这一点，
+ * 因此缓存的数据在请求期间是可用的。
+ * 一旦请求完成，缓存的数据将自动被垃圾回收。
  */
 import {RequestContext} from "../api/common/request-context";
 

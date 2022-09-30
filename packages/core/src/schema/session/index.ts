@@ -89,8 +89,6 @@ export function statelessSessions<T>({
     }
     return {
         async get({ req }) {
-            // console.log('get ---')
-            // console.log(req.headers)
             // const sessionToken = extractSessionToken(req, this.configService.authOptions.tokenMethod);
             const authHeader = req.get('Authorization');
             if (authHeader) {
@@ -108,7 +106,6 @@ export function statelessSessions<T>({
             } catch (err) {}
         },
         async end({ res }) {
-            console.log('end---1')
 
             res.setHeader(
                 'Set-Cookie',
@@ -126,7 +123,6 @@ export function statelessSessions<T>({
         async start({ res, data }) {
             const sealedData = await Iron.seal(data, secret, { ...ironOptions, ttl: maxAge * 1000 });
 
-            console.log('start---1')
             res.setHeader(
                 'Set-Cookie',
                 cookie.serialize(TOKEN_NAME, sealedData, {

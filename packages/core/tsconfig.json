@@ -9,6 +9,4 @@
     //    "strict": false,
 //    "noImplicitThis": false
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src", "src/typings/*.d.ts"],
-  "exclude": ["node_modules"]
 }

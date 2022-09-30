@@ -9,15 +9,16 @@ import {BaseListTypeInfo, SchemaConfig, SessionStrategy} from "../schema/types";
  *
  * Generates config for Picker to implement standard auth features.
  */
-export function createAuth<ListTypeInfo extends BaseListTypeInfo>({
-                                                                      listKey,
-                                                                      secretField,
-                                                                      initFirstItem,
-                                                                      identityField,
-                                                                      magicAuthLink,
-                                                                      passwordResetLink,
-                                                                      sessionData = 'id',
-                                                                  }: AuthConfig<ListTypeInfo>) {
+export function createAuth<ListTypeInfo extends BaseListTypeInfo>
+({
+     listKey,
+     secretField,
+     initFirstItem,
+     identityField,
+     magicAuthLink,
+     passwordResetLink,
+     sessionData = 'id',
+ }: AuthConfig<ListTypeInfo>) {
     const gqlNames: AuthGqlNames = {
         // Core
         authenticateItemWithPassword: `authenticate${listKey}WithPassword`,
@@ -146,12 +147,12 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>({
     const withItemData = (
         _sessionStrategy: SessionStrategy<Record<string, any>>
     ): SessionStrategy<{ listKey: string; itemId: string; data: any }> => {
-        const { get, ...sessionStrategy } = _sessionStrategy;
+        const {get, ...sessionStrategy} = _sessionStrategy;
         return {
             ...sessionStrategy,
-            get: async ({ req, createContext }) => {
-                const session = await get({ req, createContext });
-                const sudoContext = createContext({ sudo: true });
+            get: async ({req, createContext}) => {
+                const session = await get({req, createContext});
+                const sudoContext = createContext({sudo: true});
                 if (
                     !session ||
                     !session.listKey ||
@@ -164,12 +165,12 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>({
 
                 try {
                     const data = await sudoContext.query[listKey].findOne({
-                        where: { id: session.itemId },
+                        where: {id: session.itemId},
                         query: sessionData,
                     });
                     if (!data) return;
 
-                    return { ...session, itemId: session.itemId, listKey, data };
+                    return {...session, itemId: session.itemId, listKey, data};
                 } catch (e) {
                     // TODO: the assumption is this should only be from an invalid sessionData configuration
                     //   it could be something else though, either way, result is a bad session
