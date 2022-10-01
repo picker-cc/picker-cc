@@ -23,4 +23,20 @@ model User {
   lastLogin  DateTime? @default(now())
   password   String?
   isAdmin    Boolean   @default(false)
+  posts      Post[]    @relation("Post_user")
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String    @default("")
+  slug        String    @unique @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  status      String?
+  content     String    @default("")
+  publishDate DateTime?
+  user        User?     @relation("Post_user", fields: [userId], references: [id])
+  userId      String?   @map("user")
+
+  @@index([userId])
 }

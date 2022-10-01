@@ -19,28 +19,17 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>
      sessionData = 'id',
  }: AuthConfig<ListTypeInfo>) {
     const gqlNames: AuthGqlNames = {
+        sendItemVerifyCode: "",
+        SendItemVerifyCodeResult: "",
+
         // Core
-        authenticateItemWithPassword: `authenticate${listKey}WithPassword`,
-        ItemAuthenticationWithPasswordResult: `${listKey}AuthenticationWithPasswordResult`,
-        ItemAuthenticationWithPasswordSuccess: `${listKey}AuthenticationWithPasswordSuccess`,
-        ItemAuthenticationWithPasswordFailure: `${listKey}AuthenticationWithPasswordFailure`,
+        authenticateItemWithVerifyCode: `authenticate${listKey}WithVerifyCode`,
+        ItemAuthenticationWithVerifyCodeResult: `${listKey}AuthenticationWithVerifyCodeResult`,
+        ItemAuthenticationWithVerifyCodeSuccess: `${listKey}AuthenticationWithVerifyCodeSuccess`,
+        ItemAuthenticationWithVerifyCodeFailure: `${listKey}AuthenticationWithVerifyCodeFailure`,
         // Initial data
         CreateInitialInput: `CreateInitial${listKey}Input`,
-        createInitialItem: `createInitial${listKey}`,
-        // Password reset
-        sendItemPasswordResetLink: `send${listKey}PasswordResetLink`,
-        SendItemPasswordResetLinkResult: `Send${listKey}PasswordResetLinkResult`,
-        validateItemPasswordResetToken: `validate${listKey}PasswordResetToken`,
-        ValidateItemPasswordResetTokenResult: `Validate${listKey}PasswordResetTokenResult`,
-        redeemItemPasswordResetToken: `redeem${listKey}PasswordResetToken`,
-        RedeemItemPasswordResetTokenResult: `Redeem${listKey}PasswordResetTokenResult`,
-        // Magic auth
-        sendItemMagicAuthLink: `send${listKey}MagicAuthLink`,
-        SendItemMagicAuthLinkResult: `Send${listKey}MagicAuthLinkResult`,
-        redeemItemMagicAuthToken: `redeem${listKey}MagicAuthToken`,
-        RedeemItemMagicAuthTokenResult: `Redeem${listKey}MagicAuthTokenResult`,
-        RedeemItemMagicAuthTokenSuccess: `Redeem${listKey}MagicAuthTokenSuccess`,
-        RedeemItemMagicAuthTokenFailure: `Redeem${listKey}MagicAuthTokenFailure`,
+        createInitialItem: `createInitial${listKey}`
     };
 
     /**

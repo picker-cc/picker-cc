@@ -1,6 +1,7 @@
 import {InitialisedList} from "./prisma/prisma-schema";
 import { getGraphQLSchema } from "./graphql/graphql-schema";
 import {SchemaConfig} from "./types/config";
+import { graphql } from './graphql';
 
 export function createGraphQLSchema(
   config: SchemaConfig,
@@ -11,15 +12,15 @@ export function createGraphQLSchema(
   let graphQLSchema = getGraphQLSchema(lists, {
     mutation: config.session
       ? {
-        // endSession: graphql.field({
-        //   type: graphql.nonNull(graphql.Boolean),
-        //   async resolve(rootVal, args, context) {
-        //     if (context.endSession) {
-        //       await context.endSession();
-        //     }
-        //     return true;
-        //   },
-        // }),
+        endSession: graphql.field({
+          type: graphql.nonNull(graphql.Boolean),
+          async resolve(rootVal, args, context) {
+            if (context.endSession) {
+              await context.endSession();
+            }
+            return true;
+          },
+        }),
       }
       : {},
     query: {

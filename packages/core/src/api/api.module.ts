@@ -62,7 +62,6 @@ export class ApiModule implements NestModule {
     }
 
     configure(consumer: MiddlewareConsumer): any {
-        console.log('hahaa...')
         // const { adminApiPath } = this.configService.apiOptions;
         // const { uploadMaxFileSize } = this.configService.assetOptions;
 

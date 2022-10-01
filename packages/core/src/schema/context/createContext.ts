@@ -90,7 +90,8 @@ export function makeCreateContext({
       // images,
       // files,
     };
-    if (config.experimental?.contextInitialisedLists) {
+    // @ts-ignore
+      if (config.experimental?.contextInitialisedLists) {
       contextToReturn.experimental = { initialisedLists: lists };
     }
 

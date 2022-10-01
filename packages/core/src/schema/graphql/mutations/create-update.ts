@@ -21,6 +21,7 @@ import {
 } from "./nested-mutation-one-input-resolvers";
 import {applyAccessControlForCreate, getAccessControlledItemForUpdate} from "./access-control";
 import {BaseItem} from "../../types/next-fields";
+import {validateUpdateCreate} from "./validation";
 
 // these aren't here out of thinking this is better syntax(i do not think it is),
 // it's just because TS won't infer the arg is X bit
@@ -107,6 +108,7 @@ async function createSingle(
         rawData,
         undefined
     );
+
     // const prismaClient = new PrismaClient()
     // context.prisma = prismaClient
     // setWriteLimit(context.prisma, pLimit(1));
@@ -114,7 +116,8 @@ async function createSingle(
     const writeLimit = getWriteLimit(context);
 
     const item = await writeLimit(() =>
-        runWithPrisma(context, list, model => model.create({ data }))
+        runWithPrisma(context, list, model => {
+            return model.create({ data })})
     );
 
     return { item, afterOperation };
@@ -308,11 +311,12 @@ async function getResolvedData(
                                 if (input === undefined) {
                                     // No-op: This is what we want
                                     // return () => undefined;
-                                    return () => ''
+                                    // 如果不设置为 undefined Prisma 保存时这个外链是错误的
+                                    return () => input!
                                 }
                                 if (input === null) {
                                     // No-op: Should this be UserInputError?
-                                    return () => ''
+                                    return () => input!
                                     // return () => undefined;
                                 }
                                 const foreignList = list.lists[field.dbField.list];
@@ -415,7 +419,7 @@ async function resolveInputForCreateOrUpdate(
     hookArgs.resolvedData = await getResolvedData(list, hookArgs as any, nestedMutationState);
 
     // Apply all validation checks
-    // await validateUpdateCreate({ list, hookArgs });
+    await validateUpdateCreate({ list, hookArgs });
 
     // Run beforeOperation hooks
     await runSideEffectOnlyHook(list, 'beforeOperation', hookArgs);

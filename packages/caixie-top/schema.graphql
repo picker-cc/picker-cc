@@ -12,6 +12,13 @@ type User {
   lastLogin: DateTime
   password: PasswordState
   isAdmin: Boolean
+  posts(
+    where: PostWhereInput! = {}
+    orderBy: [PostOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Post!]
+  postsCount(where: PostWhereInput! = {}): Int
 }
 
 scalar DateTime
@@ -40,6 +47,7 @@ input UserWhereInput {
   lastLogin: DateTimeNullableFilter
   password: PasswordFilter
   isAdmin: BooleanFilter
+  posts: PostManyRelationFilter
 }
 
 input IDFilter {
@@ -112,6 +120,12 @@ input PasswordFilter {
   isSet: Boolean!
 }
 
+input PostManyRelationFilter {
+  every: PostWhereInput
+  some: PostWhereInput
+  none: PostWhereInput
+}
+
 input UserOrderByInput {
   id: OrderDirection
   name: OrderDirection
@@ -141,6 +155,14 @@ input UserUpdateInput {
   lastLogin: DateTime
   password: String
   isAdmin: Boolean
+  posts: PostRelateToManyForUpdateInput
+}
+
+input PostRelateToManyForUpdateInput {
+  disconnect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+  create: [PostCreateInput!]
+  connect: [PostWhereUniqueInput!]
 }
 
 input UserUpdateArgs {
@@ -159,6 +181,105 @@ input UserCreateInput {
   lastLogin: DateTime
   password: String
   isAdmin: Boolean
+  posts: PostRelateToManyForCreateInput
+}
+
+input PostRelateToManyForCreateInput {
+  create: [PostCreateInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+type Post {
+  id: ID!
+  title: String
+  slug: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  status: PostStatusType
+  content: String
+  publishDate: DateTime
+  user: User
+}
+
+enum PostStatusType {
+  draft
+  published
+}
+
+input PostWhereUniqueInput {
+  id: ID
+  slug: String
+}
+
+input PostWhereInput {
+  AND: [PostWhereInput!]
+  OR: [PostWhereInput!]
+  NOT: [PostWhereInput!]
+  id: IDFilter
+  title: StringFilter
+  slug: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  status: PostStatusTypeNullableFilter
+  content: StringFilter
+  publishDate: DateTimeNullableFilter
+  user: UserWhereInput
+}
+
+input PostStatusTypeNullableFilter {
+  equals: PostStatusType
+  in: [PostStatusType!]
+  notIn: [PostStatusType!]
+  not: PostStatusTypeNullableFilter
+}
+
+input PostOrderByInput {
+  id: OrderDirection
+  title: OrderDirection
+  slug: OrderDirection
+  createdAt: OrderDirection
+  updatedAt: OrderDirection
+  status: OrderDirection
+  content: OrderDirection
+  publishDate: OrderDirection
+}
+
+input PostUpdateInput {
+  title: String
+  slug: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  status: PostStatusType
+  content: String
+  publishDate: DateTime
+  user: UserRelateToOneForUpdateInput
+}
+
+input UserRelateToOneForUpdateInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+}
+
+input PostUpdateArgs {
+  where: PostWhereUniqueInput!
+  data: PostUpdateInput!
+}
+
+input PostCreateInput {
+  title: String
+  slug: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  status: PostStatusType
+  content: String
+  publishDate: DateTime
+  user: UserRelateToOneForCreateInput
+}
+
+input UserRelateToOneForCreateInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 """
@@ -173,6 +294,13 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
+  createPost(data: PostCreateInput!): Post
+  createPosts(data: [PostCreateInput!]!): [Post]
+  updatePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post
+  updatePosts(data: [PostUpdateArgs!]!): [Post]
+  deletePost(where: PostWhereUniqueInput!): Post
+  deletePosts(where: [PostWhereUniqueInput!]!): [Post]
+  endSession: Boolean!
   authenticateUserWithPassword(
     identifier: String!
     password: String!
@@ -210,6 +338,14 @@ type Query {
   ): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int
+  posts(
+    where: PostWhereInput! = {}
+    orderBy: [PostOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Post!]
+  post(where: PostWhereUniqueInput!): Post
+  postsCount(where: PostWhereInput! = {}): Int
   authenticatedItem: AuthenticatedItem
 }
 

@@ -2,6 +2,7 @@ import {config, createAuth, DefaultLogger, LogLevel, PickerConfig, statelessSess
 import {ADMIN_API_PATH, API_PORT} from "@picker-cc/common/lib/shared-constants";
 
 import {User} from "../schemas/User";
+import {Post} from "../schemas/Post"
 import {CaixieAppPlugin} from "./plugin";
 import {WechatPlugin} from "@picker-cc/wechat-plugin";
 import {AliSmsPlugin} from "@picker-cc/ali-sms-plugin";
@@ -19,7 +20,8 @@ const schemaConfig = config({
         url: 'file:./dev.db',
     },
     models: {
-        User
+        User,
+        Post,
     },
     session: statelessSessions(sessionConfig),
     experimental: {
@@ -31,10 +33,12 @@ const {withAuth} = createAuth({
     identityField: 'identifier',
     secretField: 'password',
     initFirstItem: {
-        fields: ['name', 'identifier', 'password']
+        fields: ['name', 'identifier', 'password'],
+        itemData: {
+            isAdmin: true
+        }
     },
-    // sessionData: `
-    // `
+    sessionData: `name isAdmin`
 })
 
 const withAuthConfig = withAuth(schemaConfig)

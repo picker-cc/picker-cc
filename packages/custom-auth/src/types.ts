@@ -3,36 +3,26 @@ import {BaseListTypeInfo, PickerContext} from "@picker-cc/core";
 export type AuthGqlNames = {
     CreateInitialInput: string;
     createInitialItem: string;
-    authenticateItemWithPassword: string;
-    ItemAuthenticationWithPasswordResult: string;
-    ItemAuthenticationWithPasswordSuccess: string;
-    ItemAuthenticationWithPasswordFailure: string;
-    sendItemPasswordResetLink: string;
-    SendItemPasswordResetLinkResult: string;
-    validateItemPasswordResetToken: string;
-    ValidateItemPasswordResetTokenResult: string;
-    redeemItemPasswordResetToken: string;
-    RedeemItemPasswordResetTokenResult: string;
-    sendItemMagicAuthLink: string;
-    SendItemMagicAuthLinkResult: string;
-    redeemItemMagicAuthToken: string;
-    RedeemItemMagicAuthTokenResult: string;
-    RedeemItemMagicAuthTokenSuccess: string;
-    RedeemItemMagicAuthTokenFailure: string;
+    authenticateItemWithVerifyCode: string;
+    ItemAuthenticationWithVerifyCodeResult: string;
+    ItemAuthenticationWithVerifyCodeSuccess: string;
+    ItemAuthenticationWithVerifyCodeFailure: string;
+    sendItemVerifyCode: string;
+    SendItemVerifyCodeResult: string;
 };
 
-export type SendTokenFn = (args: {
+export type SendVerifyCodeFn = (args: {
     itemId: string | number | bigint;
     identity: string;
-    token: string;
+    code: string;
     context: PickerContext;
 }) => Promise<void> | void;
 
 export type AuthTokenTypeConfig = {
-    /** Called when a user should be sent the magic signin token they requested */
-    sendToken: SendTokenFn;
-    /** How long do tokens stay valid for from time of issue, in minutes **/
-    tokensValidForMins?: number;
+    /** 当应该向用户发送他们请求的登录验证码时调用 */
+    sendVerifyCode: SendVerifyCodeFn;
+    /** 从发送时起，验证码的有效时间，单位为分钟 **/
+    verifyCodeValidForMins?: number;
 };
 
 export type AuthConfig<ListTypeInfo extends BaseListTypeInfo> = {
@@ -54,10 +44,8 @@ export type AuthConfig<ListTypeInfo extends BaseListTypeInfo> = {
 };
 
 export type InitFirstItemConfig<ListTypeInfo extends BaseListTypeInfo> = {
-    /** Array of fields to collect, e.g ['name', 'email', 'password'] */
     /** 要收集的字段数组，例如：['name', 'email', 'password']*/
     fields: readonly ListTypeInfo['fields'][];
-    /** Extra input to add for the create mutation */
     /** 为 create mutation 添加额外的输入数据 */
     itemData?: Partial<ListTypeInfo['inputs']['create']>;
 };

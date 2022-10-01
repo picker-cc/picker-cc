@@ -1,13 +1,18 @@
-import {checkbox, list, password, text, timestamp} from "@picker-cc/core";
+import {checkbox, list, password, relationship, text, timestamp} from "@picker-cc/core";
 import {trackingFields} from "./utils";
 
 
 export const User = list({
-    // access: {
-    //     operation: {
-    //         delete: ({ session }) => session?.data.isAdmin,
-    //     }
-    // },
+    access: {
+        operation: {
+            create: ({ session }) => {
+                return session?.data.isAdmin
+            },
+            delete: ({session}) => {
+                return session?.data.isAdmin
+            },
+        }
+    },
     ui: {},
     fields: {
         name: text({
@@ -22,30 +27,28 @@ export const User = list({
             }
         }),
         deletedAt: timestamp({
-            defaultValue: { kind: 'now' }
+            defaultValue: {kind: 'now'}
         }),
         // featured:
         ...trackingFields,
         verified: checkbox({}),
         enabled: checkbox({}),
         lastLogin: timestamp({
-            defaultValue: { kind: 'now' }
+            defaultValue: {kind: 'now'}
         }),
         password: password({
             access: {
-                update: ({ session, item }) => {
+                update: ({session, item}) => {
                     return session && (session.data.isAdmin || session.itemId === item.id)
                 }
             }
         }),
         isAdmin: checkbox({
             access: {
-                create: ({ session }) => session?.data.isAdmin,
-                update: ({ session }) => session?.data.isAdmin,
+                create: ({session}) => session?.data.isAdmin,
+                update: ({session}) => session?.data.isAdmin,
             }
         }),
-        // administrator: relationship({
-        //     ref: 'Administrator.user',
-        // })
+        posts: relationship({ref: 'Post.user', many: true})
     }
 })

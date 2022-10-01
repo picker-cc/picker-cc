@@ -3,7 +3,7 @@ import * as cookie from 'cookie';
 import Iron from '@hapi/iron';
 // uid-safe is what express-session uses so let's just use it
 import { sync as uid } from 'uid-safe';
-import {CreateContext, SessionContext, SessionStoreFunction, SessionStrategy} from "../types";
+import {CreateContext, SessionContext, SessionStore, SessionStoreFunction, SessionStrategy} from "../types";
 import {JSONValue} from "../types/utils";
 import {extractSessionToken} from "../../api/common/extract-auth-token";
 import {Request, Response} from "express";
@@ -90,13 +90,15 @@ export function statelessSessions<T>({
     return {
         async get({ req }) {
             // const sessionToken = extractSessionToken(req, this.configService.authOptions.tokenMethod);
-            const authHeader = req.get('Authorization');
-            if (authHeader) {
-                const matches = authHeader.trim().match(/^bearer\s(.+)$/i);
-                if (matches) {
-                    return matches[1];
-                }
-            }
+            // @ts-ignore
+            // const authHeader = req.get('Authorization');
+            // if (authHeader) {
+            //     const matches = authHeader.trim().match(/^bearer\s(.+)$/i);
+            //     if (matches) {
+            //         return matches[1];
+            //     }
+            // }
+            // console.log(authHeader)
             const cookies = cookie.parse(req.headers.cookie || '');
             const bearer = req.headers.authorization?.replace('Bearer ', '');
             const token = bearer || cookies[TOKEN_NAME];
@@ -201,8 +203,9 @@ export async function createSessionContext<T>(
     res: ServerResponse,
     createContext: CreateContext
 ): Promise<SessionContext<T>> {
+    const sessionStore = await sessionStrategy.get({req, createContext})
     return {
-        session: await sessionStrategy.get({ req, createContext }),
+        session: sessionStore,
         startSession: (data: T) => sessionStrategy.start({ res, data, createContext }),
         endSession: () => sessionStrategy.end({ req, res, createContext }),
     };
