@@ -3,6 +3,7 @@ import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr'
 import { createApp } from './app'
 import logoUrl from './logo.svg'
 import type { PageContextServer } from './types'
+import { setup } from '@css-render/vue3-ssr'
 
 export { render }
 export { onBeforeRender }
@@ -10,10 +11,12 @@ export { onBeforeRender }
 export const passToClient = ['pageProps', 'urlPathname']
 
 async function render(pageContext: PageContextServer): Promise<any> {
-    // console.log('render ....')
+    console.log('Server render ....')
     const app = createApp(pageContext)
     const appHtml = await renderToString(app)
-
+    const { collect } = setup(app)
+    const cssHtml = collect()
+    console.log(cssHtml)
     // See https://vite-plugin-ssr.com/head
     const { documentProps } = pageContext.exports
     const title = (documentProps && documentProps.title) || 'Vite SSR app'
@@ -27,6 +30,7 @@ async function render(pageContext: PageContextServer): Promise<any> {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${desc}" />
         <title>${title}</title>
+        ${cssHtml}
       </head>
       <body>
         <div id="app">${dangerouslySkipEscape(appHtml)}</div>

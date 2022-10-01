@@ -15,6 +15,7 @@ import ssr from 'vite-plugin-ssr/plugin'
 //         },
 //     },
 // });
+import Unocss from 'unocss/vite'
 
 const config: UserConfig = {
     base: '/admin',
@@ -24,11 +25,12 @@ const config: UserConfig = {
         }
     },
     plugins: [
+        Unocss(),
         vue(),
         ssr({
             includeAssetsImportedByServer: true,
             prerender: true
-        })
+        }),
     ]
 }
 

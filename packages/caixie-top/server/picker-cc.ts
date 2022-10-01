@@ -76,8 +76,8 @@ export const pickerConfig: PickerConfig = {
     logger: new DefaultLogger({ level: LogLevel.Info}),
     plugins: [
         WechatPlugin.init({
-            appId: 'wx40f58df735cd2868',
-            secret: '97fe8be8948c6819bd8b547951201a45',
+            appId: '',
+            secret: '',
             token: 'PickerCC',
         }),
         AliSmsPlugin.init({

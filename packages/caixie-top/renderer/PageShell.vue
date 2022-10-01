@@ -1,21 +1,27 @@
 <template>
-    <div class="layout">
-        {{pageContext}}
-        <div class="navigation">
-            <a href="/" class="logo">
-                <img :src='base + "/logo.svg"' height="64" width="64" alt="logo" />
-            </a>
-            <Link :href="base">Home</Link>
-            <Link :href="base + '/about'">About</Link>
+    <n-message-provider>
+
+        <div class="layout">
+            <div class="navigation">
+                <a href="/" class="logo">
+                    <img :src='base + "/logo.svg"' height="64" width="64" alt="logo"/>
+                </a>
+                <Link :href="base">Home</Link>
+                <Link :href="base + '/about'">About</Link>
+            </div>
+            <div class="content">
+                <slot/>
+            </div>
         </div>
-        <div class="content"><slot /></div>
-    </div>
+    </n-message-provider>
+
 </template>
 
 <script lang="ts" setup>
 // import {getBaseUrl} from "vite-plugin-ssr/dist/esm/client/getBaseUrl";
-
+import {NMessageProvider} from 'naive-ui'
 import Link from './Link.vue'
+
 const base = import.meta.env.BASE_URL
 </script>
 
@@ -25,12 +31,15 @@ body {
     margin: 0;
     font-family: sans-serif;
 }
+
 * {
     box-sizing: border-box;
 }
+
 a {
     text-decoration: none;
 }
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
     --vt-c-white: #ffffff;
@@ -69,19 +78,19 @@ a {
     --section-gap: 160px;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-background: var(--vt-c-black);
-        --color-background-soft: var(--vt-c-black-soft);
-        --color-background-mute: var(--vt-c-black-mute);
+/*@media (prefers-color-scheme: dark) {*/
+/*    :root {*/
+/*        --color-background: var(--vt-c-black);*/
+/*        --color-background-soft: var(--vt-c-black-soft);*/
+/*        --color-background-mute: var(--vt-c-black-mute);*/
 
-        --color-border: var(--vt-c-divider-dark-2);
-        --color-border-hover: var(--vt-c-divider-dark-1);
+/*        --color-border: var(--vt-c-divider-dark-2);*/
+/*        --color-border-hover: var(--vt-c-divider-dark-1);*/
 
-        --color-heading: var(--vt-c-text-dark-1);
-        --color-text: var(--vt-c-text-dark-2);
-    }
-}
+/*        --color-heading: var(--vt-c-text-dark-1);*/
+/*        --color-text: var(--vt-c-text-dark-2);*/
+/*    }*/
+/*}*/
 
 *,
 *::before,
@@ -115,12 +124,14 @@ body {
     max-width: 900px;
     margin: auto;
 }
+
 .content {
     padding: 20px;
     border-left: 2px solid #eee;
     padding-bottom: 50px;
     min-height: 100vh;
 }
+
 .navigation {
     padding: 20px;
     flex-shrink: 0;
@@ -129,6 +140,7 @@ body {
     align-items: center;
     line-height: 1.8em;
 }
+
 .logo {
     margin-top: 20px;
     margin-bottom: 10px;
