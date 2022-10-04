@@ -5,14 +5,15 @@ import express from 'express';
 import {
     ConfigService,
     createProxyHandler,
-    Logger, PickerPlugin, PluginCommonModule, ProcessContext,
+    Logger,
+    PickerPlugin,
+    PluginCommonModule, ProcessContext,
     registerPluginStartupMessage, Type,
     ConfigModule, EventBusModule,
 } from "@picker-cc/core";
 import {isProduction} from './utils/env';
 import {resolveClientPath, resolveDistPath} from "./utils/resolve-path";
 import {getViteServer} from "./get-vite-server";
-import {UsersModule} from "./users/users.module";
 import {renderPage} from 'vite-plugin-ssr'
 import {UsersService} from "./users/users.service";
 import {WeChatModule} from "@picker-cc/wechat-plugin";
@@ -83,7 +84,7 @@ export class CaixieAppPlugin implements NestModule {
             // const users = await this.configService.context.db['User'].findMany()
             consumer.apply(
                 vite.middlewares,
-                async (req, res, next) => {
+                async (req: any, res: any, next: any) => {
                     const pageContextInit = {
                         urlOriginal: req.originalUrl,
                         pageProps: {

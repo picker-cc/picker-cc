@@ -11,13 +11,9 @@
 import * as pluralize from "pluralize";
 import { getGqlNames, InitialisedField, InitialisedList, ResolvedDBField } from "./prisma/prisma-schema";
 import { resolveRelationships } from "./resolve-relationships";
-import { outputTypeField } from "./queries/output-field";
-import { graphql } from "./graphql";
-import { parseFieldAccessControl, parseListAccessControl } from "./types/config/access-control";
-import {SchemaConfig} from "./types/config";
-import {BaseListTypeInfo} from "./types/type-info";
-import {MaybePromise} from "./types/utils";
-import {BaseItem, FindManyArgs, GraphQLTypesForList, ListGraphQLTypes} from "./types/next-fields";
+import { outputTypeField } from "./core/queries/output-field";
+import { parseFieldAccessControl, parseListAccessControl } from "./core/access-control";
+import {graphql, SchemaConfig, BaseListTypeInfo, MaybePromise, BaseItem, FindManyArgs, GraphQLTypesForList, ListGraphQLTypes} from "./types";
 import {FilterOrderArgs} from "./types/config/fields";
 
 /**

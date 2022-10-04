@@ -86,8 +86,7 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>
 
     /**
      * validateConfig
-     *
-     * Validates the provided auth config; optional step when integrating auth
+     * 为验证提供的认证配置，集成认证时可选
      */
     const validateConfig = (schemaConfig: SchemaConfig) => {
         const listConfig = schemaConfig.models[listKey];
@@ -96,17 +95,18 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>
             throw new Error(msg);
         }
 
-        // TODO: Check for String-like typing for identityField? How?
-        // TODO: Validate that the identifyField is unique.
-        // TODO: If this field isn't required, what happens if I try to log in as `null`?
+        // TODO: 检查字符串类型的 identityField
+        // TODO: 验证 identifyField 是唯一的
+        // TODO: 如果这个字段不需要，如果我试图登录为 null 会发生什么
         const identityFieldConfig = listConfig.fields[identityField];
         if (identityFieldConfig === undefined) {
             const i = JSON.stringify(identityField);
-            const msg = `A createAuth() invocation for the "${listKey}" list specifies ${i} as its identityField but no field with that key exists on the list.`;
+            const msg = `对 "${listKey} 列表的 createAuth() 调用用指定 ${i} 作为其 identityField，但列表中不存在具有该键的字段"`
+            // const msg = `A createAuth() invocation for the "${listKey}" list specifies ${i} as its identityField but no field with that key exists on the list.`;
             throw new Error(msg);
         }
 
-        // TODO: We could make the secret field optional to disable the standard id/secret auth and password resets (ie. magic links only)
+        // TODO:我们可以使secret字段可选，以禁用标准的id/secret认证和密码重置(例如。神奇的链接)
         const secretFieldConfig = listConfig.fields[secretField];
         if (secretFieldConfig === undefined) {
             const s = JSON.stringify(secretField);
@@ -114,7 +114,7 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>
             throw new Error(msg);
         }
 
-        // TODO: Could also validate initFirstItem.itemData keys?
+        // TODO:也可以验证initFirstItem。itemData key?
         for (const field of initFirstItem?.fields || []) {
             if (listConfig.fields[field] === undefined) {
                 const f = JSON.stringify(field);
@@ -128,6 +128,7 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>
      * withItemData
      *
      * Automatically injects a session.data value with the authenticated item
+     * 自动注入会话。带有身份验证项的数据值
      */
     /* TODO:
       - [ ] We could support additional where input to validate item sessions (e.g an isEnabled boolean)
@@ -170,43 +171,12 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>
 
     /**
      * withAuth
+     * 使用正确的身份验证功能自动扩展配置。这是配置 picker-cc 认证的最简单的方法以；除非您想扩展或替换它，否则您应该使用它自定义功能设置认证的方式。
      *
-     * Automatically extends config with the correct auth functionality. This is the easiest way to
-     * configure auth for picker-cc; you should probably use it unless you want to extend or replace
-     * the way auth is set up with custom functionality.
-     *
-     * It validates the auth config against the provided picker-cc config, and preserves existing
-     * config by composing existing extendGraphqlSchema functions and ui config.
+     * 它根据提供的 picker-cc 配置验证认证配置，并通过组合现有的 extendGraphqlSchema 函数和 ui 配置来保留现有的配置。
      */
     const withAuth = (schemaConfig: SchemaConfig): SchemaConfig => {
         validateConfig(schemaConfig);
-        // let ui = schemaConfig.ui;
-        // if (!schemaConfig.ui?.isDisabled) {
-        //     ui = {
-        //         ...schemaConfig.ui,
-        //         publicPages: [...(schemaConfig.ui?.publicPages || []), ...publicPages],
-        //         getAdditionalFiles: [...(schemaConfig.ui?.getAdditionalFiles || []), getAdditionalFiles],
-        //         pageMiddleware: async args =>
-        //             (await pageMiddleware(args)) ?? schemaConfig?.ui?.pageMiddleware?.(args),
-        //         isAccessAllowed: async (context: PickerContext) => {
-        //             // Allow access to the adminMeta data from the /init path to correctly render that page
-        //             // even if the user isn't logged in (which should always be the case if they're seeing /init)
-        //             const headers = context.req?.headers;
-        //             const host = headers ? headers['x-forwarded-host'] || headers['host'] : null;
-        //             const url = headers?.referer ? new URL(headers.referer) : undefined;
-        //             const accessingInitPage =
-        //                 url?.pathname === '/init' &&
-        //                 url?.host === host &&
-        //                 (await context.sudo().query[listKey].count({})) === 0;
-        //             return (
-        //                 accessingInitPage ||
-        //                 (schemaConfig.ui?.isAccessAllowed
-        //                     ? schemaConfig.ui.isAccessAllowed(context)
-        //                     : context.session !== undefined)
-        //             );
-        //         },
-        //     };
-        // }
 
         if (!schemaConfig.session) throw new TypeError('Missing .session configuration');
         const session = withItemData(schemaConfig.session);
@@ -233,12 +203,5 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>
 
     return {
         withAuth,
-        // In the future we may want to return the following so that developers can
-        // roll their own. This is pending a review of the use cases this might be
-        // appropriate for, along with documentation and testing.
-        // ui: { pageMiddleware, getAdditionalFiles, publicPages },
-        // fields,
-        // extendGraphqlSchema,
-        // validateConfig,
     };
 }

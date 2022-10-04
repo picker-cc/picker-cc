@@ -4,15 +4,12 @@ import {Reflector} from '@nestjs/core';
 import {Request, Response} from 'express';
 
 import {ConfigService, LogLevel} from '../../config';
-import {extractSessionToken} from '../common/extract-auth-token';
 import {parseContext} from '../common/parse-context';
 import {REQUEST_CONTEXT_KEY, RequestContextService} from '../common/request-context.service';
 import {PERMISSIONS_METADATA_KEY} from '../decorators/allow.decorator';
 import {GraphQLResolveInfo} from "graphql";
-import {RequestContext} from '../common/request-context';
 import {ForbiddenError} from '../../common/error/errors';
 import {CachedSession} from "../../config/session-cache/session-cache-strategy";
-import {setSessionToken} from "../common/set-session-token";
 import {createSessionContext} from "../../schema/session";
 
 /**
@@ -36,7 +33,6 @@ export class AuthGuard implements CanActivate {
     }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        console.log('can activate ....')
         const {req, res, info} = parseContext(context);
         const isFieldResolver = this.isFieldResolver(info);
         const permissions = this.reflector.get<Permission[]>(PERMISSIONS_METADATA_KEY, context.getHandler());
@@ -44,7 +40,7 @@ export class AuthGuard implements CanActivate {
         if (isFieldResolver && !permissions) {
             return true;
         }
-        const authDisabled = this.configService.authOptions.disableAuth;
+        // const authDisabled = this.configService.authOptions.disableAuth;
 
         const isPublic = !!permissions && permissions.includes(Permission.Public);
         const hasOwnerPermission = !!permissions && permissions.includes(Permission.Owner);
@@ -80,7 +76,7 @@ export class AuthGuard implements CanActivate {
         // })
         // console.log(requestContext)
         // console.log(session)
-        if (authDisabled || !permissions || isPublic) {
+        if (!permissions || isPublic) {
             return true;
         } else {
             const canActivate = requestContext.isAuthorized || requestContext.authorizedAsOwnerOnly;
@@ -97,9 +93,9 @@ export class AuthGuard implements CanActivate {
         res: Response,
         hasOwnerPermission: boolean,
     ): Promise<CachedSession | undefined> {
-        const sessionToken = extractSessionToken(req, this.configService.authOptions.tokenMethod);
-        let serializedSession: CachedSession | undefined;
-        if (sessionToken) {
+        // const sessionToken = extractSessionToken(req, this.configService.authOptions.tokenMethod);
+        // let serializedSession: CachedSession | undefined;
+        // if (sessionToken) {
             // session = await this.authService.validateSession(authToken);
             // serializedSession = await this.sessionService.getSessionFromToken(sessionToken);
             // if (serializedSession) {
@@ -108,14 +104,14 @@ export class AuthGuard implements CanActivate {
 
             // 如果有一个 token，但它不能验证为一个会话，
             // 那么这个 token 就不在有效，应该取消设置。
-            setSessionToken({
-                req,
-                res,
-                authOptions: this.configService.authOptions,
-                rememberMe: false,
-                sessionToken: '',
-            });
-        }
+            // setSessionToken({
+            //     req,
+            //     res,
+            //     authOptions: this.configService.authOptions,
+            //     rememberMe: false,
+            //     sessionToken: '',
+            // });
+        // }
 
         // if (hasOwnerPermission && !serializedSession) {
         //     serializedSession = await this.sessionService.createAnonymousSession();
@@ -127,7 +123,8 @@ export class AuthGuard implements CanActivate {
         //         res,
         //     });
         // }
-        return serializedSession;
+        // return serializedSession;
+        return null;
     }
 
     /**

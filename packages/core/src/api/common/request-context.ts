@@ -1,12 +1,7 @@
-// import {AnonymousSession} from '../../entity/session/anonymous-session.entity';
-// import {AuthenticatedSession} from '../../entity/session/authenticated-session.entity';
 import {ID, JsonCompatible} from '@picker-cc/common/lib/shared-types';
 import { isObject } from '@picker-cc/common/lib/shared-utils';
 import { Request } from 'express';
 
-// import { Session, User } from '../../entity';
-
-import { ApiType } from './get-api-type';
 import {CachedSession} from "../../config/session-cache/session-cache-strategy";
 import {TFunction} from "i18next";
 import {LanguageCode} from "@picker-cc/common/lib/generated-types";
@@ -15,7 +10,7 @@ import {CreateContext, PickerContext} from "../../schema/types";
 export type SerializedRequestContext = {
     _req?: any;
     _session: JsonCompatible<Required<CachedSession>>;
-    _apiType: ApiType;
+    // _apiType: ApiType;
     _languageCode: LanguageCode;
     _isAuthorized: boolean;
     _authorizedAsOwnerOnly: boolean;
@@ -45,7 +40,7 @@ export class RequestContext {
     private readonly _isAuthorized: boolean;
     private readonly _authorizedAsOwnerOnly: boolean;
     private readonly _translationFn: TFunction;
-    private readonly _apiType: ApiType;
+    // private readonly _apiType: ApiType;
     private readonly _req?: Request;
     private readonly _picker?: PickerContext
 
@@ -54,7 +49,6 @@ export class RequestContext {
      */
     constructor(options: {
         req?: Request;
-        apiType: ApiType;
         session?: CachedSession;
         languageCode?: LanguageCode;
         isAuthorized: boolean;
@@ -62,9 +56,9 @@ export class RequestContext {
         translationFn?: TFunction;
         picker?: PickerContext
     }) {
-        const { req, apiType, session, languageCode, translationFn, picker } = options;
+        const { req, session, languageCode, translationFn, picker } = options;
         this._req = req;
-        this._apiType = apiType;
+        // this._apiType = apiType;
         this._session = session;
         this._languageCode = languageCode;
         this._isAuthorized = options.isAuthorized;
@@ -82,7 +76,7 @@ export class RequestContext {
      */
     static empty(): RequestContext {
         return new RequestContext({
-            apiType: 'admin',
+            // apiType: 'admin',
             authorizedAsOwnerOnly: false,
             isAuthorized: true,
         });
@@ -95,7 +89,7 @@ export class RequestContext {
     static deserialize(ctxObject: SerializedRequestContext): RequestContext {
         return new RequestContext({
             req: ctxObject._req as any,
-            apiType: ctxObject._apiType,
+            // apiType: ctxObject._apiType,
             session: {
                 ...ctxObject._session,
                 expires: ctxObject._session?.expires && new Date(ctxObject._session.expires),
@@ -141,10 +135,10 @@ export class RequestContext {
         });
     }*/
 
-    get apiType(): ApiType {
-        return this._apiType;
-    }
-
+    // get apiType(): ApiType {
+    //     return this._apiType;
+    // }
+    //
     get session(): CachedSession | undefined {
         return this._session;
     }

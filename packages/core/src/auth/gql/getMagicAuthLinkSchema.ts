@@ -3,8 +3,8 @@ import { AuthGqlNames, AuthTokenTypeConfig, SecretFieldImpl } from '../types';
 import { createAuthToken } from '../lib/createAuthToken';
 import { validateAuthToken } from '../lib/validateAuthToken';
 import { getAuthTokenErrorMessage } from '../lib/getErrorMessage';
-import { graphql } from '../../schema';
-import {BaseItem} from "../../schema/types";
+import {BaseItem, graphql} from "../../schema/types";
+
 
 const errorCodes = ['FAILURE', 'TOKEN_EXPIRED', 'TOKEN_REDEEMED'] as const;
 

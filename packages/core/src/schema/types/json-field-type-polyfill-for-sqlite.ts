@@ -1,4 +1,3 @@
-import { graphql} from '../graphql'
 import {JSONValue} from "./utils";
 import {
     BaseItem,
@@ -9,6 +8,7 @@ import {
 } from "./next-fields";
 import {DatabaseProvider} from "../prisma/prisma-schema";
 import {PickerContext} from "./picker-context";
+import { graphql } from "./schema";
 function mapOutputFieldToSQLite(
   field: graphql.Field<{ value: JSONValue; item: BaseItem }, {}, any, 'value'>
 ) {

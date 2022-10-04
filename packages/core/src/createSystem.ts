@@ -3,9 +3,9 @@ import {PickerConfig} from "./config";
 import {initialiseLists} from "./schema/types-for-lists";
 import {getGqlNames, SchemaConfig} from "./schema/types";
 import {createGraphQLSchema} from "./schema/createGraphQLSchema";
-import {getSudoGraphQLSchema} from "./schema/graphql/graphql-schema";
+import {getSudoGraphQLSchema} from "./schema/core/graphql-schema";
 import {PrismaModule} from "./schema/artifacts";
-import {setPrismaNamespace, setWriteLimit} from "./schema/graphql/mutations/create-update";
+import {setPrismaNamespace, setWriteLimit} from "./schema/core/mutations/create-update";
 import {makeCreateContext} from "./schema/context/createContext";
 
 

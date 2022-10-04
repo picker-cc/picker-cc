@@ -1,7 +1,6 @@
 import {DynamicModule} from "@nestjs/common";
 import {ConfigModule, ConfigService, PickerConfig} from "../../config";
 import {buildSchema, extendSchema, graphql, GraphQLSchema, printSchema, ValidationContext} from "graphql";
-import {ApiType} from "../common/get-api-type";
 
 import path from "path";
 import {generateListOptions} from "./generate-list-options";
@@ -17,10 +16,12 @@ import {ServiceModule} from "../../service/service.module";
 import {getDynamicGraphQlModulesForPlugins} from "../../plugin/dynamic-plugin-api.module";
 import {IncomingMessage, ServerResponse} from "http";
 import {createSessionContext} from "../../schema/session";
+import {EventBus, EventBusModule} from "../../event-bus";
+import {AssetInterceptorPlugin} from "../middleware/asset-interceptor-plugin";
 
 // import {}
 export interface GraphQLApiOptions {
-    apiType: 'studio' | 'admin';
+    // apiType: 'studio' | 'admin';
     typePaths: string[];
     apiPath: string;
     debug: boolean;
@@ -39,6 +40,7 @@ export function configureGraphQLModule(
         driver: ApolloDriver,
         useFactory: (
             configService: ConfigService,
+            eventBus: EventBus,
             // requestContextService: RequestContextService,
             i18nService: I18nService,
             // idCodecService: IdCodecService,
@@ -49,6 +51,7 @@ export function configureGraphQLModule(
             // console.log(options)
             return createGraphQLOptions(
                 configService,
+                eventBus,
                 i18nService,
                 // requestContextService,
                 // idCodecService,
@@ -60,12 +63,14 @@ export function configureGraphQLModule(
         },
         inject: [
             ConfigService,
+            EventBus,
             I18nService,
             GraphQLTypesLoader,
         ],
         imports: [
             ConfigModule,
             I18nModule,
+            EventBusModule,
             // ApiSharedModule,
             ServiceModule
         ],
@@ -75,6 +80,7 @@ export function configureGraphQLModule(
 
 async function createGraphQLOptions(
     configService: ConfigService,
+    eventBus: EventBus,
     i18nService: I18nService,
     // requestContextService: RequestContextService,
     // idCodecService: IdCodecService,
@@ -95,7 +101,7 @@ async function createGraphQLOptions(
     return {
         path: '/' + options.apiPath,
         // typeDefs: printSchema(builtSchema),
-        include: [options.resolverModule, ...getDynamicGraphQlModulesForPlugins(options.apiType)],
+        include: [options.resolverModule, ...getDynamicGraphQlModulesForPlugins()],
         fieldResolverEnhancers: ['guards'],
         schema: configService.graphqlSchema,
         // resolvers,
@@ -105,29 +111,8 @@ async function createGraphQLOptions(
         // req: IncomingMessage;
         // res: ServerResponse;
         context: async ({req, res}: {req: IncomingMessage, res: ServerResponse}) => {
-            // const requestContext = requestContextService.create(req)
-            // console.log(req)
-            // console.log(requestContext)
-
-            // console.log(
-            //     configService.context
-            // )
-            // return configService.context
-            // return req
-            // const context = async ({ req, res }: { req: IncomingMessage; res: ServerResponse }) =>
-            //     picker.createContext({
-            //         sessionContext: sessionStrategy
-            //             ? await createSessionContext(sessionStrategy, req, res, createContext)
-            //             : undefined,
-            //         req,
-            //     });
-            // userConfig.context = context
-            // const context = configService.context
-            // createSessionContext()
-            // configService.context
-            // const context =
-            // configService.context = Object.assign({}, configService.context, createSessionContext())
             return configService.context({
+                eventBus,
                 sessionContext: configService.schemaConfig.session
                     ? await createSessionContext(configService.schemaConfig.session, req, res, configService.context)
                     : undefined,
@@ -138,8 +123,8 @@ async function createGraphQLOptions(
         // 这是由Express cors插件处理
         cors: false,
         plugins: [
-            // new TranslateErrorsPlugin(i18nService),
-            // new AssetInterceptorPlugin(configService),
+            new TranslateErrorsPlugin(i18nService),
+            new AssetInterceptorPlugin(configService),
             ...configService.apiOptions.apolloServerPlugins,
         ],
         validationRules: options.validationRules,
@@ -155,33 +140,17 @@ async function createGraphQLOptions(
      *
      * @param apiType
      */
-    async function buildSchemaForApi(apiType: ApiType): Promise<GraphQLSchema> {
-        const customFields = configService.customFields;
+    async function buildSchemaForApi(): Promise<GraphQLSchema> {
         // 路径必须规范化以使用正斜杠分隔符。
         // 参考 https://github.com/nestjs/graphql/issues/336
         const normalizedPaths = options.typePaths.map(p => p.split(path.sep).join('/'));
         const typeDefs = await typesLoader.mergeTypesByPaths(normalizedPaths);
-        const authStrategies =
-            apiType === 'studio'
-                ? configService.authOptions.studioAuthenticationStrategy
-                : configService.authOptions.adminAuthenticationStrategy;
         let schema = buildSchema(typeDefs);
-
-        // getPluginAPIExtensions(configService.plugins, apiType)
-        //     .map(e => (typeof e.schema === 'function' ? e.schema() : e.schema))
-        //     .filters(notNullOrUndefined)
-        //     .forEach(documentNode => (schema = extendSchema(schema, documentNode)));
-
         schema = generateListOptions(schema);
 
         schema = generateErrorCodeEnum(schema);
-        schema = generateAuthenticationTypes(schema, authStrategies);
-
-        // schema = addGraphQLCustomFields(schema, customFields, apiType === 'shop');
-        // if (apiType === 'admin') {
-        //     schema = addServerConfigCustomFields(schema, customFields);
-        // }
-        schema = generatePermissionEnum(schema, configService.authOptions.customPermissions);
+        // schema = generateAuthenticationTypes(schema, authStrategies);
+        // schema = generatePermissionEnum(schema, configService.authOptions.customPermissions);
 
         return schema;
     }

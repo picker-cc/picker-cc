@@ -1,9 +1,7 @@
 import { validate } from 'uuid';
 import { isCuid } from 'cuid';
 import { userInputError } from './error/graphql-errors';
-import {graphql} from "./graphql";
-import {fieldType, FieldTypeFunc, IdFieldConfig, orderDirectionEnum} from "./types";
-import {BaseListTypeInfo} from "./types/type-info";
+import {BaseListTypeInfo, graphql, fieldType, FieldTypeFunc, IdFieldConfig, orderDirectionEnum} from "./types";
 
 
 const idParsers = {

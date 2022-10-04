@@ -251,7 +251,7 @@ We need to reset the ${credentials.type} database "${credentials.database}" at $
       // https://github.com/prisma/prisma-engines/blob/c65d20050f139a7917ef2efc47a977338070ea61/migration-engine/connectors/sql-migration-connector/src/sql_destructive_change_checker/unexecutable_step_check.rs
       // the tl;dr is "making things non null when there are nulls in the db"
       if (!migrationCanBeApplied) {
-        logUnexecutableSteps(evaluateDataLossResult.unexecutableSteps.map(x => x.message));
+        logUnexecutableSteps(evaluateDataLossResult.unexecutableSteps.map((x: any) => x.message));
       }
       // warnings mean "if the migration was applied to the database you're connected to, you will lose x data"
       // note that if you have a field where all of the values are null on your local db and you've removed it, you won't get a warning here.

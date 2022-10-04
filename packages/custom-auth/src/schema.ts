@@ -1,9 +1,6 @@
-
 import { AuthGqlNames, AuthTokenTypeConfig, InitFirstItemConfig, SecretFieldImpl } from './types';
 import { getBaseAuthSchema } from './gql/getBaseAuthSchema';
 import { getInitFirstItemSchema } from './gql/getInitFirstItemSchema';
-import { getPasswordResetSchema } from './gql/getPasswordResetSchema';
-import { getMagicAuthLinkSchema } from './gql/getMagicAuthLinkSchema';
 import {
     assertInputObjectType,
     assertObjectType,
@@ -34,7 +31,7 @@ function assertSecretFieldImpl(
 
 export function getSecretFieldImpl(schema: GraphQLSchema, listKey: string, fieldKey: string) {
     const gqlOutputType = assertObjectType(schema.getType(listKey));
-    const secretFieldImpl = gqlOutputType.getFields()?.[fieldKey].extensions?.keystoneSecretField;
+    const secretFieldImpl = gqlOutputType.getFields()?.[fieldKey].extensions?.defaultSecretField;
     assertSecretFieldImpl(secretFieldImpl, listKey, fieldKey);
     return secretFieldImpl;
 }
@@ -45,8 +42,6 @@ export const getSchemaExtension = ({
                                        secretField,
                                        gqlNames,
                                        initFirstItem,
-                                       passwordResetLink,
-                                       magicAuthLink,
                                        sessionData,
                                    }: {
     identityField: string;
@@ -54,8 +49,6 @@ export const getSchemaExtension = ({
     secretField: string;
     gqlNames: AuthGqlNames;
     initFirstItem?: InitFirstItemConfig<any>;
-    passwordResetLink?: AuthTokenTypeConfig;
-    magicAuthLink?: AuthTokenTypeConfig;
     sessionData: string;
 }): ExtendGraphqlSchema =>
     graphql.extend(base => {
@@ -121,28 +114,6 @@ export const getSchemaExtension = ({
                 gqlNames,
                 graphQLSchema: base.schema,
                 ItemAuthenticationWithPasswordSuccess: baseSchema.ItemAuthenticationWithPasswordSuccess,
-            }),
-            passwordResetLink &&
-            getPasswordResetSchema({
-                identityField,
-                listKey,
-                secretField,
-                passwordResetLink,
-                gqlNames,
-                passwordResetTokenSecretFieldImpl: getSecretFieldImpl(
-                    base.schema,
-                    listKey,
-                    'passwordResetToken'
-                ),
-            }),
-            magicAuthLink &&
-            getMagicAuthLinkSchema({
-                identityField,
-                listKey,
-                magicAuthLink,
-                gqlNames,
-                magicAuthTokenSecretFieldImpl: getSecretFieldImpl(base.schema, listKey, 'magicAuthToken'),
-                base,
             }),
         ].filter((x): x is Exclude<typeof x, undefined> => x !== undefined);
     });

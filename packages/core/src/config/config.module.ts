@@ -2,9 +2,7 @@ import {Module, OnApplicationBootstrap, OnApplicationShutdown} from '@nestjs/com
 
 import {ConfigService} from './config.service';
 import {ModuleRef} from "@nestjs/core";
-import { Injector } from '../common/injector';
-
-import { InjectableStrategy } from '../common/types/injectable-strategy';
+import { Injector, InjectableStrategy } from '../common';
 
 @Module({
   providers: [ ConfigService ],
@@ -33,13 +31,13 @@ export class ConfigModule implements OnApplicationBootstrap, OnApplicationShutdo
     private getInjectableStrategies(): InjectableStrategy[] {
         const { assetNamingStrategy, assetPreviewStrategy, assetStorageStrategy } =
             this.configService.assetOptions;
-        const {
-            adminAuthenticationStrategy,
-            sessionCacheStrategy,
-            passwordHashingStrategy,
-        } = this.configService.authOptions;
+        // const {
+        //     adminAuthenticationStrategy,
+        //     sessionCacheStrategy,
+        //     passwordHashingStrategy,
+        // } = this.configService.authOptions;
         // const { jobQueueStrategy, jobBufferStorageStrategy } = this.configService.jobQueueOptions;
-        const { entityIdStrategy: entityIdStrategyDeprecated } = this.configService;
+        // const { entityIdStrategy: entityIdStrategyDeprecated } = this.configService;
         // const { entityIdStrategy } = this.configService.entityOptions;
         return [
             // ...adminAuthenticationStrategy,

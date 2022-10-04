@@ -25,12 +25,12 @@ const config: UserConfig = {
         }
     },
     plugins: [
-        Unocss(),
         vue(),
         ssr({
             includeAssetsImportedByServer: true,
-            prerender: true
+            // prerender: true
         }),
+        Unocss(),
     ]
 }
 

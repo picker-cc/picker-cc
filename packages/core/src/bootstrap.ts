@@ -1,14 +1,10 @@
 import {DefaultLogger, Logger, PickerConfig, RuntimePickerConfig} from "./config";
 import {INestApplication} from "@nestjs/common";
 import {getConfig, setConfig} from "./config/config-helpers";
-// import {coreEntitiesMap} from "./entity/entities";
-// import {Type} from "@picker-cc/common/lib/shared-types";
-import cookieSession from 'cookie-session'
+// import cookieSession from 'cookie-session'
 import cookieParser from 'cookie-parser';
 import {getConfigurationFunction, getEntitiesFromPlugins} from "./plugin/plugin-metadata";
-// import {InternalServerError} from "./common";
 import {getPluginStartupMessages} from "./plugin/plugin-utils";
-// import {ConnectionOptions} from "@mikro-orm/core";
 import {setProcessContext} from "./process-context/process-context";
 import {NestFactory} from "@nestjs/core";
 import {PickerWorker} from "./worker";
@@ -21,10 +17,6 @@ import {SchemaConfig} from "./schema/types";
 import {createSystem} from "./createSystem";
 import {devMigrations, pushPrismaSchemaToDatabase} from "./schema/migrations";
 import {initConfig} from "./schema/initConfig";
-import {createSessionContext} from "./schema/session";
-import {IncomingMessage, ServerResponse} from "http";
-// import {devMigrations, pushPrismaSchemaToDatabase} from "./lib/migrations";
-// import { PrismaClient } from '@prisma/client'
 
 /**
  * @description
@@ -69,13 +61,14 @@ export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INes
     // app.getHttpAdapter().getInstance().In
     DefaultLogger.restoreOriginalLogLevel();
     app.useLogger(new Logger());
-    const { tokenMethod } = config.authOptions;
-    const usingCookie =
-        tokenMethod === 'cookie' || (Array.isArray(tokenMethod) && tokenMethod.includes('cookie'));
-    if (usingCookie) {
-        const { cookieOptions } = config.authOptions;
-        app.use(cookieSession(cookieOptions));
-    }
+
+    // const { tokenMethod } = config.authOptions;
+    // const usingCookie =
+    //     tokenMethod === 'cookie' || (Array.isArray(tokenMethod) && tokenMethod.includes('cookie'));
+    // if (usingCookie) {
+    //     const { cookieOptions } = config.authOptions;
+    //     app.use(cookieSession(cookieOptions));
+    // }
     app.use(cookieParser());
     const earlyMiddlewares = middleware.filter(mid => mid.beforeListen);
     earlyMiddlewares.forEach(mid => {
@@ -84,7 +77,6 @@ export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INes
     await app.listen(port, hostname || '');
     app.enableShutdownHooks();
     logWelcomeMessage(config);
-
     return app;
 }
 
@@ -169,7 +161,7 @@ export async function preBootstrapConfig(
     // 1-4 启动插件的初始化配置
     config = await runPluginConfigurations(config);
     // registerCustomEntityFields(config);
-    setExposedHeaders(config);
+    // setExposedHeaders(config);
     return config;
 }
 
@@ -256,30 +248,30 @@ async function setInitialPicker(
  * 如果使用 `bearer` tokenMethod，那么我们会自动在 CORS 选项中暴露 authTokenHeaderKey header，
  * 确保保留任何用户配置的 exposedHeaders
  */
-function setExposedHeaders(config: Readonly<PickerConfig>) {
-    const { tokenMethod } = config.authOptions;
-    const isUsingBearerToken =
-        tokenMethod === 'bearer' || (Array.isArray(tokenMethod) && tokenMethod.includes('bearer'));
-    if (isUsingBearerToken) {
-        const authTokenHeaderKey = config.authOptions.authTokenHeaderKey;
-        const corsOptions = config.apiOptions.cors;
-        if (typeof corsOptions !== 'boolean') {
-            const { exposedHeaders } = corsOptions;
-            let exposedHeadersWithAuthKey: string[];
-            if (!exposedHeaders) {
-                exposedHeadersWithAuthKey = [authTokenHeaderKey];
-            } else if (typeof exposedHeaders === 'string') {
-                exposedHeadersWithAuthKey = exposedHeaders
-                    .split(',')
-                    .map(x => x.trim())
-                    .concat(authTokenHeaderKey);
-            } else {
-                exposedHeadersWithAuthKey = exposedHeaders.concat(authTokenHeaderKey);
-            }
-            corsOptions.exposedHeaders = exposedHeadersWithAuthKey;
-        }
-    }
-}
+// function setExposedHeaders(config: Readonly<PickerConfig>) {
+//     const { tokenMethod } = config.authOptions;
+//     const isUsingBearerToken =
+//         tokenMethod === 'bearer' || (Array.isArray(tokenMethod) && tokenMethod.includes('bearer'));
+//     if (isUsingBearerToken) {
+//         const authTokenHeaderKey = config.authOptions.authTokenHeaderKey;
+//         const corsOptions = config.apiOptions.cors;
+//         if (typeof corsOptions !== 'boolean') {
+//             const { exposedHeaders } = corsOptions;
+//             let exposedHeadersWithAuthKey: string[];
+//             if (!exposedHeaders) {
+//                 exposedHeadersWithAuthKey = [authTokenHeaderKey];
+//             } else if (typeof exposedHeaders === 'string') {
+//                 exposedHeadersWithAuthKey = exposedHeaders
+//                     .split(',')
+//                     .map(x => x.trim())
+//                     .concat(authTokenHeaderKey);
+//             } else {
+//                 exposedHeadersWithAuthKey = exposedHeaders.concat(authTokenHeaderKey);
+//             }
+//             corsOptions.exposedHeaders = exposedHeadersWithAuthKey;
+//         }
+//     }
+// }
 
 function logWelcomeMessage(config: RuntimePickerConfig) {
     let version: string;
@@ -288,11 +280,10 @@ function logWelcomeMessage(config: RuntimePickerConfig) {
     } catch (e) {
         version = ' unknown';
     }
-    const { port, studioApiPath, adminApiPath, hostname } = config.apiOptions;
+    const { port, appApiPath, hostname } = config.apiOptions;
     const apiCliGreetings: Array<readonly [string, string]> = [];
     const pathToUrl = (path: string) => `http://${hostname || 'localhost'}:${port}/${path}`;
-    apiCliGreetings.push(['Studio API', pathToUrl(studioApiPath)]);
-    apiCliGreetings.push(['Admin API', pathToUrl(adminApiPath)]);
+    apiCliGreetings.push(['APP API', pathToUrl(appApiPath)]);
     apiCliGreetings.push(
         ...getPluginStartupMessages().map(({ label, path }) => [label, pathToUrl(path)] as const)
     );

@@ -2,8 +2,7 @@
 import { AuthGqlNames, SecretFieldImpl } from '../types';
 
 import { validateSecret } from '../lib/validateSecret';
-import { graphql } from '../../schema';
-import {BaseItem} from "../../schema/types";
+import {BaseItem, graphql} from "../../schema/types";
 
 export function getBaseAuthSchema<I extends string, S extends string>({
   listKey,

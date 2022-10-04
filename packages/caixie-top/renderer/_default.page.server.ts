@@ -1,24 +1,23 @@
-import { renderToString } from '@vue/server-renderer'
-import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr'
-import { createApp } from './app'
+import {renderToString} from '@vue/server-renderer'
+import {escapeInject, dangerouslySkipEscape} from 'vite-plugin-ssr'
+import {createApp} from './app'
 import logoUrl from './logo.svg'
-import type { PageContextServer } from './types'
-import { setup } from '@css-render/vue3-ssr'
+import type {PageContextServer} from './types'
+import {setup} from '@css-render/vue3-ssr'
 
-export { render }
-export { onBeforeRender }
+export {render}
+export {onBeforeRender}
 // See https://vite-plugin-ssr.com/data-fetching
 export const passToClient = ['pageProps', 'urlPathname']
 
 async function render(pageContext: PageContextServer): Promise<any> {
-    console.log('Server render ....')
     const app = createApp(pageContext)
+    const {collect} = setup(app)// 必需在 renderToString 之前初始化，否则会出现服务端无法找到Document的问题
+
     const appHtml = await renderToString(app)
-    const { collect } = setup(app)
     const cssHtml = collect()
-    console.log(cssHtml)
     // See https://vite-plugin-ssr.com/head
-    const { documentProps } = pageContext.exports
+    const {documentProps} = pageContext.exports
     const title = (documentProps && documentProps.title) || 'Vite SSR app'
     const desc = (documentProps && documentProps.description) || 'App using Vite + vite-plugin-ssr'
 
@@ -30,11 +29,12 @@ async function render(pageContext: PageContextServer): Promise<any> {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${desc}" />
         <title>${title}</title>
-        ${cssHtml}
+        ${dangerouslySkipEscape(cssHtml)}
       </head>
       <body>
         <div id="app">${dangerouslySkipEscape(appHtml)}</div>
       </body>
+
     </html>`
 
     // console.log(pageContext.pageProps)
@@ -45,6 +45,7 @@ async function render(pageContext: PageContextServer): Promise<any> {
         }
     }
 }
+
 async function onBeforeRender(pageContext) {
     // console.log('on before render')
     // return {

@@ -1,6 +1,4 @@
-import {FieldAccessControl} from "../types/config/access-control";
-import {BaseModelTypeInfo} from "../types/type-info";
-import {FieldData} from "../types/next-fields";
+import {BaseModelTypeInfo, FieldAccessControl, FieldData} from "../types";
 
 export function hasReadAccessControl<ModelTypeInfo extends BaseModelTypeInfo>(
   access: FieldAccessControl<ModelTypeInfo> | undefined

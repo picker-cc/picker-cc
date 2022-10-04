@@ -1,5 +1,7 @@
-import {checkbox, list, password, relationship, text, timestamp} from "@picker-cc/core";
+import {checkbox, image, list, password, relationship, text, timestamp} from "@picker-cc/core";
 import {trackingFields} from "./utils";
+import {SmsEvent} from "@picker-cc/ali-sms-plugin";
+import {generateCode} from "@picker-cc/common/lib/generate-public-id";
 
 
 export const User = list({
@@ -13,19 +15,31 @@ export const User = list({
             },
         }
     },
+    hooks: {
+        beforeOperation({operation, resolvedData, context}) {
+            // context.eventBus.publish(new SmsEvent('verification', '13488689885', resolvedData.verifyCode))
+        },
+        resolveInput({operation, resolvedData, context}) {
+            // if (operation === 'create') {
+                // resolvedData.verifyCode = generateCode(6)
+                // resolvedData.verifyCodeCreatedAt = new Date()
+            // }
+            return resolvedData
+        }
+    },
     ui: {},
     fields: {
-        name: text({
-            validation: {
-                isRequired: true
-            }
-        }),
+        name: text({}),
         identifier: text({
             isIndexed: 'unique',
             validation: {
                 isRequired: true
             }
         }),
+        // 个人介绍
+        detail: text(),
+        avatar: text(),
+        // avatar: image({ storage: ''}),
         deletedAt: timestamp({
             defaultValue: {kind: 'now'}
         }),
@@ -36,6 +50,9 @@ export const User = list({
         lastLogin: timestamp({
             defaultValue: {kind: 'now'}
         }),
+
+        verifyCode: text(),
+        verifyCodeCreatedAt: timestamp(),
         password: password({
             access: {
                 update: ({session, item}) => {

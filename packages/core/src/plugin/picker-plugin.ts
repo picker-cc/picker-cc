@@ -29,7 +29,7 @@ export interface PickerPluginMetadata extends ModuleMetadata {
      * @description
      * 插件可以通过提供扩展的模式定义和任何必需的解析器来扩展默认的 Picker GraphQL 管理 api。
      */
-    adminApiExtensions?: APIExtensionDefinition;
+    apiExtensions?: APIExtensionDefinition;
 
     /**
      * @description

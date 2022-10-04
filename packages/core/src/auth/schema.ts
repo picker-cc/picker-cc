@@ -13,9 +13,8 @@ import {
     parse,
     validate
 } from "graphql";
-import { graphql } from '../schema/graphql';
 import {ExtendGraphqlSchema} from "../schema";
-import {getGqlNames} from "../schema/types";
+import {getGqlNames, graphql} from "../schema/types";
 
 function assertSecretFieldImpl(
     impl: any,
@@ -36,7 +35,7 @@ function assertSecretFieldImpl(
 
 export function getSecretFieldImpl(schema: GraphQLSchema, listKey: string, fieldKey: string) {
     const gqlOutputType = assertObjectType(schema.getType(listKey));
-    const secretFieldImpl = gqlOutputType.getFields()?.[fieldKey].extensions?.keystoneSecretField;
+    const secretFieldImpl = gqlOutputType.getFields()?.[fieldKey].extensions?.defaultSecretField;
     assertSecretFieldImpl(secretFieldImpl, listKey, fieldKey);
     return secretFieldImpl;
 }

@@ -3,6 +3,7 @@ import type { GraphQLResolveInfo } from 'graphql';
 import type { GqlNames } from './utils';
 import {PickerContext, SessionContext} from "./picker-context";
 import {BasePickerTypeInfo} from "./type-info";
+import {EventBus} from "../../event-bus";
 
 export type DatabaseProvider = 'sqlite' | 'postgresql' | 'mysql';
 
@@ -12,18 +13,19 @@ export type CreateRequestContext<TypeInfo extends BasePickerTypeInfo> = (
 ) => Promise<PickerContext<TypeInfo>>;
 
 export type CreateContext = (args: {
+    eventBus?: EventBus
     sessionContext?: SessionContext<any>;
     sudo?: boolean;
     req?: IncomingMessage;
 }) => PickerContext;
 
-export type SessionImplementation = {
-    createSessionContext(
-        req: IncomingMessage,
-        res: ServerResponse,
-        createContext: CreateContext
-    ): Promise<SessionContext<any>>;
-};
+// export type SessionImplementation = {
+//     createSessionContext(
+//         req: IncomingMessage,
+//         res: ServerResponse,
+//         createContext: CreateContext
+//     ): Promise<SessionContext<any>>;
+// };
 
 export type GraphQLResolver<Context extends PickerContext> = (
     root: any,

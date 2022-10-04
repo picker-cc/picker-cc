@@ -1,4 +1,4 @@
-import {config, createAuth, DefaultLogger, LogLevel, PickerConfig, statelessSessions} from '@picker-cc/core';
+import {config,  DefaultLogger, LogLevel, PickerConfig,createAuth as createBaseAuth , statelessSessions} from '@picker-cc/core';
 import {ADMIN_API_PATH, API_PORT} from "@picker-cc/common/lib/shared-constants";
 
 import {User} from "../schemas/User";
@@ -6,7 +6,7 @@ import {Post} from "../schemas/Post"
 import {CaixieAppPlugin} from "./plugin";
 import {WechatPlugin} from "@picker-cc/wechat-plugin";
 import {AliSmsPlugin} from "@picker-cc/ali-sms-plugin";
-// import {AdminUiPlugin} from "@picker-cc/ssr-vue";
+import {createAuth} from "./auth";
 const sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --';
 const sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
 const sessionConfig = {
@@ -76,8 +76,8 @@ export const pickerConfig: PickerConfig = {
     logger: new DefaultLogger({ level: LogLevel.Info}),
     plugins: [
         WechatPlugin.init({
-            appId: '',
-            secret: '',
+            appId: 'wx40f58df735cd2868',
+            secret: '97fe8be8948c6819bd8b547951201a45',
             token: 'PickerCC',
         }),
         AliSmsPlugin.init({

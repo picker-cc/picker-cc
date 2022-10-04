@@ -34,7 +34,7 @@ function assertSecretFieldImpl(
 
 export function getSecretFieldImpl(schema: GraphQLSchema, listKey: string, fieldKey: string) {
     const gqlOutputType = assertObjectType(schema.getType(listKey));
-    const secretFieldImpl = gqlOutputType.getFields()?.[fieldKey].extensions?.keystoneSecretField;
+    const secretFieldImpl = gqlOutputType.getFields()?.[fieldKey].extensions?.defaultSecretField;
     assertSecretFieldImpl(secretFieldImpl, listKey, fieldKey);
     return secretFieldImpl;
 }

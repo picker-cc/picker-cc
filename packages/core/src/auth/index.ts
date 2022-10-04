@@ -151,8 +151,10 @@ export function createAuth<ListTypeInfo extends BaseListTypeInfo>
         return {
             ...sessionStrategy,
             get: async ({req, createContext}) => {
+
                 const session = await get({req, createContext});
                 const sudoContext = createContext({sudo: true});
+
                 if (
                     !session ||
                     !session.listKey ||

@@ -1,11 +1,19 @@
 import bcryptjs from 'bcryptjs';
 // @ts-ignore
 import dumbPasswords from 'dumb-passwords';
-import { graphql } from '../../../graphql';
 import { getResolvedIsNullable } from '../../non-null-graphql';
-import {BaseModelTypeInfo} from "../../../types/type-info";
-import {CommonFieldConfig} from "../../../types/config/fields";
-import {fieldType, FieldTypeFunc} from "../../../types/next-fields";
+import {
+    filters,
+    BaseModelTypeInfo,
+    CommonFieldConfig,
+    graphql,
+    BaseItem,
+    fieldType,
+    FieldData,
+    FieldTypeFunc,
+    ListGraphQLTypes,
+    orderDirectionEnum
+} from "../../../types"
 import {humanize} from "../../../types-for-lists";
 import {userInputError} from "../../../error/graphql-errors";
 
@@ -206,7 +214,7 @@ export const password =
                         return { isSet: val.value !== null && bcryptHashRegex.test(val.value) };
                     },
                     extensions: {
-                        keystoneSecretField: {
+                        defaultSecretField: {
                             generateHash: async (secret: string) => {
                                 return bcrypt.hash(secret, workFactor);
                             },

@@ -2,7 +2,7 @@ import { CacheHint } from 'apollo-server-types';
 import {BaseListTypeInfo, PickerContextFromListTypeInfo} from '../type-info';
 import { MaybeItemFunction, MaybeSessionFunction } from './lists';
 import { FieldHooks } from './hooks';
-import { FieldAccessControl } from './access-control';
+import { FieldAccessControl } from '../../core/access-control';
 import {FieldTypeFunc} from "../next-fields";
 import {MaybePromise} from "../utils";
 

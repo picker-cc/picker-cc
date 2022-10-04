@@ -1,7 +1,6 @@
 import {InitialisedList} from "./prisma/prisma-schema";
-import { getGraphQLSchema } from "./graphql/graphql-schema";
-import {SchemaConfig} from "./types/config";
-import { graphql } from './graphql';
+import { getGraphQLSchema } from "./core/graphql-schema";
+import {graphql, SchemaConfig} from "./types";
 
 export function createGraphQLSchema(
   config: SchemaConfig,
@@ -24,8 +23,8 @@ export function createGraphQLSchema(
       }
       : {},
     query: {
-      // picker-cc: graphql.field({
-      //   type: graphql.nonNull(KeystoneMeta),
+      // pickerCc: graphql.field({
+      //   type: graphql.nonNull(PickerMeta),
       //   resolve: () => ({ adminMeta }),
       // }),
     },

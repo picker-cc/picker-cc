@@ -3,6 +3,7 @@ import {DynamicModule, Module, OnModuleInit} from '@nestjs/common';
 import {CacheModule} from '../cache/cache.module';
 import {ConfigModule, ConfigService} from '../config';
 import {AssetService} from "./services/asset.service";
+import {EventBusModule} from "../event-bus";
 const workerControllers: any = [];
 
 const services = [
@@ -25,6 +26,7 @@ const services = [
     imports: [
         ConfigModule,
         CacheModule,
+        EventBusModule,
     ],
     // providers: [...services, ...helpers, InitializerService],
     providers: [ ...services ],

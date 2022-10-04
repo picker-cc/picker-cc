@@ -3,7 +3,7 @@
     "module": "commonjs",
     "noLib": false,
     "skipLibCheck": true,
-    "lib": ["es2020", "esnext", "esnext.asynciterable", "dom"],
+    "lib": ["es2020", "esnext", "esnext.asynciterable", "dom", "es5"],
     "moduleResolution": "node",
     "incremental": true,
     "declaration": true,

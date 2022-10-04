@@ -1,7 +1,7 @@
 import {assertInputObjectType, GraphQLInputObjectType, GraphQLSchema} from 'graphql';
 
 import {AuthGqlNames, InitFirstItemConfig} from '../types';
-import {BaseItem, graphql} from "@picker-cc/core";
+import {BaseItem, graphql, PickerContext} from "@picker-cc/core";
 
 export function getInitFirstItemSchema({
                                            listKey,
@@ -39,7 +39,7 @@ export function getInitFirstItemSchema({
             [gqlNames.createInitialItem]: graphql.field({
                 type: graphql.nonNull(ItemAuthenticationWithPasswordSuccess),
                 args: {data: graphql.arg({type: graphql.nonNull(initialCreateInput)})},
-                async resolve(rootVal, {data}, context) {
+                async resolve(rootVal, {data}, context): Promise<{item: any, sessionToken: any}> {
                     if (!context.startSession) {
                         throw new Error('No session implementation available on context');
                     }
@@ -51,10 +51,9 @@ export function getInitFirstItemSchema({
                         // throw new Error('Initial items can only be created when no items exist in that list');
                     }
 
-                    // Update system state
-                    // this is strictly speaking incorrect. the db API will do GraphQL coercion on a value which has already been coerced
-                    // (this is also mostly fine, the chance that people are using things where
-                    // the input value can't round-trip like the Upload scalar here is quite low)
+                    //更新系统状态这严格来说是不正确的。
+                    // db API会对一个已经被强制的值进行GraphQL强制(这也很好，人们使用输入值不能往返的东西的几率非常低，比如这里的Upload标量)
+
                     const item = await dbItemAPI.createOne({data: {...data, ...itemData}});
 
                     const sessionToken = await context.startSession({listKey, itemId: item.id.toString()});

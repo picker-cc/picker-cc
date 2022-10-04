@@ -1,8 +1,5 @@
 import { GraphQLError } from 'graphql';
-import {GqlNames, JSONValue, MaybePromise} from '../../types/utils';
-import {PickerContext} from "../../types/picker-context";
-import {BaseListTypeInfo} from "../../types/type-info";
-import {MaybeItemFunction} from "../../types/config/lists";
+import {MaybeItemFunction, BaseListTypeInfo, PickerContext, GqlNames, JSONValue, MaybePromise} from '../../types';
 
 export type NavigationProps = {
     authenticatedItem: AuthenticatedItem;

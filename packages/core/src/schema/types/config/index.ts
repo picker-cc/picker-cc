@@ -6,7 +6,7 @@ import {DatabaseProvider} from "../../prisma/prisma-schema";
 import {GraphQLSchema} from "graphql";
 import {BaseListTypeInfo, BasePickerTypeInfo} from "../type-info";
 import type { BaseFields } from './fields';
-import type {ListAccessControl, FieldAccessControl} from "./access-control";
+import type {ListAccessControl, FieldAccessControl} from "../../core/access-control";
 import {ListHooks} from "./hooks";
 import {SessionStrategy} from "../session";
 import type {
@@ -122,7 +122,7 @@ export type {
     DeleteListItemAccessControl,
     ListOperationAccessControl,
     ListFilterAccessControl,
-} from './access-control';
+} from '../../core/access-control';
 
 export type { CommonFieldConfig } from './fields';
 export type { CacheHintArgs, IdFieldConfig } from './lists';

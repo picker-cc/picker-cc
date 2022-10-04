@@ -11,7 +11,7 @@ export { render }
 
 async function render(pageContext: PageContextClient) {
     const app = createApp(pageContext)
-    console.log(app)
+    // console.log(app)
     app.use(anu)
     app.mount('#app')
 }

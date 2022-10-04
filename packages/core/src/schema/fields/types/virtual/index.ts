@@ -1,9 +1,6 @@
 import { getNamedType, isLeafType } from 'graphql';
 
-import { graphql } from '../../../graphql';
-import {BaseItem, fieldType, FieldTypeFunc, ListGraphQLTypes} from "../../../types/next-fields";
-import {BaseModelTypeInfo} from "../../../types/type-info";
-import {CommonFieldConfig} from "../../../types/config/fields";
+import {BaseModelTypeInfo,CommonFieldConfig, graphql, BaseItem, fieldType, FieldTypeFunc, ListGraphQLTypes} from "../../../types";
 import {getGqlNames} from "../../../prisma/prisma-schema";
 
 type VirtualFieldGraphQLField<Item extends BaseItem> = graphql.Field<

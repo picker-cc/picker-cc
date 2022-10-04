@@ -1,8 +1,8 @@
 import { assertInputObjectType, GraphQLInputObjectType, GraphQLSchema } from 'graphql';
 
 import { AuthGqlNames, InitFirstItemConfig } from '../types';
-import { graphql } from '../../schema';
-import {BaseItem} from "../../schema/types";
+import {BaseItem, graphql} from "../../schema/types";
+
 
 export function getInitFirstItemSchema({
   listKey,

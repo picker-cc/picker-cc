@@ -7,18 +7,6 @@
         :rules="rules"
     >
 
-        <n-form-item label="Name" path="user.name">
-            <n-input v-model:value="formValue.user.name" placeholder="Input Name"/>
-        </n-form-item>
-        <n-form-item label="Age" path="user.age">
-            <n-input v-model:value="formValue.user.age" placeholder="Input Age"/>
-        </n-form-item>
-        <n-form-item label="Adress" path="user.address">
-            <n-input
-                v-model:value="formValue.user.address"
-                placeholder="Input Address"
-            />
-        </n-form-item>
         <n-form-item label="手机号" path="phone">
             <n-input v-model:value="formValue.phone" placeholder="Phone Number"/>
         </n-form-item>

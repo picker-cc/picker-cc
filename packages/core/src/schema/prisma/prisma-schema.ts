@@ -1,6 +1,6 @@
 
 import Decimal from 'decimal.js';
-import { ResolvedFieldAccessControl, ResolvedListAccessControl } from "../types/config/access-control";
+import { ResolvedFieldAccessControl, ResolvedListAccessControl } from "../core/access-control";
 import { CacheHint } from "apollo-server-types";
 import {FilterOrderArgs} from "../types/config/fields";
 import {ResolvedRelationDBField} from "../resolve-relationships";

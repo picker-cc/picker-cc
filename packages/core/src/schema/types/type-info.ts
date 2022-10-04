@@ -1,5 +1,6 @@
 import {PickerContext} from "./picker-context";
 import {BaseItem} from "./next-fields";
+import {EventBus} from "../../event-bus";
 
 type GraphQLInput = Record<string, any>;
 
@@ -21,6 +22,7 @@ export type BaseListTypeInfo = {
         create: Record<string, any>;
         update: Record<string, any>;
     };
+    eventBus?: EventBus,
     all: BasePickerTypeInfo;
 };
 

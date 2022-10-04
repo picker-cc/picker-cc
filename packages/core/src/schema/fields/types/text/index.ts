@@ -1,12 +1,17 @@
-import {
-    CommonFieldConfig,
-} from "../../../types/config/fields";
-import { DBField } from "../../../prisma/prisma-schema";
+
 import { humanize } from "../../../types-for-lists";
-import { graphql } from "../../../graphql";
-import * as filters from '../../../types/filters';
-import {BaseModelTypeInfo} from "../../../types/type-info";
-import {fieldType, FieldTypeFunc, orderDirectionEnum} from "../../../types/next-fields";
+import {
+    filters,
+    BaseModelTypeInfo,
+    CommonFieldConfig,
+    graphql,
+    BaseItem,
+    fieldType,
+    FieldData,
+    FieldTypeFunc,
+    ListGraphQLTypes,
+    orderDirectionEnum
+} from "../../../types"
 
 export type TextFieldConfig<ModelTypeInfo extends BaseModelTypeInfo> =
     CommonFieldConfig<ModelTypeInfo> & {
@@ -28,10 +33,9 @@ export type TextFieldConfig<ModelTypeInfo extends BaseModelTypeInfo> =
         isNullable?: boolean;
         map?: string;
         /**
-         * The underlying database type.
-         * Only some of the types are supported on PostgreSQL and MySQL.
-         * The native type is not customisable on SQLite.
-         * See Prisma's documentation for more information about the supported types.
+         * 基础数据库类型。
+         * PostgreSQL和MySQL只支持其中的一些类型。在SQLite上不能自定义本机类型。
+         * 有关受支持类型的更多信息，请参阅Prisma的文档。
          *
          * https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
          */
@@ -138,27 +142,27 @@ export const text =
                     type: config.graphql?.read?.isNonNull ? graphql.nonNull(graphql.String) : graphql.String
                 }),
                 views: '',
-                // getAdminMeta(): TextFieldMeta {
-                //   return {
-                //     displayMode: config.ui?.displayMode ?? 'input',
-                //     shouldUseModeInsensitive: meta.provider === 'postgresql',
-                //     validation: {
-                //       isRequired: validation?.isRequired ?? false,
-                //       match: validation?.match
-                //         ? {
-                //           regex: {
-                //             source: validation.match.regex.source,
-                //             flags: validation.match.regex.flags,
-                //           },
-                //           explanation: validation.match.explanation ?? null,
-                //         }
-                //         : null,
-                //       length: { max: validation?.length?.max ?? null, min: validation?.length?.min ?? null },
-                //     },
-                //     defaultValue: defaultValue ?? (isNullable ? null : ''),
-                //     isNullable,
-                //   };
-                // },
+                getAdminMeta(): TextFieldMeta {
+                  return {
+                    displayMode: config.ui?.displayMode ?? 'input',
+                    shouldUseModeInsensitive: meta.provider === 'postgresql',
+                    validation: {
+                      isRequired: validation?.isRequired ?? false,
+                      match: validation?.match
+                        ? {
+                          regex: {
+                            source: validation.match.regex.source,
+                            flags: validation.match.regex.flags,
+                          },
+                          explanation: validation.match.explanation ?? null,
+                        }
+                        : null,
+                      length: { max: validation?.length?.max ?? null, min: validation?.length?.min ?? null },
+                    },
+                    defaultValue: defaultValue ?? (isNullable ? null : ''),
+                    isNullable,
+                  };
+                },
             });
         };
 

@@ -19,7 +19,7 @@ function generateSessionId() {
     return uid(24);
 }
 
-const TOKEN_NAME = 'keystonejs-session';
+const TOKEN_NAME = 'pickerCc-session';
 const MAX_AGE = 60 * 60 * 8; // 8 hours
 
 // should we also accept httpOnly?
@@ -122,7 +122,15 @@ export function statelessSessions<T>({
                 })
             );
         },
+        // Token 在这里生成
         async start({ res, data }) {
+            // 将对象序列化、加密和签名为协议字符串
+            // 参数
+            // object - 数据被密封
+            // password - 字符串、缓冲区或对象
+            // options - 用于自定义密钥派生算法对象
+            // 返回
+            // 密封的字符串
             const sealedData = await Iron.seal(data, secret, { ...ironOptions, ttl: maxAge * 1000 });
 
             res.setHeader(

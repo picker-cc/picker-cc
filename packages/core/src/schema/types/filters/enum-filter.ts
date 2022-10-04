@@ -2,7 +2,8 @@
 // yes, these two types have the fields but they're semantically different types
 // (even though, yes, having EnumFilter by defined as EnumNullableFilter<Enum>, would be the same type but names would show up differently in editors for example)
 
-import { graphql } from "../../graphql";
+import { graphql } from "../schema";
+
 
 export type EnumNullableFilter<Enum extends graphql.EnumType<any>> = graphql.InputObjectType<{
     // can be null

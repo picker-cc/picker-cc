@@ -18,31 +18,31 @@ export function getBaseAuthSchema<I extends string, S extends string>({
   gqlNames: AuthGqlNames;
   secretFieldImpl: SecretFieldImpl;
   base: graphql.BaseSchemaMeta;
-}) {
+}): any {
   const ItemAuthenticationWithPasswordSuccess = graphql.object<{
     sessionToken: string;
     item: BaseItem;
   }>()({
-    name: gqlNames.ItemAuthenticationWithPasswordSuccess,
+    name: gqlNames.ItemAuthenticationWithVerifyCodeSuccess,
     fields: {
       sessionToken: graphql.field({ type: graphql.nonNull(graphql.String) }),
       item: graphql.field({ type: graphql.nonNull(base.object(listKey)) }),
     },
   });
   const ItemAuthenticationWithPasswordFailure = graphql.object<{ message: string }>()({
-    name: gqlNames.ItemAuthenticationWithPasswordFailure,
+    name: gqlNames.ItemAuthenticationWithVerifyCodeFailure,
     fields: {
       message: graphql.field({ type: graphql.nonNull(graphql.String) }),
     },
   });
   const AuthenticationResult = graphql.union({
-    name: gqlNames.ItemAuthenticationWithPasswordResult,
+    name: gqlNames.ItemAuthenticationWithVerifyCodeResult,
     types: [ItemAuthenticationWithPasswordSuccess, ItemAuthenticationWithPasswordFailure],
     resolveType(val) {
       if ('sessionToken' in val) {
-        return gqlNames.ItemAuthenticationWithPasswordSuccess;
+        return gqlNames.ItemAuthenticationWithVerifyCodeSuccess;
       }
-      return gqlNames.ItemAuthenticationWithPasswordFailure;
+      return gqlNames.ItemAuthenticationWithVerifyCodeFailure;
     },
   });
   const extension = {
@@ -62,15 +62,15 @@ export function getBaseAuthSchema<I extends string, S extends string>({
       }),
     },
     mutation: {
-      [gqlNames.authenticateItemWithPassword]: graphql.field({
+      [gqlNames.authenticateItemWithVerifyCode]: graphql.field({
         type: AuthenticationResult,
         args: {
           [identityField]: graphql.arg({ type: graphql.nonNull(graphql.String) }),
           [secretField]: graphql.arg({ type: graphql.nonNull(graphql.String) }),
         },
-        async resolve(root, { [identityField]: identity, [secretField]: secret }, context: PickerContext) {
+        async resolve(root, { [identityField]: identity, [secretField]: secret }, context) {
           if (!context.startSession) {
-            throw new Error('No session implementation available on context');
+            throw new Error('上下文上没有可用的会话实现');
           }
 
           const dbItemAPI = context.sudo().db[listKey];
@@ -84,7 +84,7 @@ export function getBaseAuthSchema<I extends string, S extends string>({
           );
 
           if (!result.success) {
-            return { code: 'FAILURE', message: 'Authentication failed.' };
+            return { code: 'FAILURE', message: '身份验证失败。' };
           }
 
           // Update system state

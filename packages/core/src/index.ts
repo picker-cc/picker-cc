@@ -5,11 +5,9 @@ export * from './cache/index';
 export * from './common/index';
 
 export * from './config/index';
-export * from './connection/index';
 export * from './plugin/index';
 export * from './event-bus/index';
 export * from './process-context/index';
-// export * from './entity/index';
 export * from './service/index';
 export * from './i18n/index';
 export * from './worker/index';

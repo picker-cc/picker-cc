@@ -1,12 +1,18 @@
 // Float in GQL: A signed double-precision floating-point value.
 
-import {BaseModelTypeInfo} from "../../../types/type-info";
-import {CommonFieldConfig} from "../../../types/config/fields";
-import {fieldType, FieldTypeFunc, orderDirectionEnum} from "../../../types/next-fields";
+import {
+    filters,
+    graphql,
+    BaseModelTypeInfo,
+    CommonFieldConfig,
+    FieldData,
+    FieldTypeFunc,
+    Decimal,
+    fieldType,
+    orderDirectionEnum
+} from "../../../types";
 import {assertCreateIsNonNullAllowed, assertReadIsNonNullAllowed, getResolvedIsNullable} from "../../non-null-graphql";
 import {humanize} from "../../../types-for-lists";
-import { graphql } from "../../../graphql";
-import { filters } from "../../../types";
 
 export type FloatFieldConfig<ModelTypeInfo extends BaseModelTypeInfo> =
     CommonFieldConfig<ModelTypeInfo> & {

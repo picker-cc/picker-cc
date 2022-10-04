@@ -1,14 +1,20 @@
-import {graphql} from '../../../graphql';
 import {
     assertCreateIsNonNullAllowed,
     assertReadIsNonNullAllowed,
     getResolvedIsNullable,
 } from '../../non-null-graphql';
-import {BaseModelTypeInfo} from "../../../types/type-info";
-import {CommonFieldConfig} from "../../../types/config/fields";
-import {FieldData, FieldTypeFunc, Decimal, fieldType, orderDirectionEnum} from "../../../types/next-fields";
+import {
+    filters,
+    graphql,
+    BaseModelTypeInfo,
+    CommonFieldConfig,
+    FieldData,
+    FieldTypeFunc,
+    Decimal,
+    fieldType,
+    orderDirectionEnum
+} from "../../../types";
 import {humanize} from "../../../types-for-lists";
-import {filters} from '../../../types';
 
 export type DecimalFieldConfig<ModelTypeInfo extends BaseModelTypeInfo> =
     CommonFieldConfig<ModelTypeInfo> & {

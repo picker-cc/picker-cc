@@ -1,11 +1,18 @@
 import inflection from 'inflection';
 import {humanize} from "../../../types-for-lists";
 import {assertCreateIsNonNullAllowed, assertReadIsNonNullAllowed, getResolvedIsNullable} from '../../non-null-graphql';
-import {BaseModelTypeInfo} from "../../../types/type-info";
-import { graphql } from "../../../graphql";
-import { filters } from '../../../types';
-import {CommonFieldConfig} from "../../../types/config/fields";
-import {fieldType, FieldTypeFunc, orderDirectionEnum} from "../../../types/next-fields";
+import {
+    filters,
+    BaseModelTypeInfo,
+    CommonFieldConfig,
+    graphql,
+    BaseItem,
+    fieldType,
+    FieldData,
+    FieldTypeFunc,
+    ListGraphQLTypes,
+    orderDirectionEnum
+} from "../../../types"
 
 
 export type SelectFieldConfig<ModelTypeInfo extends BaseModelTypeInfo> =

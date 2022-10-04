@@ -1,27 +1,23 @@
 import { Module } from '@nestjs/common';
 
 import { CacheModule } from '../cache/cache.module';
-import { ConfigModule } from '../config/config.module';
-import { ConnectionModule } from '../connection/connection.module';
-import { EventBusModule } from '../event-bus/event-bus.module';
-// import { HealthCheckModule } from '../health-check/health-check.module';
+import { ConfigModule } from '../config';
+import { EventBusModule } from '../event-bus';
 import { I18nModule } from '../i18n/i18n.module';
-// import { JobQueueModule } from '../job-queue/job-queue.module';
 import { ProcessContextModule } from '../process-context/process-context.module';
 import {ServiceModule} from "../service/service.module";
-// import { ServiceModule } from '../service/service.module';
 
 /**
  * @description
- * This module provides the common services, configuration, and event bus capabilities required by a typical plugin. It should be imported into plugins to avoid having to repeat the same boilerplate for each individual plugin.
- *
+ * 该模块提供标准插件所需要的公共服务，configuration、event bus 功能，它应该被导入到插件中，以避免为每个单独的插件重复导入。
  * The PluginCommonModule exports:
+ * PluginCommonModule 导出：
  *
- * * `EventBusModule`, allowing the injection of the {@link EventBus} service.
- * * `ServiceModule` allowing the injection of any of the various entity services such as ProductService, OrderService etc.
- * * `ConfigModule`, allowing the injection of the ConfigService.
- * * `JobQueueModule`, allowing the injection of the {@link JobQueueService}.
- * * `HealthCheckModule`, allowing the injection of the {@link HealthCheckRegistryService}.
+ * * `EventBusModule`, 允许注入 {@link EventBus} 服务.
+ * * `ServiceModule` 允许注入任何不同的相关服务。
+ * * `ConfigModule`, 允许注入配置服务 ConfigService
+ * * `JobQueueModule`, 允许注册队列服务 {@link JobQueueService}.
+ * * `HealthCheckModule`, 允许注入健康检查服务 {@link HealthCheckRegistryService}.
  *
  * @docsCategory plugin
  */
@@ -29,7 +25,6 @@ import {ServiceModule} from "../service/service.module";
     imports: [
         EventBusModule,
         ConfigModule,
-        // ConnectionModule.forPlugin(),
         ServiceModule.forPlugin(),
         // JobQueueModule,
         // HealthCheckModule,
@@ -40,9 +35,7 @@ import {ServiceModule} from "../service/service.module";
     exports: [
         EventBusModule,
         ConfigModule,
-        // ConnectionModule.forPlugin(),
         ServiceModule.forPlugin(),
-        // ServiceModule,
         // JobQueueModule,
         // HealthCheckModule,
         CacheModule,

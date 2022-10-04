@@ -1,11 +1,11 @@
 import Decimal from 'decimal.js';
-import { graphql } from '../graphql';
 import { DatabaseProvider } from '../prisma/prisma-schema';
 import {BaseModelTypeInfo} from "./type-info";
 import {JSONValue, MaybePromise} from "./utils";
 import {PickerContext} from "./picker-context";
 import {AdminMetaRootVal} from "../fields/types/admin-meta";
 import {CommonFieldConfig} from "./config/fields";
+import { graphql } from './schema';
 export { Decimal };
 
 export type BaseItem = { id: { toString(): string }; [key: string]: unknown };

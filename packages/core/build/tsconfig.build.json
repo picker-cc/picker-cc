@@ -6,6 +6,7 @@
     "rootDirs": ["../src"]
   },
   "files": [
+    "../src/schema/types/schema/schema-api-with-context.js",
     "../src/index.ts",
     "../typings.d.ts"
   ]

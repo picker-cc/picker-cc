@@ -2,7 +2,7 @@ import type { CacheHint } from 'apollo-server-types';
 import type { MaybePromise } from '../utils';
 import {BaseListTypeInfo, PickerContextFromListTypeInfo} from '../type-info';
 import type { ListHooks } from './hooks';
-import type { ListAccessControl } from './access-control';
+import type { ListAccessControl } from '../../core/access-control';
 import type { BaseFields, FilterOrderArgs } from './fields';
 
 export type ListSchemaConfig = Record<string, ListConfig<any, BaseFields<BaseListTypeInfo>>>;

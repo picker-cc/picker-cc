@@ -4,12 +4,16 @@ type User {
   id: ID!
   name: String
   identifier: String
+  detail: String
+  avatar: String
   deletedAt: DateTime
   createdAt: DateTime
   updatedAt: DateTime
   verified: Boolean
   enabled: Boolean
   lastLogin: DateTime
+  verifyCode: String
+  verifyCodeCreatedAt: DateTime
   password: PasswordState
   isAdmin: Boolean
   posts(
@@ -39,12 +43,16 @@ input UserWhereInput {
   id: IDFilter
   name: StringFilter
   identifier: StringFilter
+  detail: StringFilter
+  avatar: StringFilter
   deletedAt: DateTimeNullableFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
   verified: BooleanFilter
   enabled: BooleanFilter
   lastLogin: DateTimeNullableFilter
+  verifyCode: StringFilter
+  verifyCodeCreatedAt: DateTimeNullableFilter
   password: PasswordFilter
   isAdmin: BooleanFilter
   posts: PostManyRelationFilter
@@ -130,12 +138,16 @@ input UserOrderByInput {
   id: OrderDirection
   name: OrderDirection
   identifier: OrderDirection
+  detail: OrderDirection
+  avatar: OrderDirection
   deletedAt: OrderDirection
   createdAt: OrderDirection
   updatedAt: OrderDirection
   verified: OrderDirection
   enabled: OrderDirection
   lastLogin: OrderDirection
+  verifyCode: OrderDirection
+  verifyCodeCreatedAt: OrderDirection
   isAdmin: OrderDirection
 }
 
@@ -147,12 +159,16 @@ enum OrderDirection {
 input UserUpdateInput {
   name: String
   identifier: String
+  detail: String
+  avatar: String
   deletedAt: DateTime
   createdAt: DateTime
   updatedAt: DateTime
   verified: Boolean
   enabled: Boolean
   lastLogin: DateTime
+  verifyCode: String
+  verifyCodeCreatedAt: DateTime
   password: String
   isAdmin: Boolean
   posts: PostRelateToManyForUpdateInput
@@ -173,12 +189,16 @@ input UserUpdateArgs {
 input UserCreateInput {
   name: String
   identifier: String
+  detail: String
+  avatar: String
   deletedAt: DateTime
   createdAt: DateTime
   updatedAt: DateTime
   verified: Boolean
   enabled: Boolean
   lastLogin: DateTime
+  verifyCode: String
+  verifyCodeCreatedAt: DateTime
   password: String
   isAdmin: Boolean
   posts: PostRelateToManyForCreateInput
@@ -301,25 +321,38 @@ type Mutation {
   deletePost(where: PostWhereUniqueInput!): Post
   deletePosts(where: [PostWhereUniqueInput!]!): [Post]
   endSession: Boolean!
-  authenticateUserWithPassword(
+  sendUserVerifyCode(identifier: String!): sendUserVerifyCodeResult
+  authenticateUserWithVerifyCode(
     identifier: String!
     password: String!
-  ): UserAuthenticationWithPasswordResult
+  ): UserAuthenticationWithVerifyCodeResult
   createInitialUser(
     data: CreateInitialUserInput!
-  ): UserAuthenticationWithPasswordSuccess!
+  ): UserAuthenticationWithVerifyCodeSuccess!
 }
 
-union UserAuthenticationWithPasswordResult =
-    UserAuthenticationWithPasswordSuccess
-  | UserAuthenticationWithPasswordFailure
+union sendUserVerifyCodeResult =
+    UserSendVerifyCodeSuccess
+  | UserSendVerifyCodeFailure
 
-type UserAuthenticationWithPasswordSuccess {
+type UserSendVerifyCodeSuccess {
+  message: String!
+}
+
+type UserSendVerifyCodeFailure {
+  message: String!
+}
+
+union UserAuthenticationWithVerifyCodeResult =
+    UserAuthenticationWithVerifyCodeSuccess
+  | UserAuthenticationWithVerifyCodeFailure
+
+type UserAuthenticationWithVerifyCodeSuccess {
   sessionToken: String!
   item: User!
 }
 
-type UserAuthenticationWithPasswordFailure {
+type UserAuthenticationWithVerifyCodeFailure {
   message: String!
 }
 

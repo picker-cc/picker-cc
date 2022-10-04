@@ -7,8 +7,7 @@ import {BaseModelTypeInfo} from "../../../types/type-info";
 import {CommonFieldConfig} from "../../../types/config/fields";
 import {fieldType, FieldTypeFunc, orderDirectionEnum} from "../../../types/next-fields";
 import {humanize} from "../../../types-for-lists";
-import { graphql } from "../../../graphql";
-import { filters } from '../../../types';
+import { graphql, filters } from '../../../types';
 
 export type BigIntFieldConfig<ModelTypeInfo extends BaseModelTypeInfo> =
   CommonFieldConfig<ModelTypeInfo> & {

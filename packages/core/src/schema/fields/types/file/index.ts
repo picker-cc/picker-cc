@@ -1,7 +1,12 @@
-import { graphql } from '../../../graphql';
-import {BaseModelTypeInfo} from "../../../types/type-info";
-import {CommonFieldConfig} from "../../../types/config/fields";
-import {FileMetadata, PickerContext, fieldType, FieldTypeFunc} from "../../../types";
+import {
+    graphql,
+    BaseModelTypeInfo,
+    CommonFieldConfig,
+    FileMetadata,
+    PickerContext,
+    fieldType,
+    FieldTypeFunc
+} from "../../../types";
 
 export type FileFieldConfig<ModelTypeInfo extends BaseModelTypeInfo> = {
     storage: string;
@@ -10,17 +15,17 @@ export type FileFieldConfig<ModelTypeInfo extends BaseModelTypeInfo> = {
 const FileFieldInput = graphql.inputObject({
     name: 'FileFieldInput',
     fields: {
-        upload: graphql.arg({ type: graphql.nonNull(graphql.Upload) }),
+        upload: graphql.arg({type: graphql.nonNull(graphql.Upload)}),
     },
 });
 
-const inputArg = graphql.arg({ type: FileFieldInput });
+const inputArg = graphql.arg({type: FileFieldInput});
 
 const FileFieldOutput = graphql.object<FileMetadata & { storage: string }>()({
     name: 'FileFieldOutput',
     fields: {
-        filename: graphql.field({ type: graphql.nonNull(graphql.String) }),
-        filesize: graphql.field({ type: graphql.nonNull(graphql.Int) }),
+        filename: graphql.field({type: graphql.nonNull(graphql.String)}),
+        filesize: graphql.field({type: graphql.nonNull(graphql.Int)}),
         url: graphql.field({
             type: graphql.nonNull(graphql.String),
             resolve(data, args, context) {
@@ -36,7 +41,7 @@ async function inputResolver(
     context: PickerContext
 ) {
     if (data === null || data === undefined) {
-        return { filename: data, filesize: data };
+        return {filename: data, filesize: data};
     }
     const upload = await data.upload;
     return context.files(storage).getDataFromStream(upload.createReadStream(), upload.filename);
@@ -63,8 +68,8 @@ export const file =
             return fieldType({
                 kind: 'multi',
                 fields: {
-                    filesize: { kind: 'scalar', scalar: 'Int', mode: 'optional' },
-                    filename: { kind: 'scalar', scalar: 'String', mode: 'optional' },
+                    filesize: {kind: 'scalar', scalar: 'Int', mode: 'optional'},
+                    filename: {kind: 'scalar', scalar: 'String', mode: 'optional'},
                 },
             })({
                 ...config,
@@ -105,11 +110,11 @@ export const file =
                 },
                 output: graphql.field({
                     type: FileFieldOutput,
-                    resolve({ value: { filesize, filename } }) {
+                    resolve({value: {filesize, filename}}) {
                         if (filesize === null || filename === null) {
                             return null;
                         }
-                        return { filename, filesize, storage: config.storage };
+                        return {filename, filesize, storage: config.storage};
                     },
                 }),
                 views: '@picker-cc/core/fields/types/file/views',

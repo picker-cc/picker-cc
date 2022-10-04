@@ -1,6 +1,5 @@
-import { graphql } from '../../../graphql';
 import { assertCreateIsNonNullAllowed, assertReadIsNonNullAllowed } from '../../non-null-graphql';
-import {BaseModelTypeInfo, CommonFieldConfig, fieldType, FieldTypeFunc, orderDirectionEnum} from "../../../types";
+import {BaseModelTypeInfo, CommonFieldConfig, fieldType, FieldTypeFunc, graphql, orderDirectionEnum} from "../../../types";
 import { filters } from '../../../types';
 import {userInputError} from "../../../error/graphql-errors";
 

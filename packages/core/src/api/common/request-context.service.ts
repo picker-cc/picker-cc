@@ -4,7 +4,7 @@ import {Injectable} from '@nestjs/common';
 import {Request} from 'express';
 import {GraphQLResolveInfo} from 'graphql';
 
-import {ApiType, getApiType} from './get-api-type';
+// import {ApiType, getApiType} from './get-api-type';
 import {RequestContext} from './request-context';
 import {CachedSession, CachedSessionUser} from "../../config/session-cache/session-cache-strategy";
 import {ID} from "@picker-cc/common/lib/shared-types";
@@ -35,12 +35,12 @@ export class RequestContextService {
      */
     async create(config: {
         req?: Request;
-        apiType?: ApiType;
+        // apiType?: ApiType;
         // languageCode?: LanguageCode;
         user?: any;
         activeOrderId?: ID;
     }): Promise<RequestContext> {
-        const {req, apiType, user, activeOrderId} = config;
+        const {req, user, activeOrderId} = config;
 
         let session: CachedSession | undefined;
         if (user) {
@@ -61,7 +61,7 @@ export class RequestContextService {
         }
         return new RequestContext({
             req,
-            apiType,
+            // apiType,
             // languageCode,
             session,
             isAuthorized: true,
@@ -86,7 +86,7 @@ export class RequestContextService {
         session?: CachedSession,
         picker?: PickerContext
     ): Promise<RequestContext> {
-        const apiType = getApiType(info);
+        // const apiType = getApiType(info);
         const hasOwnerPermission = !!requiredPermissions && requiredPermissions.includes(Permission.Owner);
         const user = session && session.user;
         const permissions = user && user.permissions
@@ -108,7 +108,7 @@ export class RequestContextService {
 
         return new RequestContext({
             req,
-            apiType,
+            // apiType,
             // user,
             session,
             isAuthorized,

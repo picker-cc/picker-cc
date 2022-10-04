@@ -4,12 +4,10 @@ import { Type } from '@picker-cc/common/lib/shared-types';
 import { notNullOrUndefined } from '@picker-cc/common/lib/shared-utils';
 
 import { APIExtensionDefinition, PluginConfigurationFn } from './picker-plugin';
-import {ApiType} from "../api/common/get-api-type";
 
 export const PLUGIN_METADATA = {
     CONFIGURATION: 'configuration',
-    STUDIO_API_EXTENSIONS: 'studioApiExtensions',
-    ADMIN_API_EXTENSIONS: 'adminApiExtensions',
+    API_EXTENSIONS: 'apiExtensions',
     ENTITIES: 'entities',
 };
 
@@ -36,13 +34,14 @@ export function getModuleMetadata(module: Type<any>) {
 
 export function getPluginAPIExtensions(
     plugins: Array<Type<any> | DynamicModule>,
-    apiType: ApiType,
+    // apiType: ApiType,
 ): APIExtensionDefinition[] {
-    const extensions:any =
-        apiType === 'studio'
-            ? plugins.map(p => reflectMetadata(p, PLUGIN_METADATA.STUDIO_API_EXTENSIONS))
-            : plugins.map(p => reflectMetadata(p, PLUGIN_METADATA.ADMIN_API_EXTENSIONS));
+    // const extensions:any =
+    //     apiType === 'studio'
+    //         ? plugins.map(p => reflectMetadata(p, PLUGIN_METADATA.STUDIO_API_EXTENSIONS))
+    //         : plugins.map(p => reflectMetadata(p, PLUGIN_METADATA.ADMIN_API_EXTENSIONS));
 
+    const extensions: any = plugins.map(p => reflectMetadata(p, PLUGIN_METADATA.API_EXTENSIONS))
     return extensions.filter(notNullOrUndefined);
 }
 
@@ -58,12 +57,14 @@ export function getConfigurationFunction(
 
 export function graphQLResolversFor(
     plugin: Type<any> | DynamicModule,
-    apiType: 'studio' | 'admin',
+    // apiType: 'studio' | 'admin',
 ): Array<Type<any>> {
-    const apiExtensions: APIExtensionDefinition =
-        apiType === 'studio'
-            ? reflectMetadata(plugin, PLUGIN_METADATA.STUDIO_API_EXTENSIONS)
-            : reflectMetadata(plugin, PLUGIN_METADATA.ADMIN_API_EXTENSIONS);
+    // const apiExtensions: APIExtensionDefinition =
+    //     apiType === 'studio'
+    //         ? reflectMetadata(plugin, PLUGIN_METADATA.STUDIO_API_EXTENSIONS)
+    //         : reflectMetadata(plugin, PLUGIN_METADATA.ADMIN_API_EXTENSIONS);
+
+    const apiExtensions: APIExtensionDefinition = reflectMetadata(plugin, PLUGIN_METADATA.API_EXTENSIONS);
 
     return apiExtensions
         ? typeof apiExtensions.resolvers === 'function'

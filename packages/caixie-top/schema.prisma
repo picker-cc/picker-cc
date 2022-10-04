@@ -12,18 +12,22 @@ generator client {
 }
 
 model User {
-  id         String    @id @default(cuid())
-  name       String    @default("")
-  identifier String    @unique @default("")
-  deletedAt  DateTime? @default(now())
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  verified   Boolean   @default(false)
-  enabled    Boolean   @default(false)
-  lastLogin  DateTime? @default(now())
-  password   String?
-  isAdmin    Boolean   @default(false)
-  posts      Post[]    @relation("Post_user")
+  id                  String    @id @default(cuid())
+  name                String    @default("")
+  identifier          String    @unique @default("")
+  detail              String    @default("")
+  avatar              String    @default("")
+  deletedAt           DateTime? @default(now())
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  verified            Boolean   @default(false)
+  enabled             Boolean   @default(false)
+  lastLogin           DateTime? @default(now())
+  verifyCode          String    @default("")
+  verifyCodeCreatedAt DateTime?
+  password            String?
+  isAdmin             Boolean   @default(false)
+  posts               Post[]    @relation("Post_user")
 }
 
 model Post {

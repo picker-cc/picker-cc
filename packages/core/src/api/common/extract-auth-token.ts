@@ -1,6 +1,5 @@
 import { Request } from 'express';
 
-import { AuthOptions } from '../../config';
 
 /**
  * 从 cookie 或 Authorization header 获取会话令牌，取决于配置的 tokenMethod。
@@ -9,7 +8,7 @@ import { AuthOptions } from '../../config';
  */
 export function extractSessionToken(
     req: Request,
-    tokenMethod: Exclude<AuthOptions['tokenMethod'], undefined>,
+    tokenMethod: string,
 ): string | undefined {
     const tokenFromCookie = getFromCookie(req);
     const tokenFromHeader = getFromHeader(req);

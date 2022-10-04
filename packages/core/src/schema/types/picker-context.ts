@@ -4,6 +4,7 @@ import { GraphQLSchema, ExecutionResult, DocumentNode } from 'graphql';
 import { InitialisedList } from "../prisma/prisma-schema";
 import {GqlNames} from "./utils";
 import {BaseListTypeInfo, BasePickerTypeInfo} from "./type-info";
+import {EventBus} from "../../event-bus";
 
 export type PickerContext<TypeInfo extends BasePickerTypeInfo = BasePickerTypeInfo> = {
   req?: IncomingMessage;
@@ -14,6 +15,7 @@ export type PickerContext<TypeInfo extends BasePickerTypeInfo = BasePickerTypeIn
   exitSudo: () => PickerContext<TypeInfo>;
   withSession: (session: any) => PickerContext<TypeInfo>;
   prisma: TypeInfo['prisma'];
+  eventBus?: EventBus;
   files?: FilesContext;
   images?: ImagesContext;
   totalResults: number;

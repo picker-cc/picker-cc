@@ -10,7 +10,6 @@
     "postbuild": "npm run build:csr && npm run build:ssr",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "watch": "nest start --watch",
     "debug": "nest start --debug --watch",
     "prod": "cross-env NODE_ENV=production node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
