@@ -47,31 +47,18 @@ export default withAuthConfig
  * 配置开发期间使用的设置
  */
 export const pickerConfig: PickerConfig = {
-    // graphqlSchema: customSchema,
-    // context: schemaContext,
     schemaConfig: withAuthConfig,
     context: null,
     apiOptions: {
         port: API_PORT,
-        adminApiPath: ADMIN_API_PATH,
-        adminApiPlayground: {
+        appApiPath: ADMIN_API_PATH,
+        appApiPlayground: {
             settings: {
                 'request.credentials': 'include',
             } as any,
         },
-        adminApiDebug: true,
+        appApiDebug: true,
         // cors: true,
-    },
-    authOptions: {
-        tokenMethod: ['bearer'] as const,
-        requireVerification: true,
-        customPermissions: [],
-        cookieOptions: {
-            secret: 'abc',
-        }
-    },
-    dbConnectionOptions: {
-        // ...getDbConfig(),
     },
     logger: new DefaultLogger({ level: LogLevel.Info}),
     plugins: [

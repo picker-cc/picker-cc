@@ -1,8 +1,6 @@
-import {SecretFieldImpl} from '../types';
 import {PickerDbAPI} from "@picker-cc/core";
 
 export async function validateSecret(
-    secretFieldImpl: SecretFieldImpl,
     identityField: string,
     identity: string,
     secretField: string,
@@ -15,9 +13,9 @@ export async function validateSecret(
         //请参阅README中的“身份保护”，以了解为什么这是一个东西
         // await secretFieldImpl.generateHash('simulated-password-to-counter-timing-attack');
         return {success: false};
-    } else if (await secretFieldImpl.compare(secret, item[secretField])) {
+    // } else if (await secretFieldImpl.compare(secret, item[secretField])) {
         // Authenticated!
-        return {success: true, item};
+        // return {success: true, item};
     } else {
         return {success: false};
     }

@@ -19,7 +19,7 @@ import {createDynamicGraphQlModulesForPlugins} from "../plugin/dynamic-plugin-ap
             apiPath: configService.apiOptions.appApiPath,
             playground: configService.apiOptions.appApiPlayground,
             debug: configService.apiOptions.appApiDebug,
-            typePaths: [ 'app-api', 'common' ].map(p => join(__dirname, 'schema', p, '*.graphql')),
+            typePaths: [ 'admin-api', 'common' ].map(p => join(__dirname, 'schema', p, '*.graphql')),
             // resolverModule: StudioApiModule,
             // validationRules: configService.apiOptions.appApiValidationRules   ,
         })),

@@ -1,7 +1,7 @@
 import {DefaultLogger, Logger, PickerConfig, RuntimePickerConfig} from "./config";
 import {INestApplication} from "@nestjs/common";
 import {getConfig, setConfig} from "./config/config-helpers";
-// import cookieSession from 'cookie-session'
+import cookieSession from 'cookie-session'
 import cookieParser from 'cookie-parser';
 import {getConfigurationFunction, getEntitiesFromPlugins} from "./plugin/plugin-metadata";
 import {getPluginStartupMessages} from "./plugin/plugin-utils";
@@ -159,7 +159,7 @@ export async function preBootstrapConfig(
     let config = getConfig();
 
     // 1-4 启动插件的初始化配置
-    config = await runPluginConfigurations(config);
+    // config = await runPluginConfigurations(config);
     // registerCustomEntityFields(config);
     // setExposedHeaders(config);
     return config;

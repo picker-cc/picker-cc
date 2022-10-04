@@ -123,8 +123,8 @@ async function createGraphQLOptions(
         // 这是由Express cors插件处理
         cors: false,
         plugins: [
-            new TranslateErrorsPlugin(i18nService),
-            new AssetInterceptorPlugin(configService),
+            // new TranslateErrorsPlugin(i18nService),
+            // new AssetInterceptorPlugin(configService),
             ...configService.apiOptions.apolloServerPlugins,
         ],
         validationRules: options.validationRules,

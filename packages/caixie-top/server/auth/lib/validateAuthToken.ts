@@ -1,4 +1,4 @@
-import { AuthTokenRedemptionErrorCode, SecretFieldImpl } from '../types';
+import { AuthTokenRedemptionErrorCode } from '../types';
 import { validateSecret } from './validateSecret';
 import {PickerDbAPI} from "@picker-cc/core";
 
@@ -11,7 +11,6 @@ function sanitiseValidForMinsConfig(input: any): number {
 
 export async function validateAuthToken(
   listKey: string,
-  secretFieldImpl: SecretFieldImpl,
   tokenType: 'passwordReset' | 'magicAuth',
   identityField: string,
   identity: string,
@@ -23,7 +22,6 @@ export async function validateAuthToken(
   | { success: true; item: { id: any; [prop: string]: any } }
 > {
   const result = await validateSecret(
-    secretFieldImpl,
     identityField,
     identity,
     `${tokenType}Token`,

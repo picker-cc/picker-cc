@@ -125,15 +125,16 @@ export function getBaseAuthSchema<I extends string, S extends string>({
                         // @ts-ignore
                         const user = await dbItemAPI.createOne({
                             data: {
-                                name: item.name,
-                                identifier: item.identifier,
-                                password: item.identifier,
+                                // name: item.name,
+                                identifier: identity,
+                                password: identity,
                                 verifyCode,
                                 verifyCodeCreatedAt: new Date()
                             }
                         })
                         // 发出验证码短信
-                        // context.eventBus.publish(new SmsEvent('verification', '13488689885', verifyCode))
+                        // context.eventBus.publish(new SmsEvent('verification', identity, verifyCode))
+                        return {code: 'SUCCESS', message: '验证码已发送'};
 
                     } else {
                         console.log('检查验证码时效')
