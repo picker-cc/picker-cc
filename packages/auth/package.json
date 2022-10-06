@@ -1,6 +1,6 @@
 {
   "name": "@picker-cc/auth",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "description": "",
   "main": "dist/picker-cc-auth.cjs.js",
   "module": "dist/picker-cc-auth.esm.js",
@@ -21,9 +21,9 @@
     ]
   },
   "devDependencies": {
-    "@picker-cc/core": "workspace:^1.0.0"
+    "@picker-cc/core": "workspace:^4.0.0"
   },
   "peerDependencies": {
-    "@picker-cc/core": "workspace:^1.0.0"
+    "@picker-cc/core": "workspace:^4.0.0"
   }
 }

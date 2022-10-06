@@ -1,6 +1,6 @@
 {
   "name": "caixie-top",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "> TODO: description",
   "author": "baisheng <baisheng@gmail.com>",
   "homepage": "",
@@ -13,9 +13,6 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npm.taobao.org/"
-  },
   "scripts": {
     "populate": "node -r ts-node/register populate-dev-server.ts",
     "run:server": "ts-node-dev --respawn server/index.ts",
@@ -29,13 +26,13 @@
     "@nestjs/common": "^9.1.2",
     "@nestjs/core": "^9.1.2",
     "@nestjs/mapped-types": "^1.1.0",
-    "@picker-cc/admin-ui-plugin": "workspace:^1.0.0",
-    "@picker-cc/ali-sms-plugin": "workspace:^1.0.0",
-    "@picker-cc/asset-server-plugin": "workspace:^1.0.0",
-    "@picker-cc/common": "workspace: ^1.0.0",
-    "@picker-cc/core": "workspace:^1.0.0",
+    "@picker-cc/admin-ui-plugin": "workspace:^4.0.0",
+    "@picker-cc/ali-sms-plugin": "workspace:^4.0.0",
+    "@picker-cc/asset-server-plugin": "workspace:^4.0.0",
+    "@picker-cc/common": "workspace:4.0.0",
+    "@picker-cc/core": "workspace:^4.0.0",
     "@picker-cc/ssr-vue": "workspace:^1.0.0",
-    "@picker-cc/wechat-plugin": "workspace:^1.0.0",
+    "@picker-cc/wechat-plugin": "workspace:^4.0.0",
     "@prisma/client": "^4.3.1",
     "@types/express": "^4.17.14",
     "@types/node": "^18.7.18",

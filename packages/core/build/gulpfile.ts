@@ -6,16 +6,16 @@ import path from 'path';
 const SCHEMAS_GLOB = [ '../src/**/*.graphql' ];
 // const SCHEMAS_GLOB = [ '../src/schema/**/*.graphql' ];
 const MESSAGES_GLOB = [ '../src/i18n/messages/**/*' ];
-const CONF_GLOB = [ '../src/service/model.conf' ]
+// const CONF_GLOB = [ '../src/service/model.conf' ]
 
 function copySchemas() {
     return src(SCHEMAS_GLOB).pipe(dest('../dist'));
     // return src(SCHEMAS_GLOB).pipe(dest('../../../' + '/dist/apps/jy-server/schema'));
 }
 
-function copyConfigs() {
-    return src(CONF_GLOB).pipe(dest('../dist/service'))
-}
+// function copyConfigs() {
+//     return src(CONF_GLOB).pipe(dest('../dist/service'))
+// }
 
 function copyI18nMessages() {
     return src(MESSAGES_GLOB).pipe(dest('../dist/i18n/messages'));
@@ -23,15 +23,15 @@ function copyI18nMessages() {
 
 export const build = parallel(
     copySchemas,
-    copyConfigs,
+    // copyConfigs,
     // copyI18nMessages,
 );
 
 export function watch() {
     const watcher1 = gulpWatch(SCHEMAS_GLOB, copySchemas);
     const watcher2 = gulpWatch(MESSAGES_GLOB, copyI18nMessages);
-    const watcher3 = gulpWatch(CONF_GLOB, copyConfigs)
-    copyConfigs()
+    // const watcher3 = gulpWatch(CONF_GLOB, copyConfigs)
+    // copyConfigs()
     return new Promise(resolve => {
     });
 }

@@ -14,18 +14,18 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./src/wechat/wechat.module"), exports);
-__exportStar(require("./src/wechat/wechat.service"), exports);
-__exportStar(require("./src/component/component.module"), exports);
-__exportStar(require("./src/component/component.service"), exports);
+// export * from './src/wechat/wechat.module';
+// export * from './src/wechat/wechat.service';
+// export * from './src/component/component.module';
+// export * from './src/component/component.service';
 __exportStar(require("./src/utils"), exports);
 __exportStar(require("./src/types"), exports);
 __exportStar(require("./src/interfaces"), exports);
-__exportStar(require("./src/miniprogram/miniprogram.service"), exports);
-__exportStar(require("./src/miniprogram/miniprogram.params"), exports);
-__exportStar(require("./src/miniprogram/miniprogram.result"), exports);
-__exportStar(require("./src/mobile/mobile.module"), exports);
-__exportStar(require("./src/mobile/mobile.service"), exports);
-__exportStar(require("./src/mobile/mobile.types"), exports);
+// export * from './src/miniprogram/miniprogram.service';
+// export * from './src/miniprogram/miniprogram.params';
+// export * from './src/miniprogram/miniprogram.result';
+// export * from './src/mobile/mobile.module';
+// export * from './src/mobile/mobile.service';
+// export * from './src/mobile/mobile.types';
 __exportStar(require("./src/wechat/wechat.plugin"), exports);
 //# sourceMappingURL=index.js.map

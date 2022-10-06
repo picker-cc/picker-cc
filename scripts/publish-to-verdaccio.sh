@@ -19,5 +19,5 @@ cd ../packages/asset-server-plugin && npm publish -reg $VERDACCIO &&\
 cd ../common && npm publish -reg $VERDACCIO &&\
 cd ../core && npm publish -reg $VERDACCIO &&\
 cd ../ali-sms-plugin && npm publish -reg $VERDACCIO && \
-cd ../wechat-plugin && npm publish -reg $VERDACCIO && \
-cd ../editorjs-parser && npm publish -reg $VERDACCIO
+cd ../wechat-plugin && npm publish -reg $VERDACCIO
+#cd ../editorjs-parser && npm publish -reg $VERDACCIO

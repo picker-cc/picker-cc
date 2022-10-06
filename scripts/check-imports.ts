@@ -10,8 +10,8 @@ const find = require('find');
  * and go undetected) from getting into published releases of Caixie.
  */
 const illegalImportPatterns: RegExp[] = [
-    /@caixie\/common\/src/,
-    /@caixie\/core\/src/,
+    /@picker-cc\/common\/src/,
+    /@picker-cc\/core\/src/,
 ];
 
 const exclude: string[] = [
