@@ -135,4 +135,3 @@ var RefundChannel;
      */
     RefundChannel["OTHER_BANKCARD"] = "OTHER_BANKCARD";
 })(RefundChannel = exports.RefundChannel || (exports.RefundChannel = {}));
-//# sourceMappingURL=wepay.js.map

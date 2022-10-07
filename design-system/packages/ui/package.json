@@ -1,7 +1,7 @@
 {
   "name": "@picker-ui/core",
   "private": false,
-  "version": "3.0.0",
+  "version": "9.0.0",
   "type": "module",
   "description": "DX focused utility based component library",
   "author": "baisheng",

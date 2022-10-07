@@ -9,6 +9,8 @@ import {printPrismaSchema} from "./prisma/prisma-schema";
 import { createRequire } from 'module';
 import {printGeneratedTypes} from "./schema-type-printer";
 import {SchemaConfig} from "./types";
+import {confirmPrompt, shouldPrompt} from "./prompts";
+import {ExitError} from "../scripts/utils";
 
 export function getSchemaPaths(cwd: string) {
     return {
@@ -74,9 +76,63 @@ async function formatPrismaSchema(schema: string) {
     return formatSchema({ schema });
 }
 
+async function readFileButReturnNothingIfDoesNotExist(filename: string) {
+    try {
+        return await fs.readFile(filename, 'utf8');
+    } catch (err: any) {
+        if (err.code === 'ENOENT') {
+            return;
+        }
+        throw err;
+    }
+}
+
+export async function validateCommittedArtifacts(
+    graphQLSchema: GraphQLSchema,
+    config: SchemaConfig,
+    cwd: string
+) {
+    const artifacts = await getCommittedArtifacts(graphQLSchema, config);
+    const schemaPaths = getSchemaPaths(cwd);
+    const [writtenGraphQLSchema, writtenPrismaSchema] = await Promise.all([
+        readFileButReturnNothingIfDoesNotExist(schemaPaths.graphql),
+        readFileButReturnNothingIfDoesNotExist(schemaPaths.prisma),
+    ]);
+    const outOfDateSchemas = (() => {
+        if (writtenGraphQLSchema !== artifacts.graphql && writtenPrismaSchema !== artifacts.prisma) {
+            return 'both';
+        }
+        if (writtenGraphQLSchema !== artifacts.graphql) {
+            return 'graphql';
+        }
+        if (writtenPrismaSchema !== artifacts.prisma) {
+            return 'prisma';
+        }
+    })();
+    if (outOfDateSchemas) {
+        const message = {
+            both: '您的 Prisma 和 GraphQL 的 schema 不是最新的',
+            graphql: '您的 GraphQL schema 不是最新的',
+            prisma: '您的 Prisma schema 不是最新的',
+        }[outOfDateSchemas];
+        console.log(message);
+        const term = {
+            both: 'Prisma 和 GraphQL schemas',
+            prisma: 'Prisma schema',
+            graphql: 'GraphQL schema',
+        }[outOfDateSchemas];
+        if (shouldPrompt && (await confirmPrompt(`你要更新 ${term} 吗?`))) {
+            await writeCommittedArtifacts(artifacts, cwd);
+        } else {
+            console.log(`请运行 picker postinstall --fix 更新您的 ${term}`);
+            throw new ExitError(1);
+        }
+    }
+}
+
+
 export async function writeCommittedArtifacts(artifacts: CommittedArtifacts, cwd: string) {
     const schemaPaths = getSchemaPaths(cwd);
-    console.log(schemaPaths)
     await Promise.all([
         fs.writeFile(schemaPaths.graphql, artifacts.graphql),
         fs.writeFile(schemaPaths.prisma, artifacts.prisma),

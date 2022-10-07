@@ -141,6 +141,11 @@ export interface AssetOptions {
     uploadMaxFileSize?: number;
 }
 export interface PickerConfig {
+    /**
+     * 是否启动时删除数据库
+     * - 可以在开发模式中配置为 true，生产模式中不建议
+     */
+    shouldDropDatabase: boolean;
     schemaConfig: SchemaConfig;
     context: CreateContext;
     graphqlSchema?: GraphQLSchema;

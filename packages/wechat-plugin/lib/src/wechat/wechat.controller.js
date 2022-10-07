@@ -96,4 +96,3 @@ WechatController = __decorate([
     __metadata("design:paramtypes", [wechat_service_1.WeChatService])
 ], WechatController);
 exports.WechatController = WechatController;
-//# sourceMappingURL=wechat.controller.js.map

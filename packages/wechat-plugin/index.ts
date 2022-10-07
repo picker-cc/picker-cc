@@ -2,7 +2,7 @@
 // export * from './src/wechat/wechat.service';
 // export * from './src/component/component.module';
 // export * from './src/component/component.service';
-export * from './src/utils';
+// export * from './src/utils';
 export * from './src/types';
 export * from './src/interfaces';
 // export * from './src/miniprogram/miniprogram.service';

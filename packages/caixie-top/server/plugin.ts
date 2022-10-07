@@ -16,7 +16,7 @@ import {resolveClientPath, resolveDistPath} from "./utils/resolve-path";
 import {getViteServer} from "./get-vite-server";
 import {renderPage} from 'vite-plugin-ssr'
 import {UsersService} from "./users/users.service";
-import {WeChatModule} from "@picker-cc/wechat-plugin";
+// import {WeChatModule} from "@picker-cc/wechat-plugin";
 import {UsersController} from "./users/users.controller";
 
 /**
@@ -40,7 +40,7 @@ export interface PluginOptions {
     imports: [
         PluginCommonModule,
         // UsersModule,
-        WeChatModule,
+        // WeChatModule,
     ],
     providers: [
         UsersService

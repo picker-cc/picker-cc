@@ -1,7 +1,6 @@
 import {DefaultLogger, Logger, PickerConfig, RuntimePickerConfig} from "./config";
 import {INestApplication} from "@nestjs/common";
 import {getConfig, setConfig} from "./config/config-helpers";
-import cookieSession from 'cookie-session'
 import cookieParser from 'cookie-parser';
 import {getConfigurationFunction, getEntitiesFromPlugins} from "./plugin/plugin-metadata";
 import {getPluginStartupMessages} from "./plugin/plugin-utils";
@@ -17,6 +16,7 @@ import {SchemaConfig} from "./schema/types";
 import {createSystem} from "./createSystem";
 import {devMigrations, pushPrismaSchemaToDatabase} from "./schema/migrations";
 import {initConfig} from "./schema/initConfig";
+import prompts from "prompts";
 
 /**
  * @description
@@ -34,8 +34,9 @@ import {initConfig} from "./schema/initConfig";
  * @docsCategory
  */
 export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INestApplication> {
+
     const setInitConfig = initConfig(userConfig.schemaConfig);
-    const {graphQLSchema, picker} = await setInitialPicker(setInitConfig, process.cwd(), true)
+    const {graphQLSchema, picker} = await setInitialPicker(setInitConfig, process.cwd(), userConfig.shouldDropDatabase)
     userConfig.graphqlSchema = graphQLSchema
     userConfig.context = picker.createContext
     // userConfig.context = picker.createContext({
@@ -58,7 +59,6 @@ export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INes
         cors,
         logger: new Logger(),
     })
-    // app.getHttpAdapter().getInstance().In
     DefaultLogger.restoreOriginalLogLevel();
     app.useLogger(new Logger());
 
@@ -159,7 +159,7 @@ export async function preBootstrapConfig(
     let config = getConfig();
 
     // 1-4 启动插件的初始化配置
-    // config = await runPluginConfigurations(config);
+    config = await runPluginConfigurations(config);
     // registerCustomEntityFields(config);
     // setExposedHeaders(config);
     return config;
@@ -186,7 +186,7 @@ async function setInitialPicker(
     const { graphQLSchema, getPicker } = createSystem(config, true)
 
     // Generate the Artifacts
-    console.log('✨ Generating GraphQL and Prisma schemas');
+    console.log('✨ 生成 GraphQL 和 Prisma 的 schemas');
     const prismaSchema = (await generateCommittedArtifacts(graphQLSchema, config, cwd)).prisma
     let prismaClientGenerationPromise = generateNodeModulesArtifacts(graphQLSchema, config, cwd);
     let migrationPromise: Promise<void>;
@@ -209,12 +209,13 @@ async function setInitialPicker(
             shouldDropDatabase
         );
     }
+
     await Promise.all([prismaClientGenerationPromise, migrationPromise]);
 
     const prismaClientModule = requirePrismaClient(cwd);
     const picker = getPicker(prismaClientModule);
     // Connect to the Database
-    console.log('✨ Connecting to the database');
+    console.log('✨ 连接到数据库');
     await picker.connect();
 
     return {

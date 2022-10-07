@@ -11,8 +11,6 @@ exports.WechatPlugin = void 0;
 const core_1 = require("@picker-cc/core");
 const wechat_module_1 = require("./wechat.module");
 const wechat_controller_1 = require("./wechat.controller");
-// import {RedisCache} from "../utils";
-// import {WeChatService} from "./wechat.service";
 let WechatPlugin = WechatPlugin_1 = class WechatPlugin {
     static init(options) {
         WechatPlugin_1.options = options;
@@ -53,4 +51,3 @@ WechatPlugin = WechatPlugin_1 = __decorate([
     })
 ], WechatPlugin);
 exports.WechatPlugin = WechatPlugin;
-//# sourceMappingURL=wechat.plugin.js.map

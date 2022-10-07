@@ -53,7 +53,9 @@ export class ConfigService implements PickerConfig {
         return this.activeConfig.apiOptions;
     }
 
-
+    get shouldDropDatabase(): Required<boolean> {
+        return this.activeConfig.shouldDropDatabase
+    }
     get port(): number {
         return this.activeConfig.apiOptions.port;
     }

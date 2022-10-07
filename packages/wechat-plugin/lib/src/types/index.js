@@ -27,4 +27,3 @@ var WechatActionType;
     WechatActionType["GET_FOLLOWERS"] = "GET_FOLLOWERS";
     WechatActionType["GET_USER_INFO"] = "GET_USER_INFO";
 })(WechatActionType = exports.WechatActionType || (exports.WechatActionType = {}));
-//# sourceMappingURL=index.js.map

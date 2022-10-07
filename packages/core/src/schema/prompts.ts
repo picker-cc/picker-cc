@@ -17,6 +17,8 @@ async function confirmPromptImpl(message: string, initial: boolean = true): Prom
 }
 
 async function textPromptImpl(message: string): Promise<string> {
+    console.log('propmt get message')
+    console.log(message)
   const { value } = await prompts({
     name: 'value',
     type: 'text',
@@ -24,7 +26,11 @@ async function textPromptImpl(message: string): Promise<string> {
   });
   if (value === undefined) {
     process.exit(1);
+  } else {
+      console.log('x-x--x-x')
   }
+  console.log('x-x--x-x-')
+  console.log(value)
   return value;
 }
 

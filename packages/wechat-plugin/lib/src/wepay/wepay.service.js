@@ -370,4 +370,3 @@ WePayService = WePayService_1 = __decorate([
     (0, common_1.Injectable)()
 ], WePayService);
 exports.WePayService = WePayService;
-//# sourceMappingURL=wepay.service.js.map

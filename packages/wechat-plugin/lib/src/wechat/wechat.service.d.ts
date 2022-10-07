@@ -1,7 +1,8 @@
-import { AccountAccessTokenResult, DefaultRequestResult, FollowerResult, SignatureResult, TemplateMessage, TicketResult, UserAccessTokenResult, UserInfoResult, WeChatModuleOptions } from '../../index';
 import { MiniProgramService } from '../miniprogram/miniprogram.service';
 import { ICache } from '../types/utils';
 import { WePayService } from '../wepay/wepay.service';
+import { DefaultRequestResult, FollowerResult, TemplateMessage, TicketResult, UserAccessTokenResult, UserInfoResult } from "../interfaces";
+import { AccountAccessTokenResult, SignatureResult, WeChatModuleOptions } from '../types';
 export declare class WeChatService {
     private options;
     private static updateRemarkUrl;

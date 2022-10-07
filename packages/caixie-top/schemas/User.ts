@@ -66,6 +66,7 @@ export const User = list({
                 update: ({session}) => session?.data.isAdmin,
             }
         }),
+        print: text(),
         posts: relationship({ref: 'Post.user', many: true})
     }
 })

@@ -18,7 +18,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // export * from './src/wechat/wechat.service';
 // export * from './src/component/component.module';
 // export * from './src/component/component.service';
-__exportStar(require("./src/utils"), exports);
+// export * from './src/utils';
 __exportStar(require("./src/types"), exports);
 __exportStar(require("./src/interfaces"), exports);
 // export * from './src/miniprogram/miniprogram.service';
@@ -28,4 +28,3 @@ __exportStar(require("./src/interfaces"), exports);
 // export * from './src/mobile/mobile.service';
 // export * from './src/mobile/mobile.types';
 __exportStar(require("./src/wechat/wechat.plugin"), exports);
-//# sourceMappingURL=index.js.map

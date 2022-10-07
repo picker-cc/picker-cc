@@ -22,4 +22,3 @@ class MapCache {
     }
 }
 exports.MapCache = MapCache;
-//# sourceMappingURL=cache.js.map

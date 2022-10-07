@@ -3,21 +3,14 @@ import axios from 'axios';
 import {createHash} from 'crypto';
 import * as util from 'util'
 
-import {
-    AccountAccessTokenResult,
-    createNonceStr,
-    DefaultRequestResult, FollowerResult,
-    MessageCrypto,
-    SignatureResult,
-    TemplateMessage,
-    TicketResult,
-    UserAccessTokenResult, UserInfoResult,
-    WeChatModuleOptions,
-} from '../../index';
+
 import {MiniProgramService} from '../miniprogram/miniprogram.service';
 import {ICache} from '../types/utils';
 import {MapCache} from '../utils/cache';
 import {WePayService} from '../wepay/wepay.service';
+import {DefaultRequestResult, FollowerResult, TemplateMessage, TicketResult, UserAccessTokenResult, UserInfoResult} from "../interfaces";
+import {AccountAccessTokenResult, SignatureResult, WeChatModuleOptions } from '../types';
+import { createNonceStr, MessageCrypto } from '../utils';
 
 @Injectable()
 export class WeChatService {

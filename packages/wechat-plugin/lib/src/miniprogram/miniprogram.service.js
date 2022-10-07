@@ -462,4 +462,3 @@ __decorate([
     __metadata("design:returntype", Object)
 ], MiniProgramService.prototype, "verifyMessagePush", null);
 exports.MiniProgramService = MiniProgramService;
-//# sourceMappingURL=miniprogram.service.js.map

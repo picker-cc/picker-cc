@@ -1,4 +1,4 @@
-import {MiddlewareConsumer, Module, NestModule, OnApplicationShutdown, OnModuleInit} from "@nestjs/common";
+import {MiddlewareConsumer, Module, NestModule, OnApplicationShutdown} from "@nestjs/common";
 import {Middleware, MiddlewareHandler} from "./common";
 import {ConfigModule, ConfigService, Logger} from "./config";
 import {I18nModule} from "./i18n/i18n.module";
@@ -10,7 +10,7 @@ import {ServiceModule} from "./service/service.module";
 import {RequestContextService} from "./api/common/request-context.service";
 import {AuthGuard} from "./api/middleware/auth-guard";
 import {APP_GUARD} from "@nestjs/core";
-import {EventBus, EventBusModule} from "./event-bus";
+import {EventBusModule} from "./event-bus";
 
 @Module({
     imports: [

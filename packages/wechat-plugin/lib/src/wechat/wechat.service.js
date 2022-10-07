@@ -41,10 +41,10 @@ const common_1 = require("@nestjs/common");
 const axios_1 = __importDefault(require("axios"));
 const crypto_1 = require("crypto");
 const util = __importStar(require("util"));
-const index_1 = require("../../index");
 const miniprogram_service_1 = require("../miniprogram/miniprogram.service");
 const cache_1 = require("../utils/cache");
 const wepay_service_1 = require("../wepay/wepay.service");
+const utils_1 = require("../utils");
 let WeChatService = WeChatService_1 = class WeChatService {
     constructor(options) {
         this.options = options;
@@ -196,7 +196,7 @@ let WeChatService = WeChatService_1 = class WeChatService {
             throw new Error(`${WeChatService_1.name}: JS-SDK could NOT get a ticket.`);
         }
         const timestamp = Math.floor(Date.now() / 1000);
-        const nonceStr = (0, index_1.createNonceStr)(16);
+        const nonceStr = (0, utils_1.createNonceStr)(16);
         const signStr = 'jsapi_ticket=' + ticket + '&noncestr=' + nonceStr + '&timestamp=' + timestamp + '&url=' + url;
         const signature = (0, crypto_1.createHash)('sha1').update(signStr).digest('hex');
         return {
@@ -334,7 +334,7 @@ let WeChatService = WeChatService_1 = class WeChatService {
      * @link https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/Before_Develop/Message_encryption_and_decryption.html
      */
     encryptMessage(message, timestamp, nonce) {
-        return index_1.MessageCrypto.encryptMessage(this.config.appId, this.config.token || '', this.config.encodingAESKey || '', message, timestamp, nonce);
+        return utils_1.MessageCrypto.encryptMessage(this.config.appId, this.config.token || '', this.config.encodingAESKey || '', message, timestamp, nonce);
     }
     /**
      *
@@ -351,7 +351,7 @@ let WeChatService = WeChatService_1 = class WeChatService {
      *
      */
     decryptMessage(signature, timestamp, nonce, encryptXml) {
-        return index_1.MessageCrypto.decryptMessage(this.config.token || '', this.config.encodingAESKey || '', signature, timestamp, nonce, encryptXml);
+        return utils_1.MessageCrypto.decryptMessage(this.config.token || '', this.config.encodingAESKey || '', signature, timestamp, nonce, encryptXml);
     }
 };
 WeChatService.updateRemarkUrl = 'https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=%s';
@@ -378,4 +378,3 @@ WeChatService = WeChatService_1 = __decorate([
     __metadata("design:paramtypes", [Object])
 ], WeChatService);
 exports.WeChatService = WeChatService;
-//# sourceMappingURL=wechat.service.js.map

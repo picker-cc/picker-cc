@@ -18,6 +18,7 @@ const schemaConfig = config({
     db: {
         provider: 'sqlite',
         url: 'file:./dev.db',
+        useMigrations: true,
     },
     models: {
         User,
@@ -47,6 +48,7 @@ export default withAuthConfig
  * 配置开发期间使用的设置
  */
 export const pickerConfig: PickerConfig = {
+    shouldDropDatabase: true,
     schemaConfig: withAuthConfig,
     context: null,
     apiOptions: {
@@ -72,7 +74,7 @@ export const pickerConfig: PickerConfig = {
             accessKeySecret: 'EY3SnfG5KlHVFa7hfPro4mgwrbutv5',
             SignName: '采撷科技',
             TemplateCode_Code: 'SMS_89285012',
-            codeSize: 6,
+            codeSize: 6
         }),
         CaixieAppPlugin.init({
             route: 'admin',

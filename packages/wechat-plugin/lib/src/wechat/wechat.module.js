@@ -52,4 +52,3 @@ WeChatModule = WeChatModule_1 = __decorate([
     (0, common_1.Module)({})
 ], WeChatModule);
 exports.WeChatModule = WeChatModule;
-//# sourceMappingURL=wechat.module.js.map

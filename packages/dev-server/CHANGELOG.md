@@ -1,5 +1,89 @@
 # dev-server
 
+## 9.0.0
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/admin-ui-plugin@10.0.0
+    -   @picker-cc/asset-server-plugin@10.0.0
+    -   @picker-cc/common@10.0.0
+    -   @picker-cc/core@10.0.0
+
+## 8.0.0
+
+### Major Changes
+
+-   Y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/admin-ui-plugin@9.0.0
+    -   @picker-cc/asset-server-plugin@9.0.0
+    -   @picker-cc/common@9.0.0
+    -   @picker-cc/core@9.0.0
+
+## 7.0.0
+
+### Major Changes
+
+-   Y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/admin-ui-plugin@8.0.0
+    -   @picker-cc/asset-server-plugin@8.0.0
+    -   @picker-cc/common@8.0.0
+    -   @picker-cc/core@8.0.0
+
+## 6.0.0
+
+### Major Changes
+
+-   Y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/admin-ui-plugin@7.0.0
+    -   @picker-cc/asset-server-plugin@7.0.0
+    -   @picker-cc/common@7.0.0
+    -   @picker-cc/core@7.0.0
+
+## 5.0.0
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/admin-ui-plugin@6.0.0
+    -   @picker-cc/asset-server-plugin@6.0.0
+    -   @picker-cc/common@6.0.0
+    -   @picker-cc/core@6.0.0
+
+## 4.0.0
+
+### Major Changes
+
+-   Y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/admin-ui-plugin@5.0.0
+    -   @picker-cc/asset-server-plugin@5.0.0
+    -   @picker-cc/common@5.0.0
+    -   @picker-cc/core@5.0.0
+
 ## 3.0.0
 
 ### Major Changes

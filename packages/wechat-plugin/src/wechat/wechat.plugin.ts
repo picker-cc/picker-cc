@@ -3,8 +3,6 @@ import {Logger, PickerPlugin, PluginCommonModule, Type} from "@picker-cc/core";
 import {WeChatModule} from "./wechat.module";
 import {WeChatModuleOptions} from "../types";
 import {WechatController} from "./wechat.controller";
-// import {RedisCache} from "../utils";
-// import {WeChatService} from "./wechat.service";
 
 @PickerPlugin({
     imports: [PluginCommonModule,

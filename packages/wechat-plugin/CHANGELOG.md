@@ -1,5 +1,47 @@
 # @picker-cc/wechat-plugin
 
+## 11.0.0
+
+### Major Changes
+
+-   Y
+
+## 10.0.0
+
+### Major Changes
+
+-   y
+
+## 9.0.0
+
+### Major Changes
+
+-   Y
+
+## 8.0.0
+
+### Major Changes
+
+-   Y
+
+## 7.0.0
+
+### Major Changes
+
+-   Y
+
+## 6.0.0
+
+### Major Changes
+
+-   y
+
+## 5.0.0
+
+### Major Changes
+
+-   Y
+
 ## 4.0.0
 
 ### Major Changes

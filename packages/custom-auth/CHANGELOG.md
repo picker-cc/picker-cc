@@ -1,5 +1,71 @@
 # auth
 
+## 10.0.0
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/core@10.0.0
+
+## 9.0.0
+
+### Major Changes
+
+-   Y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/core@9.0.0
+
+## 8.0.0
+
+### Major Changes
+
+-   Y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/core@8.0.0
+
+## 7.0.0
+
+### Major Changes
+
+-   Y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/core@7.0.0
+
+## 6.0.0
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/core@6.0.0
+
+## 5.0.0
+
+### Major Changes
+
+-   Y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/core@5.0.0
+
 ## 4.0.0
 
 ### Major Changes

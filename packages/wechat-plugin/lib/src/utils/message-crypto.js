@@ -176,4 +176,3 @@ class MessageCrypto {
 }
 exports.MessageCrypto = MessageCrypto;
 MessageCrypto.NONCESTR_MAX = 32;
-//# sourceMappingURL=message-crypto.js.map
