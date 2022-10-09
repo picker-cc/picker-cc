@@ -4,14 +4,14 @@ export function getConfigPath(cwd: string) {
   return path.join(cwd, 'picker');
 }
 
-export function getAdminPath(cwd: string) {
-  return path.join(cwd, '.picker/admin');
-}
+// export function getAdminPath(cwd: string) {
+//   return path.join(cwd, '.picker/admin');
+// }
 
 export class ExitError extends Error {
   code: number;
   constructor(code: number) {
-    super(`The process should exit with ${code}`);
+    super(`进程 ${code} 终止。`);
     this.code = code;
   }
 }

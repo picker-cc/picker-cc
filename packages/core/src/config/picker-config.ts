@@ -147,7 +147,7 @@ export interface PickerConfig {
      */
     shouldDropDatabase: boolean;
     schemaConfig: SchemaConfig;
-    context: CreateContext;
+    context?: CreateContext;
     graphqlSchema?: GraphQLSchema;
     /**
      * 配置 APIs，包含 hostname, port, CORS 设置

@@ -1,10 +1,10 @@
 import meow from "meow";
 import {ExitError} from "./utils";
-import {prisma} from "./prisma";
-import {postinstall} from "./postinstall";
+import {prisma} from "../cli/prisma";
+import {postinstall} from "../cli/postinstall";
 const commands = { prisma, postinstall };
 
-export async function cli(cwd: string, argv: string[]) {
+export async function cliMeow(cwd: string, argv: string[]) {
     const {input, help, flags } = meow(
         `
         使用

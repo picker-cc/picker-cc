@@ -4,19 +4,15 @@ import express from 'express';
 
 import {
     ConfigService,
-    createProxyHandler,
-    Logger,
     PickerPlugin,
     PluginCommonModule, ProcessContext,
-    registerPluginStartupMessage, Type,
-    ConfigModule, EventBusModule,
+    Type,
 } from "@picker-cc/core";
 import {isProduction} from './utils/env';
 import {resolveClientPath, resolveDistPath} from "./utils/resolve-path";
 import {getViteServer} from "./get-vite-server";
 import {renderPage} from 'vite-plugin-ssr'
 import {UsersService} from "./users/users.service";
-// import {WeChatModule} from "@picker-cc/wechat-plugin";
 import {UsersController} from "./users/users.controller";
 
 /**
@@ -30,8 +26,6 @@ export interface PluginOptions {
     route: string;
     /**
      * @description
-     * The port on which the server will listen. This port will be proxied by the AdminUiPlugin to the same port that
-     * the Vendure server is running on.
      */
     port: number;
 }

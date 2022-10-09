@@ -1,6 +1,6 @@
 {
   "name": "picker-cc",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "watch:all": "pnpm watch --parallel",
@@ -27,7 +27,7 @@
     "check-imports": "ts-node scripts/check-imports.ts",
     "generate-changelog": "ts-node scripts/changelogs/generate-changelog.ts",
     "publish-local": "cd scripts && ./publish-to-verdaccio.sh",
-    "version-packages": "changeset version",
+    "vp": "changeset version",
     "release": "pnpm build && pnpm release:only",
     "release:only": "pnpm version-packages && cd scripts && ./publish-to-verdaccio.sh",
     "exit-pre": "pnpm changeset pre exit ",

@@ -10,13 +10,13 @@ import {PickerWorker} from "./worker";
 import {
     generateCommittedArtifacts,
     generateNodeModulesArtifacts,
-    generateNodeModulesArtifactsWithoutPrismaClient, getSchemaPaths, requirePrismaClient
+    getSchemaPaths,
+    requirePrismaClient
 } from "./schema/artifacts";
 import {SchemaConfig} from "./schema/types";
 import {createSystem} from "./createSystem";
 import {devMigrations, pushPrismaSchemaToDatabase} from "./schema/migrations";
 import {initConfig} from "./schema/initConfig";
-import prompts from "prompts";
 
 /**
  * @description
@@ -40,8 +40,8 @@ export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INes
     userConfig.graphqlSchema = graphQLSchema
     userConfig.context = picker.createContext
     // userConfig.context = picker.createContext({
-        // sessionContext: setInitConfig.session
-        //     ? await createSessionContext(setInitConfig.session, )
+    // sessionContext: setInitConfig.session
+    //     ? await createSessionContext(setInitConfig.session, )
     // })
 
     // 1 在系统启动前处理预置的各项配置
@@ -53,7 +53,7 @@ export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INes
     // tslint:disable-next-line:whitespace
     const appModule = await import('./app.module');
     setProcessContext('server');
-    const { hostname, port, cors, middleware } = config.apiOptions;
+    const {hostname, port, cors, middleware} = config.apiOptions;
     DefaultLogger.hideNestBoostrapLogs();
     const app = await NestFactory.create(appModule.AppModule, {
         cors,
@@ -183,7 +183,7 @@ async function setInitialPicker(
     cwd: string,
     shouldDropDatabase: boolean
 ) {
-    const { graphQLSchema, getPicker } = createSystem(config, true)
+    const {graphQLSchema, getPicker} = createSystem(config, true)
 
     // Generate the Artifacts
     console.log('✨ 生成 GraphQL 和 Prisma 的 schemas');
@@ -223,6 +223,7 @@ async function setInitialPicker(
         picker
     }
 }
+
 /**
  * 返回核心实体和插件中定义的任何其他实体的数组
  * @param userConfig
@@ -281,12 +282,12 @@ function logWelcomeMessage(config: RuntimePickerConfig) {
     } catch (e) {
         version = ' unknown';
     }
-    const { port, appApiPath, hostname } = config.apiOptions;
+    const {port, appApiPath, hostname} = config.apiOptions;
     const apiCliGreetings: Array<readonly [string, string]> = [];
     const pathToUrl = (path: string) => `http://${hostname || 'localhost'}:${port}/${path}`;
     apiCliGreetings.push(['APP API', pathToUrl(appApiPath)]);
     apiCliGreetings.push(
-        ...getPluginStartupMessages().map(({ label, path }) => [label, pathToUrl(path)] as const)
+        ...getPluginStartupMessages().map(({label, path}) => [label, pathToUrl(path)] as const)
     );
     const columnarGreetings = arrangeCliGreetingsInColumns(apiCliGreetings);
     const title = `Picker server (v${version}) 现在启动在端口： ${port}`;
@@ -308,7 +309,7 @@ function arrangeCliGreetingsInColumns(lines: Array<readonly [string, string]>): 
  * 修正了修改DB时的竞争条件
  */
 function disableSynchronize(userConfig: Readonly<RuntimePickerConfig>): Readonly<RuntimePickerConfig> {
-    const config = { ...userConfig };
+    const config = {...userConfig};
     // config.dbConnectionOptions = {
     //     ...userConfig.dbConnectionOptions,
     //     synchronize: false,

@@ -1,5 +1,5 @@
-import {execa} from 'execa';
-import {ExitError, getConfigPath} from './utils';
+// import {execa} from 'execa';
+import {ExitError, getConfigPath} from '../scripts/utils';
 import {initConfig} from "../schema/initConfig";
 import {createSystem} from "../createSystem";
 import {generateNodeModulesArtifacts, validateCommittedArtifacts} from "../schema/artifacts";
@@ -12,6 +12,7 @@ export async function prisma(cwd: string, args: string[]) {
     await validateCommittedArtifacts(graphQLSchema, config, cwd);
     await generateNodeModulesArtifacts(graphQLSchema, config, cwd);
 
+    const {execa} = await import('execa')
     const result = await execa('node',
         [require.resolve('prisma'), ...args],
         {

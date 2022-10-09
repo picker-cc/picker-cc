@@ -19,13 +19,14 @@
 //     - api.js: 列表的 API 只生成 generateNodeAPI 选项
 
 import {initConfig} from "../schema/initConfig";
-import {getConfigPath} from "./utils";
+import {getConfigPath} from "../scripts/utils";
 import {createSystem} from "../createSystem";
 import {
     generateCommittedArtifacts,
     generateNodeModulesArtifacts,
     validateCommittedArtifacts
 } from "../schema/artifacts";
+import {logColored} from "./cli-utils";
 
 export async function postinstall(cwd: string, shouldFix: boolean) {
     const config = initConfig(require(getConfigPath(cwd)).default);
@@ -34,10 +35,10 @@ export async function postinstall(cwd: string, shouldFix: boolean) {
 
     if (shouldFix) {
         await generateCommittedArtifacts(graphQLSchema, config, cwd);
-        console.log('✨ 生成 GraphQL 和 Prisma schemas');
+        logColored('\n✨ 生成 GraphQL 和 Prisma schemas\n');
     } else {
         await validateCommittedArtifacts(graphQLSchema, config, cwd);
-        console.log('✨ GraphQL 和 Prisma schemas 是最新的');
+        logColored('\n✨ GraphQL 和 Prisma schemas 是最新的\n');
     }
     await generateNodeModulesArtifacts(graphQLSchema, config, cwd);
 }
