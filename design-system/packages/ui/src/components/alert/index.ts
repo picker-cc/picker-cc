@@ -1,2 +1,0 @@
-export { AAlert } from './AAlert'
-

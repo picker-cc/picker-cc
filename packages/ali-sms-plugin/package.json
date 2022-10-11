@@ -20,7 +20,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@alicloud/pop-core": "^1.7.12",
     "@nestjs/config": "^2.2.0",

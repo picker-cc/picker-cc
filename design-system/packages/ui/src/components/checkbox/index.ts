@@ -1,2 +1,0 @@
-export { ACheckbox } from './ACheckbox'
-

@@ -1,2 +1,0 @@
-export { ADialog } from './ADialog'
-

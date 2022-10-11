@@ -1,2 +1,0 @@
-export { ASwitch } from './ASwitch'
-

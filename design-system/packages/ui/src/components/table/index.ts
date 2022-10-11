@@ -1,2 +1,0 @@
-export { ATable } from './ATable'
-
