@@ -4,7 +4,8 @@
   "description": "> TODO: description",
   "author": "baisheng <baisheng@gmail.com>",
   "homepage": "",
-  "license": "ISC",
+  "license": "MIT",
+  "private": true,
   "main": "lib/dev-server.js",
   "directories": {
     "lib": "lib",

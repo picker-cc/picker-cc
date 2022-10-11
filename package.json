@@ -29,13 +29,13 @@
     "publish-local": "cd scripts && ./publish-to-verdaccio.sh",
     "vp": "changeset version",
     "release": "pnpm build && pnpm release:only",
-    "release:only": "pnpm version-packages && cd scripts && ./publish-to-verdaccio.sh",
+    "release:only-local": "pnpm version-packages && cd scripts && ./publish-to-verdaccio.sh",
     "exit-pre": "pnpm changeset pre exit ",
     "enter-alpha": "pnpm changeset pre enter alpha",
     "enter-beta": "pnpm changeset pre enter beta",
     "enter-rc": "pnpm changeset pre enter rc",
     "local:publish": "cross-env npm_config_registry=https://npm.jiyang-health.com pnpm ci:publish",
-    "remote:publish": "cross-env npm_config_registry=https://registry.npmjs.org pnpm ci:publish"
+    "release:only": "cross-env npm_config_registry=https://registry.npmjs.org pnpm ci:publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.25.0",
