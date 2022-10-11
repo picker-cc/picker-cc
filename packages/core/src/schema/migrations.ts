@@ -5,9 +5,9 @@ import chalk from 'chalk';
 // import slugify from '@sindresorhus/slugify';
 import slugify from 'limax';
 
-import {ExitError} from '../scripts/utils';
 import {confirmPrompt, textPrompt} from './prompts';
 import prompts from "prompts";
+import {ExitError} from "./utils";
 
 // 注意，️对于每个 Migrate 实例我们只运行一次，但是我们将对所有 Migrate 调用一致地执行操作，以便调用可以自由使用
 

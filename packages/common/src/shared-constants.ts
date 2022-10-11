@@ -4,7 +4,7 @@
  */
 export const API_PORT = 5001;
 export const ADMIN_API_PATH = 'admin-api';
-export const STUDIO_API_PATH = 'studio-api';
+export const APP_API_PATH = 'app-api';
 export const DEFAULT_CHANNEL_CODE = '__default_channel__';
 export const SUPER_ADMIN_ROLE_CODE = '__super_admin_role__';
 export const SUPER_ADMIN_ROLE_DESCRIPTION = 'SuperAdmin';

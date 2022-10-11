@@ -6,7 +6,7 @@ export interface UserResponses {
     indexSource: string;
     indexWorkerSource: string;
     configSource: string;
-    migrationSource: string;
+    // migrationSource: string;
     authSource: string;
     schemaSource: string;
     readmeSource: string;

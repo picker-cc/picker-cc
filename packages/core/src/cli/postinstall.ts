@@ -18,8 +18,6 @@
 //     - types.{js,.ts}: .d.ts 将与当前的 .picker/schema-types.ts 相同, .js 文件会是空的
 //     - api.js: 列表的 API 只生成 generateNodeAPI 选项
 
-import {initConfig} from "../schema/initConfig";
-import {getConfigPath} from "../scripts/utils";
 import {createSystem} from "../createSystem";
 import {
     generateCommittedArtifacts,
@@ -27,10 +25,11 @@ import {
     validateCommittedArtifacts
 } from "../schema/artifacts";
 import {logColored} from "./cli-utils";
+import {getConfig} from "./utils";
 
 export async function postinstall(cwd: string, shouldFix: boolean) {
-    const config = initConfig(require(getConfigPath(cwd)).default);
 
+    const config = getConfig(cwd);
     const { graphQLSchema } = createSystem(config);
 
     if (shouldFix) {

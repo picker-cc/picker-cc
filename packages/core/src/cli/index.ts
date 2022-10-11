@@ -27,6 +27,14 @@ logColored(`
                   \\____/  \\____/
 
                                        `);
+program
+    .command('build')
+    .description('build web site for deployment')
+    .action(() => {
+        console.log('build');
+    });
+
+
 program.version(`Picker CLI v${version}`, '-v --version').name('picker');
 
 program
@@ -34,7 +42,8 @@ program
     .description('生成客户有端 APIs 和 types')
     .option('-f, --fix', '生成确定的项目构件（prisma、graphql ...）', false)
     .action(async (options, command) => {
-        return await postinstall(process.cwd(), options.fix);
+        console.log(command)
+        await postinstall(process.cwd(), options.fix);
     })
 
 program

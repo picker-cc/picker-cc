@@ -250,10 +250,12 @@ export function getDependencies(
     const dependencies = [
         `@picker-cc/common${pickerPkgVersion}`,
         `@picker-cc/core${pickerPkgVersion}`,
+        `prisma`,
+        `@prisma/client`
         // `@picker-cc/email-plugin${vendurePkgVersion}`,
         // `@picker-cc/asset-server-plugin${pickerPkgVersion}`,
         // `@picker-cc/admin-ui-plugin${vendurePkgVersion}`,
-        dbDriverPackage(dbType),
+        // dbDriverPackage(dbType),
     ];
     const devDependencies = ['concurrently'];
     if (usingTs) {
@@ -268,109 +270,109 @@ export function getDependencies(
  * Returns the name of the npm driver package for the
  * selected database.
  */
-function dbDriverPackage(dbType: DbType): string {
-    switch (dbType) {
-        case "cockroachdb":
-            break;
-        case "mongodb":
-            break;
-        case 'mysql':
-        case 'mariadb':
-            return 'mysql';
-        case 'postgres':
-            return 'pg';
-        case 'sqlite':
-            return 'better-sqlite3';
-        case 'mssql':
-            return 'mssql';
-        default:
-            const n: never = dbType;
-            console.error(chalk.red(`No driver package configured for type "${dbType}"`));
-            return '';
-    }
-}
+// function dbDriverPackage(dbType: DbType): string {
+//     switch (dbType) {
+//         case "cockroachdb":
+//             break;
+//         case "mongodb":
+//             break;
+//         case 'mysql':
+//         case 'mariadb':
+//             return 'mysql';
+//         case 'postgres':
+//             return 'pg';
+//         case 'sqlite':
+//             return 'better-sqlite3';
+//         case 'mssql':
+//             return 'mssql';
+//         default:
+//             const n: never = dbType;
+//             console.error(chalk.red(`No driver package configured for type "${dbType}"`));
+//             return '';
+//     }
+// }
 
 /**
  * 检查指定的DB连接选项是否正常工作(即可以建立连接)，并且指定的数据库是否存在。
  */
-export function checkDbConnection(options: any, root: string): Promise<true> {
-    switch (options.type) {
-        case 'mysql':
-            return checkMysqlDbExists(options, root);
-        case 'postgres':
-            return checkPostgresDbExists(options, root);
-        default:
-            return Promise.resolve(true);
-    }
-}
+// export function checkDbConnection(options: any, root: string): Promise<true> {
+//     switch (options.type) {
+//         case 'mysql':
+//             return checkMysqlDbExists(options, root);
+//         case 'postgres':
+//             return checkPostgresDbExists(options, root);
+//         default:
+//             return Promise.resolve(true);
+//     }
+// }
 
-async function checkMysqlDbExists(options: any, root: string): Promise<true> {
-    const mysql = await import(path.join(root, 'node_modules/mysql'));
-    const connectionOptions = {
-        host: options.host,
-        user: options.username,
-        password: options.password,
-        port: options.port,
-        database: options.database,
-    };
-    const connection = mysql.createConnection(connectionOptions);
+// async function checkMysqlDbExists(options: any, root: string): Promise<true> {
+//     const mysql = await import(path.join(root, 'node_modules/mysql'));
+//     const connectionOptions = {
+//         host: options.host,
+//         user: options.username,
+//         password: options.password,
+//         port: options.port,
+//         database: options.database,
+//     };
+//     const connection = mysql.createConnection(connectionOptions);
+//
+//     return new Promise<boolean>((resolve, reject) => {
+//         connection.connect((err: any) => {
+//             if (err) {
+//                 if (err.code === 'ER_BAD_DB_ERROR') {
+//                     throwDatabaseDoesNotExist(options.database);
+//                 }
+//                 throwConnectionError(err);
+//             }
+//             resolve(true);
+//         });
+//     }).then(() => {
+//         return new Promise((resolve, reject) => {
+//             connection.end((err: any) => {
+//                 resolve(true);
+//             });
+//         });
+//     });
+// }
 
-    return new Promise<boolean>((resolve, reject) => {
-        connection.connect((err: any) => {
-            if (err) {
-                if (err.code === 'ER_BAD_DB_ERROR') {
-                    throwDatabaseDoesNotExist(options.database);
-                }
-                throwConnectionError(err);
-            }
-            resolve(true);
-        });
-    }).then(() => {
-        return new Promise((resolve, reject) => {
-            connection.end((err: any) => {
-                resolve(true);
-            });
-        });
-    });
-}
+// async function checkPostgresDbExists(options: any, root: string): Promise<true> {
+//     const { Client } = await import(path.join(root, 'node_modules/pg'));
+//     const connectionOptions = {
+//         host: options.host,
+//         user: options.username,
+//         password: options.password,
+//         port: options.port,
+//         database: options.database,
+//     };
+//     const client = new Client(connectionOptions);
+//
+//     try {
+//         await client.connect();
+//     } catch (e: any) {
+//         if (e.code === '3D000') {
+//             throwDatabaseDoesNotExist(options.database);
+//         }
+//         throwConnectionError(e);
+//         await client.end();
+//         throw e;
+//     }
+//     await client.end();
+//     return true;
+// }
 
-async function checkPostgresDbExists(options: any, root: string): Promise<true> {
-    const { Client } = await import(path.join(root, 'node_modules/pg'));
-    const connectionOptions = {
-        host: options.host,
-        user: options.username,
-        password: options.password,
-        port: options.port,
-        database: options.database,
-    };
-    const client = new Client(connectionOptions);
+// function throwConnectionError(err: any) {
+//     throw new Error(
+//         `无法连接到数据库 ` +
+//             `请检查您的 Picker 配置中的连接设置\n[${
+//                 err.message || err.toString()
+//             }]`,
+//     );
+// }
 
-    try {
-        await client.connect();
-    } catch (e: any) {
-        if (e.code === '3D000') {
-            throwDatabaseDoesNotExist(options.database);
-        }
-        throwConnectionError(e);
-        await client.end();
-        throw e;
-    }
-    await client.end();
-    return true;
-}
-
-function throwConnectionError(err: any) {
-    throw new Error(
-        `无法连接到数据库 ` +
-            `请检查您的 Picker 配置中的连接设置\n[${
-                err.message || err.toString()
-            }]`,
-    );
-}
-
-function throwDatabaseDoesNotExist(name: string) {
-    throw new Error(`数据库 "${name}" 不存在。请创建数据库，然后重试。`);
-}
+// function throwDatabaseDoesNotExist(name: string) {
+//     throw new Error(`数据库 "${name}" 不存在。请创建数据库，然后重试。`);
+// }
 
 export async function isServerPortInUse(): Promise<boolean> {
     const tcpPortUsed = require('tcp-port-used');

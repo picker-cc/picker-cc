@@ -102,13 +102,12 @@ export async function gatherUserResponses(root: string): Promise<UserResponses> 
         process.exit(0);
     }
 
-    const {indexSource, indexWorkerSource, configSource, migrationSource, readmeSource, authSource, schemaSource} =
+    const {indexSource, indexWorkerSource, configSource, readmeSource, authSource, schemaSource} =
         await generateSources(root, answers);
     return {
         indexSource,
         indexWorkerSource,
         configSource,
-        migrationSource,
         readmeSource,
         authSource,
         schemaSource,
@@ -135,13 +134,12 @@ export async function gatherCiUserResponses(root: string): Promise<UserResponses
         superadminIdentifier: SUPER_ADMIN_USER_IDENTIFIER,
         superadminPassword: SUPER_ADMIN_USER_PASSWORD,
     };
-    const {indexSource, indexWorkerSource, configSource, migrationSource, readmeSource, authSource, schemaSource} =
+    const {indexSource, indexWorkerSource, configSource, readmeSource, authSource, schemaSource} =
         await generateSources(root, ciAnswers);
     return {
         indexSource,
         indexWorkerSource,
         configSource,
-        migrationSource,
         readmeSource,
         authSource,
         schemaSource,
@@ -162,7 +160,6 @@ async function generateSources(
     indexSource: string;
     indexWorkerSource: string;
     configSource: string;
-    migrationSource: string;
     readmeSource: string;
     authSource: string;
     schemaSource: string;
@@ -191,15 +188,15 @@ async function generateSources(
     const indexSource = Handlebars.compile(indexTemplate)(templateContext);
     const indexWorkerTemplate = await fs.readFile(assetPath('index-worker.hbs'), 'utf-8');
     const indexWorkerSource = Handlebars.compile(indexWorkerTemplate)(templateContext);
-    const migrationTemplate = await fs.readFile(assetPath('migration.hbs'), 'utf-8');
-    const migrationSource = Handlebars.compile(migrationTemplate)(templateContext);
+    // const migrationTemplate = await fs.readFile(assetPath('migration.hbs'), 'utf-8');
+    // const migrationSource = Handlebars.compile(migrationTemplate)(templateContext);
     const readmeTemplate = await fs.readFile(assetPath('readme.hbs'), 'utf-8');
     const readmeSource = Handlebars.compile(readmeTemplate)(templateContext);
     const authTemplate = await fs.readFile(assetPath('auth.hbs'), 'utf-8');
     const authSource = Handlebars.compile(authTemplate)(templateContext);
     const schemaTemplate = await fs.readFile(assetPath('schema.hbs'), 'utf-8');
     const schemaSource = Handlebars.compile(schemaTemplate)(templateContext);
-    return {indexSource, indexWorkerSource, configSource, migrationSource, readmeSource, schemaSource, authSource};
+    return {indexSource, indexWorkerSource, configSource, readmeSource, schemaSource, authSource};
 }
 
 function defaultDBPort(dbType: DbType): number {

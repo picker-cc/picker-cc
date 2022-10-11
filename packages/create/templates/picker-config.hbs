@@ -3,8 +3,8 @@
 这里定义 picker 的启动配置
 */
 
-import {config, DefaultLogger, LogLevel, PickerConfig, PickerContext} from '@picker-cc/core';
-import {ADMIN_API_PATH, API_PORT} from "@picker-cc/common/lib/shared-constants";
+import {config as typeInfoConfig, DefaultLogger, LogLevel, PickerConfig, PickerContext} from '@picker-cc/core';
+import {APP_API_PATH, API_PORT} from "@picker-cc/common/lib/shared-constants";
 
 // 在 schema 文件中我们定义应用的列表结构
 import {lists} from './schema';
@@ -12,9 +12,9 @@ import {lists} from './schema';
 // Picker 权限谁的独立配置
 import {withAuth, session} from './auth';
 
-const withAuthConfig = withAuth(
+export const schemaConfig = withAuth(
     // 使用 config 函数的目的是帮助 typescript 引入你找到可用的选项
-    config({
+    typeInfoConfig({
         // 数据库设置提供配置，当前使用 sqlite 来获得最快的启动体验
         db: {
             provider: 'sqlite',
@@ -31,12 +31,12 @@ const withAuthConfig = withAuth(
     })
 );
 
-export const pickerConfig: PickerConfig = {
+export const config: PickerConfig = {
     shouldDropDatabase: true,
-    schemaConfig: withAuthConfig,
+    schemaConfig: schemaConfig,
     apiOptions: {
         port: API_PORT,
-        appApiPath: ADMIN_API_PATH,
+        appApiPath: APP_API_PATH,
         appApiPlayground: {
             settings: {
                 'request.credentials': 'include',

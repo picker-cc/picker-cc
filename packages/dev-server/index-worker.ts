@@ -1,8 +1,8 @@
 import { bootstrapWorker } from '@picker-cc/core';
 
-import { pickerCc } from './picker-cc';
+import { pickerConfig } from './picker-cc';
 
-bootstrapWorker(pickerCc)
+bootstrapWorker(pickerConfig)
     .then(worker => worker.startJobQueue())
     // .then(worker => worker.startHealthCheckServer({ port: 3001 }))
     .catch(err => {

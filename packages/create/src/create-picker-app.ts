@@ -11,14 +11,14 @@ import { Observable } from 'rxjs';
 import { REQUIRED_NODE_VERSION, SERVER_PORT } from './constants';
 import { gatherCiUserResponses, gatherUserResponses } from './gather-user-responses';
 import {
-    checkDbConnection,
+    // checkDbConnection,
     checkNodeVersion,
     checkThatNpmCanReadCwd,
     getDependencies,
     installPackages,
     isSafeToCreateProjectIn,
     isServerPortInUse,
-    shouldUseYarn,
+    // shouldUseYarn,
     shouldUserPnpm,
 } from './helpers';
 import { CliLogLevel } from './types';
@@ -81,7 +81,6 @@ async function createApp(
         configSource,
         indexSource,
         indexWorkerSource,
-        migrationSource,
         readmeSource,
         authSource,
         schemaSource,
@@ -102,12 +101,9 @@ async function createApp(
         private: true,
         scripts: {
             'run:server': usingTs ? 'ts-node ./src/index.ts' : 'node ./src/index.js',
-            'run:worker': usingTs ? 'ts-node ./src/index-worker.ts' : 'node ./src/index-worker.js',
+            // 'run:worker': usingTs ? 'ts-node ./src/index-worker.ts' : 'node ./src/index-worker.js',
             start: usePnpm ? 'concurrently pnpm:run:*' : 'concurrently npm:run:*',
             ...(usingTs ? { build: 'tsc' } : undefined),
-            'migration:generate': usingTs ? 'ts-node migration generate' : 'node migration generate',
-            'migration:run': usingTs ? 'ts-node migration run' : 'node migration run',
-            'migration:revert': usingTs ? 'ts-node migration revert' : 'node migration revert',
         },
     };
 
@@ -160,7 +156,7 @@ async function createApp(
                     fs.writeFile(ctx.configFile, configSource)
                         .then(() => fs.writeFile(srcPathScript('index'), indexSource))
                         .then(() => fs.writeFile(srcPathScript('index-worker'), indexWorkerSource))
-                        .then(() => fs.writeFile(rootPathScript('migration'), migrationSource))
+                        // .then(() => fs.writeFile(rootPathScript('migration'), migrationSource))
                         .then(() => fs.writeFile(srcPathScript('schema'), schemaSource))
                         .then(() => fs.writeFile(srcPathScript('auth'), authSource))
                         .then(() => fs.writeFile(path.join(root, 'README.md'), readmeSource))
@@ -200,49 +196,58 @@ async function createApp(
                         // register ts-node so that the config file can be loaded
                         require(path.join(root, 'node_modules/ts-node')).register();
                     }
-                    const { bootstrap, DefaultLogger, LogLevel, JobQueueService } = await import(
+                    const { bootstrap, DefaultLogger, LogLevel } = await import(
                         path.join(root, 'node_modules/@picker-cc/core/dist/index')
                     );
                     const { config } = await import(ctx.configFile);
-                    const assetsDir = path.join(__dirname, '../assets');
+                    // const assetsDir = path.join(__dirname, '../assets');
 
                     // const initialDataPath = path.join(assetsDir, 'initial-data.json');
                     const port = await detectPort(3000);
-                    const vendureLogLevel =
+                    const pickerLogLevel =
                         logLevel === 'silent'
                             ? LogLevel.Error
                             : logLevel === 'verbose'
                             ? LogLevel.Verbose
                             : LogLevel.Info;
 
-                    const bootstrapFn = async () => {
-                        await checkDbConnection(config.dbConnectionOptions, root);
-                        const _app = await bootstrap({
-                            ...config,
-                            apiOptions: {
-                                ...(config.apiOptions ?? {}),
-                                port,
-                            },
-                            silent: logLevel === 'silent',
-                            dbConnectionOptions: {
-                                ...config.dbConnectionOptions,
-                                synchronize: true,
-                            },
-                            logger: new DefaultLogger({ level: vendureLogLevel }),
-                            importExportOptions: {
-                                importAssetsDir: path.join(assetsDir, 'images'),
-                            },
-                        });
-                        await _app.get(JobQueueService).start();
-                        return _app;
-                    };
+                    // const bootstrapFn = async () => {
+                    //     await checkDbConnection(config.dbConnectionOptions, root);
+                    //     const _app = await bootstrap({
+                    //         ...config,
+                    //         apiOptions: {
+                    //             ...(config.apiOptions ?? {}),
+                    //             port,
+                    //         },
+                    //         silent: logLevel === 'silent',
+                    //         dbConnectionOptions: {
+                    //             ...config.dbConnectionOptions,
+                    //             synchronize: true,
+                    //         },
+                    //         logger: new DefaultLogger({ level: pickerLogLevel }),
+                    //         importExportOptions: {
+                    //             importAssetsDir: path.join(assetsDir, 'images'),
+                    //         },
+                    //     });
+                    //     await _app.get(JobQueueService).start();
+                    //     return _app;
+                    // };
 
                     // const app = await populate(
                     //     bootstrapFn,
                     //     initialDataPath,
                     //     populateProducts ? path.join(assetsDir, 'products.csv') : undefined,
                     // );
-                    const app = await bootstrapFn();
+                    // const app = await bootstrapFn();
+                    const app = await bootstrap({
+                        ...config,
+                        apiOptions: {
+                            ...(config.apiOptions ?? {}),
+                            port,
+                        },
+                        // slient: logLevel === 'slient',
+                        logger: new DefaultLogger({ level: pickerLogLevel })
+                    })
                     if (!app) {
                         throw new Error('无法启动 Picker 应用程序');
                     }
@@ -276,12 +281,12 @@ async function createApp(
     console.log();
     console.log(chalk.green(`成功! 在 ${root} 创建了一个新的 Picker 服务。`));
     console.log();
-    console.log(`我们建议你从输入开始:`);
+    console.log(`我们建议您用下面的方式开始:`);
     console.log();
     console.log(chalk.green(`    cd ${name}`));
     console.log(chalk.green(`    ${startCommand}`));
     console.log();
-    console.log('Happy hacking!');
+    console.log('Happy day!');
     process.exit(0);
 }
 

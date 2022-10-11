@@ -12,7 +12,6 @@ import {makeCreateContext} from "./schema/context/createContext";
 export function createSystem(config: SchemaConfig, isLiveReload?: boolean) {
     const lists = initialiseLists(config);
 
-
     const graphQLSchema = createGraphQLSchema(config, lists);
 
     const sudoGraphQLSchema = getSudoGraphQLSchema(config);

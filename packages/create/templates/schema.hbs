@@ -28,11 +28,11 @@ import {
 // 我们正在使用 Typescript，并且我们希望我们的类型检验尽可能严格。
 // 通过为我们的 Lists 对像提供 Picker 生成的 `Lists` 类型，我们将我们的类型细化为一个更严格的子集，它对我们的模式中的其他列表具有类型的感知能力，
 // Typescript 不容易推断出这些列表。
-import { Lists } from '.picker/types';
+// import { Lists } from '.picker/types';
 
 // 我们有一个用户列表，一个博客的内容标签
 // 导出对象上的每个属性都将成为列表的名称（也就是 `listKey`）其值是列表的定义，包括字段。
-export const lists: Lists = {
+export const lists = {
   // 用户列表定义
   User: list({
     // 这里定义了几个 `User` 的字段，邮箱、密码方便用户进行登录，名称方便我们找到用户。以及一个用户关联博客内容的方法
@@ -62,6 +62,7 @@ export const lists: Lists = {
       title: text(),
       // 状态字段，用于控制是否显示内容
       status: select({
+        type: 'enum',
         options: [
           { label: '已发布', value: 'published' },
           { label: '草稿', value: 'draft' },
@@ -87,7 +88,7 @@ export const lists: Lists = {
       //   links: true,
       //   dividers: true,
       // }),
-      context: text(),
+      content: text(),
       publishDate: timestamp(),
       // 这里链接的是 post => author
       author: relationship({

@@ -1,6 +1,6 @@
 {
   "name": "@picker-cc/common",
-  "version": "22.0.0",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {

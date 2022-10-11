@@ -1,7 +1,7 @@
 import {bootstrap} from "@picker-cc/core";
 
-import { pickerCc } from './picker-cc'
-bootstrap(pickerCc)
+import { pickerConfig } from './picker-cc'
+bootstrap(pickerConfig)
     .then(app => {
         // if (process.env.RUN_JOB_QUEUE === '1') {
         //     app.get(JobQueueService).start()

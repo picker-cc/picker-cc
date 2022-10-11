@@ -1,11 +1,9 @@
-// import {execa} from 'execa';
-import {ExitError, getConfigPath} from '../scripts/utils';
-import {initConfig} from "../schema/initConfig";
 import {createSystem} from "../createSystem";
 import {generateNodeModulesArtifacts, validateCommittedArtifacts} from "../schema/artifacts";
+import {ExitError, getConfig} from "./utils";
 
 export async function prisma(cwd: string, args: string[]) {
-    const config = initConfig(require(getConfigPath(cwd)).default);
+    const config = getConfig(cwd);
 
     const {graphQLSchema} = createSystem(config);
 

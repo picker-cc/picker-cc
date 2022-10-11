@@ -39,10 +39,6 @@ export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INes
     const {graphQLSchema, picker} = await setInitialPicker(setInitConfig, process.cwd(), userConfig.shouldDropDatabase)
     userConfig.graphqlSchema = graphQLSchema
     userConfig.context = picker.createContext
-    // userConfig.context = picker.createContext({
-    // sessionContext: setInitConfig.session
-    //     ? await createSessionContext(setInitConfig.session, )
-    // })
 
     // 1 在系统启动前处理预置的各项配置
     const config = await preBootstrapConfig(userConfig);

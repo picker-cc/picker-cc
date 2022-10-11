@@ -10,7 +10,7 @@ import { createRequire } from 'module';
 import {printGeneratedTypes} from "./schema-type-printer";
 import {SchemaConfig} from "./types";
 import {confirmPrompt, shouldPrompt} from "./prompts";
-import {ExitError} from "../scripts/utils";
+import {ExitError} from "./utils";
 
 export function getSchemaPaths(cwd: string) {
     return {
