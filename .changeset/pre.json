@@ -2,15 +2,18 @@
   "mode": "pre",
   "tag": "beta",
   "initialVersions": {
-    "@picker-cc/ali-sms-plugin": "1.0.0",
-    "@picker-cc/asset-server-plugin": "1.0.0",
-    "@picker-cc/auth": "1.0.0",
-    "@picker-cc/common": "1.0.0",
-    "@picker-cc/core": "1.0.0",
-    "@picker-cc/create": "1.0.0",
-    "dev-server": "1.0.0",
-    "@picker-cc/testing": "1.0.0",
-    "@picker-cc/wechat-plugin": "1.0.0"
+    "@picker-cc/ali-sms-plugin": "2.0.0",
+    "@picker-cc/asset-server-plugin": "2.0.0",
+    "@picker-cc/auth": "2.0.0",
+    "@picker-cc/common": "2.0.0",
+    "@picker-cc/core": "2.0.0",
+    "@picker-cc/create": "2.0.0",
+    "dev-server": "2.0.0",
+    "@picker-cc/testing": "2.0.0",
+    "@picker-cc/wechat-plugin": "2.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "fair-carrots-change",
+    "mighty-roses-hammer"
+  ]
 }
