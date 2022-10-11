@@ -1,0 +1,18 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "@picker-ui/documentation": "8.0.0",
+    "@picker-ui/core": "9.0.0",
+    "@picker-cc/ali-sms-plugin": "1.0.0",
+    "@picker-cc/asset-server-plugin": "1.0.0",
+    "@picker-cc/auth": "1.0.0",
+    "@picker-cc/common": "1.0.0",
+    "@picker-cc/core": "1.0.0",
+    "@picker-cc/create": "1.0.0",
+    "dev-server": "1.0.0",
+    "@picker-cc/testing": "1.0.0",
+    "@picker-cc/wechat-plugin": "1.0.0"
+  },
+  "changesets": []
+}

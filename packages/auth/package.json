@@ -21,9 +21,9 @@
     ]
   },
   "devDependencies": {
-    "@picker-cc/core": "workspace:^33.0.0"
+    "@picker-cc/core": "workspace:^1.0.0"
   },
   "peerDependencies": {
-    "@picker-cc/core": "workspace:^33.0.0"
+    "@picker-cc/core": "workspace:^1.0.0"
   }
 }
