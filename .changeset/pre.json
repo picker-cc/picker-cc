@@ -1,6 +1,6 @@
 {
   "mode": "pre",
-  "tag": "alpha",
+  "tag": "beta",
   "initialVersions": {
     "@picker-cc/ali-sms-plugin": "1.0.0",
     "@picker-cc/asset-server-plugin": "1.0.0",
