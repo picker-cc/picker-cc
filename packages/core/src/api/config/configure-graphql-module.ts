@@ -18,6 +18,8 @@ import {IncomingMessage, ServerResponse} from "http";
 import {createSessionContext} from "../../schema/session";
 import {EventBus, EventBusModule} from "../../event-bus";
 import {AssetInterceptorPlugin} from "../middleware/asset-interceptor-plugin";
+import {getPluginAPIExtensions} from "../../plugin/plugin-metadata";
+import {notNullOrUndefined} from "@picker-cc/common/lib/shared-utils";
 
 // import {}
 export interface GraphQLApiOptions {
@@ -88,22 +90,23 @@ async function createGraphQLOptions(
     options: GraphQLApiOptions,
 ): Promise<GqlModuleOptions> {
 
-    // const builtSchema = await buildSchemaForApi(options.apiType);
+    const builtSchema = await buildSchemaForApi(configService.graphqlSchema);
     // mergeSchemas(builtSchema, getMyGraphQLSchema(builtSchema))
     // const resolvers = generateResolvers(
     //     configService,
-    //     options.apiType,
-    //     builtSchema,
+        // options.apiType,
+        // builtSchema,
     // );
-
+    //
     // const gqla = await graphql({schema: customSchema, source: "", contextValue:schemaContext})
-    // console.log(configService.graphqlSchema)
+    // console.log(builtSchema)
     return {
         path: '/' + options.apiPath,
-        // typeDefs: printSchema(builtSchema),
+        typeDefs: printSchema(builtSchema),
         include: [options.resolverModule, ...getDynamicGraphQlModulesForPlugins()],
         fieldResolverEnhancers: ['guards'],
-        schema: configService.graphqlSchema,
+        // schema: configService.graphqlSchema,
+        schema: builtSchema,
         // resolvers,
         uploads: false,
         playground: options.playground || false,
@@ -140,15 +143,21 @@ async function createGraphQLOptions(
      *
      * @param apiType
      */
-    async function buildSchemaForApi(): Promise<GraphQLSchema> {
+    async function buildSchemaForApi(schema: GraphQLSchema): Promise<GraphQLSchema> {
         // 路径必须规范化以使用正斜杠分隔符。
         // 参考 https://github.com/nestjs/graphql/issues/336
-        const normalizedPaths = options.typePaths.map(p => p.split(path.sep).join('/'));
-        const typeDefs = await typesLoader.mergeTypesByPaths(normalizedPaths);
-        let schema = buildSchema(typeDefs);
-        schema = generateListOptions(schema);
+        // const normalizedPaths = options.typePaths.map(p => p.split(path.sep).join('/'));
+        // const typeDefs = await typesLoader.mergeTypesByPaths(normalizedPaths);
+        // let schema = buildSchema(typeDefs);
 
-        schema = generateErrorCodeEnum(schema);
+
+        getPluginAPIExtensions(configService.plugins)
+            .map(e => (typeof e.schema === 'function' ? e.schema() : e.schema))
+            .filter(notNullOrUndefined)
+            .forEach(documentNode => (schema = extendSchema(schema, documentNode)))
+
+        // schema = generateListOptions(schema);
+        // schema = generateErrorCodeEnum(schema);
         // schema = generateAuthenticationTypes(schema, authStrategies);
         // schema = generatePermissionEnum(schema, configService.authOptions.customPermissions);
 

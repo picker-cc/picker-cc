@@ -1,5 +1,35 @@
 # dev-server
 
+## 3.0.0
+
+### Major Changes
+
+-   369422b: Beta Version
+-   changeset
+-   369422b: Beta
+
+### Patch Changes
+
+-   Updated dependencies [369422b]
+-   Updated dependencies
+-   Updated dependencies [369422b]
+    -   @picker-cc/asset-server-plugin@3.0.0
+    -   @picker-cc/common@3.0.0
+    -   @picker-cc/core@3.0.0
+
+## 3.0.0-beta.1
+
+### Major Changes
+
+-   changeset
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/asset-server-plugin@3.0.0-beta.1
+    -   @picker-cc/common@3.0.0-beta.1
+    -   @picker-cc/core@3.0.0-beta.1
+
 ## 3.0.0-beta.0
 
 ### Major Changes

@@ -15,11 +15,15 @@ export function createDynamicGraphQlModulesForPlugins(): DynamicModule[] {
         .plugins.map(plugin => {
             const pluginModule = isDynamicModule(plugin) ? plugin.module : plugin;
             const resolvers = graphQLResolversFor(plugin) || [];
+            console.log(resolvers)
+            console.log('resolvers.lenght' + resolvers.length)
             if (resolvers.length) {
                 const className = dynamicClassName(pluginModule);
                 dynamicApiModuleClassMap[className] = class {};
                 Object.defineProperty(dynamicApiModuleClassMap[className], 'name', { value: className });
                 const { imports } = getModuleMetadata(pluginModule);
+
+                console.log('init resolver....')
                 return {
                     module: dynamicApiModuleClassMap[className],
                     imports: [pluginModule, ...imports],

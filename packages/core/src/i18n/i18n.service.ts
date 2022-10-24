@@ -53,6 +53,7 @@ export class I18nService implements OnModuleInit {
             .use(i18nextMiddleware.LanguageDetector)
             .use(ICU as any)
             .init({
+                compatibilityJSON: 'v3',
                 backend: {
                     loadPath: (lng: any, namespace: any) => {
                         const customPath = path.join(__dirname, `messages/${lng}.json`)
@@ -93,7 +94,7 @@ export class I18nService implements OnModuleInit {
      * @internal
      */
     handle(): Handler {
-        return i18nextMiddleware.handle(i18next);
+        return i18nextMiddleware.handle(i18next, {});
     }
 
     /**

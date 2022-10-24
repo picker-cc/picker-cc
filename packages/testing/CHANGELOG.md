@@ -1,5 +1,19 @@
 # @picker-cc/testing
 
+## 3.0.0
+
+### Major Changes
+
+-   369422b: Beta Version
+-   changeset
+-   369422b: Beta
+
+## 3.0.0-beta.1
+
+### Major Changes
+
+-   changeset
+
 ## 3.0.0-beta.0
 
 ### Major Changes

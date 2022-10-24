@@ -66,6 +66,7 @@ export function graphQLResolversFor(
 
     const apiExtensions: APIExtensionDefinition = reflectMetadata(plugin, PLUGIN_METADATA.API_EXTENSIONS);
 
+    console.log(apiExtensions)
     return apiExtensions
         ? typeof apiExtensions.resolvers === 'function'
             ? apiExtensions.resolvers()
