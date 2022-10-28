@@ -1,5 +1,36 @@
 # caixie-top
 
+## 29.0.0-beta.1
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/ali-sms-plugin@4.0.0-beta.1
+    -   @picker-cc/asset-server-plugin@4.0.0-beta.1
+    -   @picker-cc/common@4.0.0-beta.1
+    -   @picker-cc/core@4.0.0-beta.1
+    -   @picker-cc/wechat-plugin@4.0.0-beta.1
+
+## 29.0.0-beta.0
+
+### Major Changes
+
+-   y
+    :x
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/ali-sms-plugin@4.0.0-beta.0
+    -   @picker-cc/asset-server-plugin@4.0.0-beta.0
+    -   @picker-cc/common@4.0.0-beta.0
+    -   @picker-cc/core@4.0.0-beta.0
+    -   @picker-cc/wechat-plugin@4.0.0-beta.0
+
 ## 28.0.0
 
 ### Major Changes

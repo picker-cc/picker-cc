@@ -1,5 +1,18 @@
 # @picker-cc/asset-server-plugin
 
+## 4.0.0-beta.1
+
+### Major Changes
+
+-   y
+
+## 4.0.0-beta.0
+
+### Major Changes
+
+-   y
+    :x
+
 ## 3.0.0
 
 ### Major Changes

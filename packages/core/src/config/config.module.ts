@@ -20,7 +20,10 @@ export class ConfigModule implements OnApplicationBootstrap, OnApplicationShutdo
     }
 
     private async initInjectableStrategies() {
-        const injector = new Injector(this.moduleRef);
+        const injector: any = new Injector(this.moduleRef);
+        // const userService: any = injector.get('UserService')
+        // userService.print()
+        // console.log(injector.moduleRef)
         for (const strategy of this.getInjectableStrategies()) {
             if (typeof strategy.init === 'function') {
                 await strategy.init(injector);

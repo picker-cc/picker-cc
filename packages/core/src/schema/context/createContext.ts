@@ -6,6 +6,7 @@ import {GqlNames} from "../types/utils";
 import {InitialisedList} from "../prisma/prisma-schema";
 import {getDbAPIFactory, itemAPIForList} from "./itemAPI";
 import {EventBus} from "../../event-bus";
+import {Injector} from "../../common";
 
 export function makeCreateContext({
                                       graphQLSchema,
@@ -15,6 +16,7 @@ export function makeCreateContext({
                                       config,
                                       lists,
                                       eventBus,
+                                      injector,
                                   }: {
     graphQLSchema: GraphQLSchema;
     sudoGraphQLSchema: GraphQLSchema;
@@ -22,7 +24,8 @@ export function makeCreateContext({
     prismaClient: PrismaClient;
     gqlNamesByList: Record<string, GqlNames>;
     lists: Record<string, InitialisedList>;
-    eventBus?: EventBus
+    eventBus?: EventBus,
+    injector?: Injector
 }) {
     // const images = createImagesContext(config);
     // const files = createFilesContext(config);
@@ -46,15 +49,19 @@ export function makeCreateContext({
 
     const createContext = ({
                                eventBus,
+                               injector,
                                sessionContext,
                                sudo = false,
                                req,
                            }: {
         eventBus?: EventBus,
+        injector?: Injector,
         sessionContext?: SessionContext<any>;
         sudo?: Boolean;
         req?: IncomingMessage;
     } = {}): PickerContext => {
+
+
         const schema = sudo ? sudoGraphQLSchema : graphQLSchema;
 
         const rawGraphQL: PickerGraphQLAPI['raw'] = ({query, variables}) => {
@@ -82,24 +89,28 @@ export function makeCreateContext({
             sudo: () => createContext({
                 sessionContext,
                 eventBus,
+                injector,
                 sudo: true,
                 req
             }),
             exitSudo: () => createContext({
                 sessionContext,
                 eventBus,
+                injector,
                 sudo: false,
                 req
             }),
             withSession: session =>
                 createContext({
                     eventBus,
+                    injector,
                     sessionContext: {...sessionContext, session} as SessionContext<any>,
                     sudo,
                     req,
                 }),
             req,
             eventBus,
+            injector,
             ...sessionContext,
             // Note: This field lets us use the server-side-graphql-client library.
             // We may want to remove it once the updated itemAPI w/ query is available.

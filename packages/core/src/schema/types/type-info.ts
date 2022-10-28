@@ -22,6 +22,7 @@ export type BaseListTypeInfo = {
         create: Record<string, any>;
         update: Record<string, any>;
     };
+    injector?: any,
     eventBus?: EventBus,
     all: BasePickerTypeInfo;
 };

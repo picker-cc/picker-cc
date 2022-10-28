@@ -64,11 +64,11 @@ export const pickerConfig: PickerConfig = {
     },
     logger: new DefaultLogger({ level: LogLevel.Info}),
     plugins: [
-        // WechatPlugin.init({
-        //     appId: 'wx40f58df735cd2868',
-        //     secret: '97fe8be8948c6819bd8b547951201a45',
-        //     token: 'PickerCC',
-        // }),
+        WechatPlugin.init({
+            appId: 'wx40f58df735cd2868',
+            secret: '97fe8be8948c6819bd8b547951201a45',
+            token: 'PickerCC',
+        }),
         // AliSmsPlugin.init({
         //     accessKeyId: 'LTAI5tL5kvxz5VVwoipF2Z7H',
         //     accessKeySecret: 'EY3SnfG5KlHVFa7hfPro4mgwrbutv5',

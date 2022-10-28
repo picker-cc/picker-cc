@@ -2,6 +2,8 @@ import {checkbox, image, list, password, relationship, text, timestamp} from "@p
 import {trackingFields} from "./utils";
 import {SmsEvent} from "@picker-cc/ali-sms-plugin";
 import {generateCode} from "@picker-cc/common/lib/generate-public-id";
+import {ScraperService} from "../server/scraper/scraper.service";
+import got from "got";
 
 
 export const User = list({
@@ -17,6 +19,10 @@ export const User = list({
     },
     hooks: {
         beforeOperation({operation, resolvedData, context}) {
+
+            // console.log(context.injector)
+
+            // context.injector.get(ScraperService).print()
             // context.eventBus.publish(new SmsEvent('verification', '13488689885', resolvedData.verifyCode))
         },
         resolveInput({operation, resolvedData, context}) {
@@ -24,6 +30,7 @@ export const User = list({
                 // resolvedData.verifyCode = generateCode(6)
                 // resolvedData.verifyCodeCreatedAt = new Date()
             // }
+            // context.injector.get(ScraperService).print()
             return resolvedData
         }
     },

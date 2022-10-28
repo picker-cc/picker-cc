@@ -4,6 +4,7 @@ import type { GqlNames } from './utils';
 import {PickerContext, SessionContext} from "./picker-context";
 import {BasePickerTypeInfo} from "./type-info";
 import {EventBus} from "../../event-bus";
+import {Injector} from "../../common";
 
 export type DatabaseProvider = 'sqlite' | 'postgresql' | 'mysql';
 
@@ -14,6 +15,7 @@ export type CreateRequestContext<TypeInfo extends BasePickerTypeInfo> = (
 
 export type CreateContext = (args: {
     eventBus?: EventBus
+    injector?: Injector,
     sessionContext?: SessionContext<any>;
     sudo?: boolean;
     req?: IncomingMessage;

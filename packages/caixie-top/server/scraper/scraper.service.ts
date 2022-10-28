@@ -101,4 +101,8 @@ export class ScraperService {
         return rawValue.trim()
     }
 
+    print() {
+        console.log('I am Scraper!')
+    }
+
 }

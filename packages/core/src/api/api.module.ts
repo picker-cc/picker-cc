@@ -6,7 +6,9 @@ import {ServiceModule} from "../service/service.module";
 
 import {configureGraphQLModule} from "./config/configure-graphql-module";
 import {I18nModule} from "../i18n/i18n.module";
-import {createDynamicGraphQlModulesForPlugins} from "../plugin/dynamic-plugin-api.module";
+import {createDynamicGraphQlModulesForPlugins, getPluginExports} from "../plugin/dynamic-plugin-api.module";
+import {ModuleRef} from "@nestjs/core";
+// import {Injector} from "../common";
 
 @Module({
     imports: [
@@ -14,7 +16,7 @@ import {createDynamicGraphQlModulesForPlugins} from "../plugin/dynamic-plugin-ap
         I18nModule,
         ServiceModule,
         ...createDynamicGraphQlModulesForPlugins(),
-        configureGraphQLModule(configService => ({
+        configureGraphQLModule((configService) => ({
             // apiType: 'admin',
             apiPath: configService.apiOptions.appApiPath,
             playground: configService.apiOptions.appApiPlayground,
@@ -47,10 +49,30 @@ import {createDynamicGraphQlModulesForPlugins} from "../plugin/dynamic-plugin-ap
     // ]
 })
 export class ApiModule implements NestModule {
-    constructor(private configService: ConfigService) {
+    constructor(
+        private configService: ConfigService,
+        private moduleRef: ModuleRef
+    ) {
     }
 
     configure(consumer: MiddlewareConsumer): any {
+        // const injector: any = new Injector(this.moduleRef);
+        // const exports: any = getPluginExports()
+        // console.log(exports)
+        // exports.map((services: any) => {
+        //     services.map(async (item: any) => {
+        //         if (item.name === 'ScraperService') {
+        //             // console.log(item.name)
+        //             // await injector.resolve(item)
+        //             // console.log(injector.get(item))
+        //             injector.get(item).print()
+        //             // console.log(injector.resolve(item))
+        //         }
+        //         // console.log(injector.resolve(item))
+        //     })
+        // })
+        // console.log(injector.get('UserService'))
+        // console.log(this.moduleRef.get('UserService'))
         // const { adminApiPath } = this.configService.apiOptions;
         // const { uploadMaxFileSize } = this.configService.assetOptions;
 

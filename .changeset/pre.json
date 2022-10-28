@@ -1,0 +1,20 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "@picker-cc/ali-sms-plugin": "4.0.0-beta.1",
+    "@picker-cc/asset-server-plugin": "4.0.0-beta.1",
+    "@picker-cc/auth": "4.0.0-beta.1",
+    "caixie-top": "29.0.0-beta.1",
+    "@picker-cc/common": "4.0.0-beta.1",
+    "@picker-cc/core": "4.0.0-beta.1",
+    "@picker-cc/create": "4.0.0-beta.1",
+    "dev-server": "4.0.0-beta.1",
+    "@picker-cc/testing": "4.0.0-beta.1",
+    "@picker-cc/wechat-plugin": "4.0.0-beta.1"
+  },
+  "changesets": [
+    "thirty-hats-listen",
+    "yellow-wasps-pay"
+  ]
+}

@@ -1,5 +1,6 @@
 import {checkbox, list, password, relationship, select, text, timestamp} from "@picker-cc/core";
 import {trackingFields} from "./utils";
+import {ScraperService} from "../server/scraper/scraper.service";
 
 
 export const Post = list({
@@ -8,6 +9,22 @@ export const Post = list({
     //         delete: ({ session }) => session?.data.isAdmin,
     //     }
     // },
+    hooks: {
+        beforeOperation({operation, resolvedData, context}) {
+            console.log('--d-d-d-d--d')
+            context.injector.get(ScraperService).print()
+            // context.eventBus.publish(new SmsEvent('verification', '13488689885', resolvedData.verifyCode))
+        },
+        resolveInput({operation, resolvedData, context}) {
+            // if (operation === 'create') {
+            // resolvedData.verifyCode = generateCode(6)
+            // resolvedData.verifyCodeCreatedAt = new Date()
+            // }
+            console.log('x-x--x-x-')
+
+            return resolvedData
+        }
+    },
     ui: {},
     fields: {
         title: text({

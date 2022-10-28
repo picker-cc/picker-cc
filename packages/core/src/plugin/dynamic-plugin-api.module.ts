@@ -4,6 +4,8 @@ import { DynamicModule } from '@nestjs/common';
 import { getConfig } from '../config/config-helpers';
 
 import { getModuleMetadata, graphQLResolversFor, isDynamicModule } from './plugin-metadata';
+import {ContextIdFactory, ModuleRef} from "@nestjs/core";
+import {Injector} from "../common";
 
 const dynamicApiModuleClassMap: { [name: string]: Type<any> } = {};
 
@@ -15,15 +17,13 @@ export function createDynamicGraphQlModulesForPlugins(): DynamicModule[] {
         .plugins.map(plugin => {
             const pluginModule = isDynamicModule(plugin) ? plugin.module : plugin;
             const resolvers = graphQLResolversFor(plugin) || [];
-            console.log(resolvers)
-            console.log('resolvers.lenght' + resolvers.length)
+
             if (resolvers.length) {
                 const className = dynamicClassName(pluginModule);
                 dynamicApiModuleClassMap[className] = class {};
                 Object.defineProperty(dynamicApiModuleClassMap[className], 'name', { value: className });
                 const { imports } = getModuleMetadata(pluginModule);
 
-                console.log('init resolver....')
                 return {
                     module: dynamicApiModuleClassMap[className],
                     imports: [pluginModule, ...imports],
@@ -44,10 +44,44 @@ export function getDynamicGraphQlModulesForPlugins(): Array<any>{
             const resolvers = graphQLResolversFor(plugin) || [];
 
             const className = dynamicClassName(pluginModule);
+
             // const dynamicApiModule = dynamicApiModuleClassMap[className];
             return dynamicApiModuleClassMap[className];
         })
         .filter(notNullOrUndefined);
+}
+
+export function getPluginExports(): Array<any> {
+    // const injector: any = new Injector(moduleRef);
+
+    return getConfig()
+        .plugins.map(plugin => {
+            const pluginModule = isDynamicModule(plugin) ? plugin.module : plugin;
+            const className = dynamicClassName(pluginModule);
+            console.log(className)
+
+            const { exports } = getModuleMetadata(pluginModule);
+            const pluginExports = {
+                [className]: exports
+            }
+            console.log(pluginExports)
+            // console.log()
+
+            pluginExports[className].map((service: any) => {
+                // const contextId = ContextIdFactory.getByRequest(req)
+                // console.log(contextId)
+                // const configService = await moduleRef.resolve(ConfigService, contextId)
+                // console.log(service.name)
+                if (service.name === 'UserService') {
+                    console.log(service)
+                    // console.log(moduleRef.get(service))
+                    console.log('这是 user service...')
+                    // service.
+                    // service.print()
+                }
+            })
+            return pluginExports[className]
+        })
 }
 
 function dynamicClassName(module: Type<any>): string {

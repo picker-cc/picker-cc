@@ -2,7 +2,7 @@ import {DynamicModule, Type} from '@nestjs/common';
 import {CorsOptions} from '@nestjs/common/interfaces/external/cors-options.interface';
 import {PluginDefinition} from 'apollo-server-core';
 import {PickerLogger} from './logger/picker-logger';
-import {Middleware} from "../common";
+import {Injector, Middleware} from "../common";
 import {GraphQLSchema, ValidationContext} from 'graphql';
 import {CreateContext, PickerContext, SchemaConfig} from "../schema/types";
 import {AssetNamingStrategy} from './asset-naming-strategy/asset-naming-strategy';

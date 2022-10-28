@@ -1,5 +1,32 @@
 # dev-server
 
+## 4.0.0-beta.1
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/asset-server-plugin@4.0.0-beta.1
+    -   @picker-cc/common@4.0.0-beta.1
+    -   @picker-cc/core@4.0.0-beta.1
+
+## 4.0.0-beta.0
+
+### Major Changes
+
+-   y
+    :x
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/asset-server-plugin@4.0.0-beta.0
+    -   @picker-cc/common@4.0.0-beta.0
+    -   @picker-cc/core@4.0.0-beta.0
+
 ## 3.0.0
 
 ### Major Changes

@@ -1,5 +1,5 @@
 import {MiddlewareConsumer, Module, NestModule, OnApplicationShutdown} from "@nestjs/common";
-import {Middleware, MiddlewareHandler} from "./common";
+import {Injector, Middleware, MiddlewareHandler} from "./common";
 import {ConfigModule, ConfigService, Logger} from "./config";
 import {I18nModule} from "./i18n/i18n.module";
 
@@ -9,7 +9,7 @@ import {PluginModule} from "./plugin/plugin.module";
 import {ServiceModule} from "./service/service.module";
 import {RequestContextService} from "./api/common/request-context.service";
 import {AuthGuard} from "./api/middleware/auth-guard";
-import {APP_GUARD} from "@nestjs/core";
+import {APP_GUARD, ModuleRef} from "@nestjs/core";
 import {EventBusModule} from "./event-bus";
 
 @Module({
@@ -36,10 +36,13 @@ export class AppModule implements NestModule, OnApplicationShutdown {
     constructor(
         private configService: ConfigService,
         private i18nService: I18nService,
+        // private readonly moduleRef: ModuleRef
     ) {
     }
 
     configure(consumer: MiddlewareConsumer): any {
+        // const injector: any = new Injector(this.moduleRef);
+        // console.log(injector.get(ConfigService))
         const {appApiPath, middleware} = this.configService.apiOptions;
         const i18nextHandler = this.i18nService.handle();
         const defaultMiddleware: Middleware[] = [

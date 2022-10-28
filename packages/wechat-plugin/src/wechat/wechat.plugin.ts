@@ -3,6 +3,8 @@ import {Logger, PickerPlugin, PluginCommonModule, Type} from "@picker-cc/core";
 import {WeChatModule} from "./wechat.module";
 import {WeChatModuleOptions} from "../types";
 import {WechatController} from "./wechat.controller";
+import {WeChatService} from "./wechat.service";
+import {UserService} from "./user.service";
 
 @PickerPlugin({
     imports: [PluginCommonModule,
@@ -22,6 +24,8 @@ import {WechatController} from "./wechat.controller";
         WechatController
     ],
     providers: [
+        UserService
+        // WeChatService,
         // {
         //     provide: WeChatService,
         //     useValue: new WeChatService(WechatPlugin.options),

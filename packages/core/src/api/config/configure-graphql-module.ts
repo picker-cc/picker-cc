@@ -13,13 +13,18 @@ import {TranslateErrorsPlugin} from "../middleware/translate-errors-plugin";
 import {generateErrorCodeEnum} from "./generate-error-code-enum";
 import {generateAuthenticationTypes} from "./generate-auth-types";
 import {ServiceModule} from "../../service/service.module";
-import {getDynamicGraphQlModulesForPlugins} from "../../plugin/dynamic-plugin-api.module";
+import {getDynamicGraphQlModulesForPlugins, getPluginExports} from "../../plugin/dynamic-plugin-api.module";
 import {IncomingMessage, ServerResponse} from "http";
 import {createSessionContext} from "../../schema/session";
 import {EventBus, EventBusModule} from "../../event-bus";
 import {AssetInterceptorPlugin} from "../middleware/asset-interceptor-plugin";
 import {getPluginAPIExtensions} from "../../plugin/plugin-metadata";
 import {notNullOrUndefined} from "@picker-cc/common/lib/shared-utils";
+import {ContextIdFactory, ModuleRef} from "@nestjs/core";
+import {Injector} from "../../common";
+import {askQuestionWithEditor} from "@changesets/cli/dist/declarations/src/utils/cli-utilities";
+import {PickerContext} from "../../schema/types";
+import {inject} from "prompts";
 
 // import {}
 export interface GraphQLApiOptions {
@@ -38,6 +43,7 @@ export function configureGraphQLModule(
         configService: ConfigService,
     ) => GraphQLApiOptions
 ): DynamicModule {
+
     return GraphQLModule.forRootAsync<ApolloDriverConfig>({
         driver: ApolloDriver,
         useFactory: (
@@ -49,8 +55,7 @@ export function configureGraphQLModule(
             typesLoader: GraphQLTypesLoader,
             // customFieldRelationResolverService: CustomFieldRe
         ) => {
-            // const options = getOptions(configService);
-            // console.log(options)
+
             return createGraphQLOptions(
                 configService,
                 eventBus,
@@ -60,7 +65,8 @@ export function configureGraphQLModule(
                 typesLoader,
                 // customFieldRelationResolverService,
                 getOptions(configService),
-                // options,
+
+            // options,
             );
         },
         inject: [
@@ -68,6 +74,7 @@ export function configureGraphQLModule(
             EventBus,
             I18nService,
             GraphQLTypesLoader,
+            ModuleRef
         ],
         imports: [
             ConfigModule,
@@ -114,13 +121,49 @@ async function createGraphQLOptions(
         // req: IncomingMessage;
         // res: ServerResponse;
         context: async ({req, res}: {req: IncomingMessage, res: ServerResponse}) => {
-            return configService.context({
+            // console.log(configService.injector)
+            // console.log(configService)
+            // console.log(pluginExports)
+            // pluginExports.map(service => {
+            //     console.log(service)
+            // })
+            // const exports: any = getPluginExports()
+            // console.log(exports)
+            // const pluginServices = exports.map((services: any) => {
+            //     return services.map(async (item: any) => {
+            //         if (item.name === 'ScraperService') {
+            //             // console.log(item.name)
+            //             // await injector.resolve(item)
+            //             // console.log(injector.get(item))
+            //             configService.injector.get(item).print()
+            //             // console.log(injector.resolve(item))
+            //         }
+            //         return item
+            //         // console.log(injector.resolve(item))
+            //     })
+            // })
+            // console.log(pluginServices)
+            // const getService = () => {}
+
+           console.log('xx-x-x--x')
+            // console.log(configService.injector)
+            // console.log(injecttorx )
+            const injectorx = configService.injector
+            //             configService.injector.get(item).print()
+            // const configSrv = injectorx.get(ConfigService)
+            // console.log(configSrv)
+            const context = configService.context({
                 eventBus,
+                injector: configService.injector,
+                // services,
                 sessionContext: configService.schemaConfig.session
                     ? await createSessionContext(configService.schemaConfig.session, req, res, configService.context)
                     : undefined,
                 req
             })
+
+            console.log(context)
+            return context
             // return configService.context
         },
         // 这是由Express cors插件处理

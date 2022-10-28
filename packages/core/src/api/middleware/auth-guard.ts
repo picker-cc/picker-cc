@@ -33,7 +33,9 @@ export class AuthGuard implements CanActivate {
     }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
+        console.log('can activeate ....')
         const {req, res, info} = parseContext(context);
+        // req.test = 'lalala'
         const isFieldResolver = this.isFieldResolver(info);
         const permissions = this.reflector.get<Permission[]>(PERMISSIONS_METADATA_KEY, context.getHandler());
         // console.log(permissions)
@@ -55,6 +57,7 @@ export class AuthGuard implements CanActivate {
         // }
         const session = await this.getSession(req, res, hasOwnerPermission);
         const picker = await this.configService.context({
+            // injector: 'haha',
             sessionContext: this.configService.schemaConfig.session
                 ? await createSessionContext(this.configService.schemaConfig.session, req, res, this.configService.context)
                 : undefined,

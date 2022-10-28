@@ -11,6 +11,7 @@ exports.WechatPlugin = void 0;
 const core_1 = require("@picker-cc/core");
 const wechat_module_1 = require("./wechat.module");
 const wechat_controller_1 = require("./wechat.controller");
+const user_service_1 = require("./user.service");
 let WechatPlugin = WechatPlugin_1 = class WechatPlugin {
     static init(options) {
         WechatPlugin_1.options = options;
@@ -42,10 +43,12 @@ WechatPlugin = WechatPlugin_1 = __decorate([
             wechat_controller_1.WechatController
         ],
         providers: [
-        // {
-        //     provide: WeChatService,
-        //     useValue: new WeChatService(WechatPlugin.options),
-        // }
+            user_service_1.UserService
+            // WeChatService,
+            // {
+            //     provide: WeChatService,
+            //     useValue: new WeChatService(WechatPlugin.options),
+            // }
         ],
         exports: []
     })

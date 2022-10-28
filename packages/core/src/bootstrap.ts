@@ -1,4 +1,4 @@
-import {DefaultLogger, Logger, PickerConfig, RuntimePickerConfig} from "./config";
+import {ConfigService, DefaultLogger, Logger, PickerConfig, RuntimePickerConfig} from "./config";
 import {INestApplication} from "@nestjs/common";
 import {getConfig, setConfig} from "./config/config-helpers";
 import cookieParser from 'cookie-parser';
@@ -48,6 +48,9 @@ export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INes
     // 只有在配置中设置了实体之后，AppModule 才 *必须* 加载，这样当 AppModule 装饰器被求值时，它们才可用。
     // tslint:disable-next-line:whitespace
     const appModule = await import('./app.module');
+    // const configServ = app.get<ConfigService>(ConfigService);
+    // console.log(configServ)
+    // console.log(appModule)
     setProcessContext('server');
     const {hostname, port, cors, middleware} = config.apiOptions;
     DefaultLogger.hideNestBoostrapLogs();
@@ -55,6 +58,10 @@ export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INes
         cors,
         logger: new Logger(),
     })
+    // await preBootstrapConfig()
+    // setConfig(userConfig);
+    // console.log(app)
+
     DefaultLogger.restoreOriginalLogLevel();
     app.useLogger(new Logger());
 

@@ -1,5 +1,28 @@
 # @picker-cc/auth
 
+## 4.0.0-beta.1
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/core@4.0.0-beta.1
+
+## 4.0.0-beta.0
+
+### Major Changes
+
+-   y
+    :x
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/core@4.0.0-beta.0
+
 ## 3.0.0
 
 ### Major Changes
