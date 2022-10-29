@@ -224,7 +224,7 @@ export function printGeneratedTypes(
         'export declare namespace Models {',
         ...listsNamespaces,
         '}',
-        `export type Context = import('@picker-cc/schema/types').PickerContext<TypeInfo>;`,
+        `export type Context = import('@picker-cc/core').PickerContext<TypeInfo>;`,
         '',
         'export type TypeInfo = {',
         `  lists: {`,

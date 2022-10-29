@@ -11,16 +11,19 @@ import {RequestContextService} from "./api/common/request-context.service";
 import {AuthGuard} from "./api/middleware/auth-guard";
 import {APP_GUARD, ModuleRef} from "@nestjs/core";
 import {EventBusModule} from "./event-bus";
+import {ProcessContextModule} from "./process-context/process-context.module";
+import {PickerContextModule} from "./picker-context/picker-context.module";
 
 @Module({
     imports: [
-        // ProcessContextModule,
+        ProcessContextModule,
         ConfigModule,
         I18nModule,
         ApiModule,
         PluginModule.forRoot(),
         ServiceModule.forRoot(),
         EventBusModule,
+        PickerContextModule,
         // ConnectionModule,
     ],
     // providers: [ InitializerService, ]

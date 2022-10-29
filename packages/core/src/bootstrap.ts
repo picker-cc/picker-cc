@@ -17,6 +17,7 @@ import {SchemaConfig} from "./schema/types";
 import {createSystem} from "./createSystem";
 import {devMigrations, pushPrismaSchemaToDatabase} from "./schema/migrations";
 import {initConfig} from "./schema/initConfig";
+import {setPickerContext} from "./picker-context/picker-context";
 
 /**
  * @description
@@ -52,6 +53,7 @@ export async function bootstrap(userConfig: Partial<PickerConfig>): Promise<INes
     // console.log(configServ)
     // console.log(appModule)
     setProcessContext('server');
+    setPickerContext(picker.createContext())
     const {hostname, port, cors, middleware} = config.apiOptions;
     DefaultLogger.hideNestBoostrapLogs();
     const app = await NestFactory.create(appModule.AppModule, {
@@ -116,6 +118,7 @@ export async function bootstrapWorker(userConfig: Partial<PickerConfig>): Promis
     Logger.info(`Bootstrapping Picker Worker (pid: ${process.pid})...`);
 
     setProcessContext('worker');
+    // setPickerContext()
     DefaultLogger.hideNestBoostrapLogs();
 
     const WorkerModule = await import('./worker/worker.module').then(m => m.WorkerModule);

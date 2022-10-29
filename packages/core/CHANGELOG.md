@@ -1,5 +1,36 @@
 # @picker-cc/core
 
+## 5.0.0
+
+### Major Changes
+
+-   remove console.lgo
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/common@5.0.0
+
+## 4.0.0
+
+### Major Changes
+
+-   y
+-   65be554: add injector
+-   y
+-   65be554: y
+-   65be554: y
+    :x
+
+### Patch Changes
+
+-   Updated dependencies
+-   Updated dependencies [65be554]
+-   Updated dependencies
+-   Updated dependencies [65be554]
+-   Updated dependencies [65be554]
+    -   @picker-cc/common@4.0.0
+
 ## 4.0.0-beta.1
 
 ### Major Changes

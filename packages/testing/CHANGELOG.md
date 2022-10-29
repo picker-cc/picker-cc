@@ -1,5 +1,22 @@
 # @picker-cc/testing
 
+## 5.0.0
+
+### Major Changes
+
+-   remove console.lgo
+
+## 4.0.0
+
+### Major Changes
+
+-   y
+-   65be554: add injector
+-   y
+-   65be554: y
+-   65be554: y
+    :x
+
 ## 4.0.0-beta.1
 
 ### Major Changes

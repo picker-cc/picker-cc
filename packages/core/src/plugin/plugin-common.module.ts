@@ -6,6 +6,7 @@ import { EventBusModule } from '../event-bus';
 import { I18nModule } from '../i18n/i18n.module';
 import { ProcessContextModule } from '../process-context/process-context.module';
 import {ServiceModule} from "../service/service.module";
+import {PickerContextModule} from "../picker-context/picker-context.module";
 
 /**
  * @description
@@ -31,6 +32,7 @@ import {ServiceModule} from "../service/service.module";
         CacheModule,
         I18nModule,
         ProcessContextModule,
+        PickerContextModule,
     ],
     exports: [
         EventBusModule,
@@ -41,6 +43,7 @@ import {ServiceModule} from "../service/service.module";
         CacheModule,
         I18nModule,
         ProcessContextModule,
+        PickerContextModule,
     ],
 })
 export class PluginCommonModule {}

@@ -1,5 +1,44 @@
 # caixie-top
 
+## 30.0.0
+
+### Major Changes
+
+-   remove console.lgo
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/ali-sms-plugin@5.0.0
+    -   @picker-cc/asset-server-plugin@5.0.0
+    -   @picker-cc/common@5.0.0
+    -   @picker-cc/core@5.0.0
+    -   @picker-cc/wechat-plugin@5.0.0
+
+## 29.0.0
+
+### Major Changes
+
+-   y
+-   65be554: add injector
+-   y
+-   65be554: y
+-   65be554: y
+    :x
+
+### Patch Changes
+
+-   Updated dependencies
+-   Updated dependencies [65be554]
+-   Updated dependencies
+-   Updated dependencies [65be554]
+-   Updated dependencies [65be554]
+    -   @picker-cc/ali-sms-plugin@4.0.0
+    -   @picker-cc/asset-server-plugin@4.0.0
+    -   @picker-cc/common@4.0.0
+    -   @picker-cc/core@4.0.0
+    -   @picker-cc/wechat-plugin@4.0.0
+
 ## 29.0.0-beta.1
 
 ### Major Changes

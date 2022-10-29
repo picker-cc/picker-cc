@@ -18,7 +18,6 @@ export class PluginModule {
         // console.log(moduleRef.get(ConfigService))
     }
     static forRoot(): DynamicModule {
-        console.log('plugin module')
         return {
             module: PluginModule,
             imports: [...getConfig().plugins],

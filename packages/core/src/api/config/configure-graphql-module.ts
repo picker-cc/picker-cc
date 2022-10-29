@@ -145,10 +145,10 @@ async function createGraphQLOptions(
             // console.log(pluginServices)
             // const getService = () => {}
 
-           console.log('xx-x-x--x')
+           // console.log('xx-x-x--x')
             // console.log(configService.injector)
             // console.log(injecttorx )
-            const injectorx = configService.injector
+            // const injectorx = configService.injector
             //             configService.injector.get(item).print()
             // const configSrv = injectorx.get(ConfigService)
             // console.log(configSrv)
@@ -162,7 +162,6 @@ async function createGraphQLOptions(
                 req
             })
 
-            console.log(context)
             return context
             // return configService.context
         },

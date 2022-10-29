@@ -19,9 +19,18 @@ import {TargetType} from "./types/target-type.enum";
 import {InputTarget} from "./types/input-target.class";
 import {OutputTarget} from "./types/output-target.class";
 import {Injectable} from "@nestjs/common";
+// import {Picker} from "@picker-cc/core/src/picker-context/picker-context";
+import {Picker, ProcessContext} from "@picker-cc/core";
+import { Context } from '.picker/types';
 
 @Injectable()
 export class ScraperService {
+    constructor(
+        private processContext: ProcessContext,
+        private picker: Picker
+    ) {
+    }
+
     private readonly metaScraper = metaScraper([
         metaAudio(),
         metaAuthor(),
@@ -51,6 +60,20 @@ export class ScraperService {
     //     // return {metadata: }
     // }
     async scrapeMetadata(url: string, html: string): Promise<Metadata> {
+        // this.picker.picker.query
+        // this.picker.picker
+        // this.picker.context.
+        // this.picker.context.bookmark.query.
+        const context: Context = this.picker.context as Context
+        // const users = await context.query.User.findMany({
+        //     query: `
+        //         id
+        //         name
+        //         detail
+        //     `
+        // })
+        const users = context.db.User.findMany()
+        console.log(users)
         return this.metaScraper({ url, html })
     }
 
