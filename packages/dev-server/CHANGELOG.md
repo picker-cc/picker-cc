@@ -1,5 +1,18 @@
 # dev-server
 
+## 6.0.0
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/asset-server-plugin@6.0.0
+    -   @picker-cc/common@6.0.0
+    -   @picker-cc/core@6.0.0
+
 ## 5.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 {
   "name": "@picker-cc/core",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "baisheng",
@@ -38,7 +38,7 @@
     "@nestjs/graphql": "^10.1.2",
     "@nestjs/microservices": "^9.1.2",
     "@nestjs/platform-express": "^9.1.2",
-    "@picker-cc/common": "workspace:^5.0.0",
+    "@picker-cc/common": "workspace:^6.0.0",
     "@prisma/client": "4.2.1",
     "@prisma/engines": "^4.3.1",
     "@prisma/generator-helper": "^4.3.1",

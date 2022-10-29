@@ -1,5 +1,20 @@
 # caixie-top
 
+## 31.0.0
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/ali-sms-plugin@6.0.0
+    -   @picker-cc/asset-server-plugin@6.0.0
+    -   @picker-cc/common@6.0.0
+    -   @picker-cc/core@6.0.0
+    -   @picker-cc/wechat-plugin@6.0.0
+
 ## 30.0.0
 
 ### Major Changes

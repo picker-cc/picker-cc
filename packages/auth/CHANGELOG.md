@@ -1,5 +1,16 @@
 # @picker-cc/auth
 
+## 6.0.0
+
+### Major Changes
+
+-   y
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @picker-cc/core@6.0.0
+
 ## 5.0.0
 
 ### Major Changes
