@@ -1,11 +1,10 @@
 {
   "name": "picker-cc",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "watch:all": "pnpm watch --parallel",
     "watch:core-common": "pnpm run --filter @picker-cc/common --filter @picker-cc/core watch --parallel",
-    "lint": "pnpm tslint --fix",
     "format": "prettier --write --html-whitespace-sensitivity ignore",
     "bootstrap": "pnpm recursive install",
     "docs:generate-typescript-docs": "ts-node scripts/docs/generate-typescript-docs.ts",
@@ -28,16 +27,29 @@
     "generate-changelog": "ts-node scripts/changelogs/generate-changelog.ts",
     "publish-local": "cd scripts && ./publish-to-verdaccio.sh",
     "vp": "changeset version",
-    "release": "pnpm build && pnpm release:only",
     "release:only-local": "pnpm version-packages && cd scripts && ./publish-to-verdaccio.sh",
     "exit-pre": "pnpm changeset pre exit ",
     "enter-alpha": "pnpm changeset pre enter alpha",
     "enter-beta": "pnpm changeset pre enter beta",
     "enter-rc": "pnpm changeset pre enter rc",
     "local:publish": "cross-env npm_config_registry=https://npm.jiyang-health.com pnpm ci:publish",
-    "release:only": "cross-env npm_config_registry=https://registry.npmjs.org pnpm ci:publish"
+    "release:only": "cross-env npm_config_registry=https://registry.npmjs.org pnpm ci:publish",
+    "update-version": "bumpp package.json",
+    "release": "standard-version",
+    "commit": "caixie git-commit",
+    "clean": "pnpm rimraf node_modules pnpm-lock.yaml",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "@graphql-codegen/plugin-helpers": "^2.4.2",
+    "@graphql-codegen/visitor-plugin-common": "^2.7.4",
+    "@types/request": "^2.48.8",
+    "axios": "^0.26.1",
+    "cross-env": "^7.0.3",
+    "graphql-tag": "^2.12.6"
   },
   "devDependencies": {
+    "@caixiejs/cli": "^0.1.0",
     "@changesets/cli": "^2.25.0",
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
@@ -56,9 +68,11 @@
     "@types/node": "^17.0.27",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
+    "bumpp": "^8.2.1",
     "concurrently": "^7.1.0",
     "conventional-changelog-core": "^4.2.4",
     "eslint": "^8.14.0",
+    "eslint-config-caixiejs": "^0.1.0",
     "find": "^0.3.0",
     "fs-extra": "^10.1.0",
     "got": "^12.0.4",
@@ -72,6 +86,7 @@
     "prettier": "^2.6.2",
     "prisma": "^3.14.0",
     "rimraf": "^3.0.2",
+    "standard-version": "^9.5.0",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.9.1",
     "turbo": "^1.2.9",
@@ -101,13 +116,5 @@
       "pre-commit": "lint-staged",
       "pre-push": "pnpm check-imports"
     }
-  },
-  "dependencies": {
-    "@graphql-codegen/plugin-helpers": "^2.4.2",
-    "@graphql-codegen/visitor-plugin-common": "^2.7.4",
-    "@types/request": "^2.48.8",
-    "axios": "^0.26.1",
-    "cross-env": "^7.0.3",
-    "graphql-tag": "^2.12.6"
   }
 }
